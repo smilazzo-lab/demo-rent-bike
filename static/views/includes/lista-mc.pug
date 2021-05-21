@@ -1,0 +1,26 @@
+mixin lista-mc(header,values,href)   
+    .notification
+        .cat-listmc-container
+            .cat-listmc-action-container
+                .empty 
+                .empty 
+                .empty
+            .cat-listmc-columns-container
+                -let h= header;
+                .div
+                each i in h
+                    .div=i
+    each j,r in values
+        .notification
+            .cat-listmc-container
+                - let id_vis='btn-'+r + '-listamc.vis'
+                - let id_mod='btn-'+r + '-listamc.upd'
+                - let id_can='btn-'+r + '-listamc.del'
+                .cat-listmc-action-container
+                    a(href=href id=id_vis data-link class="lookup__button" name="view") vis
+                    a(href=href id=id_mod data-link class="lookup__button") mod
+                    a(href=href id=id_can class="lookup__button") del
+                .cat-listmc-columns-container
+                    -let currentRowData = values[r];
+                    each i in currentRowData
+                        .div=i      

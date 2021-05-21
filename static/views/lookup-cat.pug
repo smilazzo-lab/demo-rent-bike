@@ -1,0 +1,26 @@
+.container
+    include ./includes/lookup-lista-mc.pug
+    include ./includes/textfield.pug
+    include ./includes/tasto-annulla.pug
+    include ./includes/lookup-search.pug
+    - const data=detail.data;
+    - const headers=detail.header;
+    - const criteria=detail.criteria;
+    - const linkIndietro = detail.meta.callLink;
+    - const linkThis= detail.meta.calledLink;
+    .header
+        .h2 Lookup Categoria
+    <div id="form" class="form">
+        <div class="form-control">
+            <label for="sel">Ricerca:</label>
+            +lookup-search("sel","criteria","Ricerca descrizione dizionario",linkThis)
+    </div>
+    <div>
+        <br>
+        .h6 Risultati:
+        <hr>
+        <div>
+            +lookup-lista-mc(headers,data,linkIndietro)
+        </div>
+        +tasto-annulla(linkIndietro,'Annulla')
+    <div>

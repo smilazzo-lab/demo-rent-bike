@@ -1,0 +1,21 @@
+  
+  .lookup__button {
+    -webkit-appearance: none;
+    background: lightskyblue;
+    border: 2px solid lightslategray;
+    border-radius: 4px;
+    outline: none;
+    padding: 0.5em 0.8em;
+    margin-right: 15px;
+    color: #ffffff;
+    font-size: 1em;
+    font-family: "Quicksand", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .lookup__button:active {
+    background: mediumaquamarine;
+  }
+  
+  

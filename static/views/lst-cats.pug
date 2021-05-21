@@ -1,0 +1,14 @@
+.container
+    include ./includes/lista-mc.pug
+    include ./includes/textfield.pug
+    - const data=collection.data;
+    - const headers=collection.header;
+    .header
+        .h2 List of Cats
+    <div id="form" class="form">
+        <div>
+            +lista-mc(headers,data,"/cat")
+        </div>
+        .toolbar()
+            a(href="/cats" id="btn-0-annulla" value="annulla" data-link class="btn-form" ) Seleziona 
+    </div>

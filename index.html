@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Document</title>
+    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="stylesheet" href="./static/css/layout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="./static/css/validation.css" />
+    <link rel="stylesheet" href="./static/css/fileupload.css" />
+    <link rel="stylesheet" href="./static/css/lookup.css" />
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js" />
+    <script src="/static/js/StepFmw/data-binding/FileUpload.js" type="module"></script>
+    <!-- il controller dei menu-->
+    <script   src="https://jspm.dev/@spectrum-web-components/bundle/elements.js" type="module"></script>
+   
+    <script type="application/json" src="/static/js/frontend/app/steps/Routes.json"></script>
+    <script src="/static/js/frontend/app/App.js" type="module"></script>
+    
+    
+
+</head>
+<body class="principal" >
+     <div class="grid-wrapper">
+        <div class="grid-item page-header"> 
+            <ul class="navigation">
+                <li><img class="avatar-large" alt="io" src="./static/css/pp.jpg" />
+                </li>
+                <li><a href="/"           id="btn-0-menu" name="menu" data-link="data-link">Home</a></li>
+                <li><a href="/cats"       id="btn-1-menu" name="menu" data-link="data-link">Cats</a></li>
+                <li><a href="/cat/wizard" id="btn-2-menu" name="menu" data-link="data-link">Cat Wizard</a></li>
+            </ul>
+        </div>
+       <div class="grid-item page-menu">
+             <sp-theme>
+                <sp-sidenav variant="multilevel" defaultValue="Layout">
+                    <sp-sidenav-item value="Menu" label="Menu"></sp-sidenav-item>
+                    <sp-sidenav-item id="Gestione Utenti" value="Gestione Gatti" label="Gestione Gatti" expanded>
+                        <sp-sidenav-item id="insert-user" value="Inserisci Nuovo" label="Inserisci Nuovo"></sp-sidenav-item>
+                        <sp-sidenav-item id="list-cats" value="list-cats" label="Elenco Gatti"></sp-sidenav-item>
+                    </sp-sidenav-item>
+                    <sp-sidenav-item value="Elements" label="Elements"></sp-sidenav-item>
+                    <sp-sidenav-item value="Patterns" label="Patterns"></sp-sidenav-item>
+                </sp-sidenav-itm>
+            </sp-theme>
+            </div>
+        <div class="grid-item main" id="page-main">
+            <div id="step"></div>
+        </div>
+        <div class="grid-item page-footer">
+            <div class="footer floating-text">
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <div style="color:orangered">
+                by Salvatore Milazzo 2021
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

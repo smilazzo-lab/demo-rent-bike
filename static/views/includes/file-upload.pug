@@ -1,0 +1,6 @@
+mixin file-upload(validationsel,key,placeholder)
+    <div id="id" class="file-upload" >
+        <input  class="file-upload__input" type="file" name="myFile[]" id="myFile" hidden multiple>
+        <button onclick="new FileUpload(document.getElementById('myFile'),document.getElementById('fake'),document.getElementById('label'));" class="file-upload__button" id="fake" type="button">Selezionare ...</button>
+        <span id="label" class="file-upload__label">Nessun File Selezionato...</span>
+    </div>

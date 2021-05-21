@@ -1,0 +1,23 @@
+mixin lookup-lista-mc(header,values,selflink)   
+    .notification
+        .cat-listmc-container
+            .cat-listmc-action-container
+                .empty 
+                .empty 
+                .empty
+            .cat-listmc-columns-container
+                -let h= header;
+                each i in h
+                    .div=i
+    each j,r in values
+        .notification
+            .cat-listmc-container
+                .cat-listmc-action-container
+                    -let id= "btn-"+r+"-lookup.pick";
+                    a(href=selflink id=id data-link class="lookup__button" name="lookup.pick") Pick
+                    .empty 
+                    .empty
+                .cat-listmc-columns-container
+                    -let currentRowData = values[r];
+                    each i in currentRowData
+                        .div=i      

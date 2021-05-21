@@ -1,0 +1,30 @@
+.container
+    include ./includes/select.pug
+    include ./includes/textfield.pug
+    - let cmbProva = detail['cmbProva'];
+    .header
+        .h2 Edit Cat
+    <div id="form" class="form">
+    <div class="form-control">
+        <label for="cat-id">ID: *</label>
+        +textfield("cat-id","id","id")     
+    </div>
+    <div class="form-control">
+        <label for="cat-id">Comune:</label>
+        +select("cat-select","selectedCmbProva",cmbProva)
+    </div>
+    <div class="form-control">
+        <label for="cat-id">url:*</label>
+        +textfield("cat-url","url","url")
+    </div>
+    <div class="form-control">
+        <label for="cat-width">width:*</label>
+        +textfield("cat-width","width","width")
+    </div>
+    <div class="form-control">
+        <label for="cat-height">height:*</label>
+        +textfield("cat-height","height","height")
+    </div>
+    a(href="/cat/wizard" id="btn-0-avanti" data-link class="btn-form" ) Avanti
+    </div>
+</div>

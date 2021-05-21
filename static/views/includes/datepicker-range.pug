@@ -1,0 +1,18 @@
+mixin datepicker-range(validationsel,key,placeholder)
+    .foo
+        input(type="text" onclick="new DateRangePicker(document.getElementById('foo'), {});" readonly name="start" id=validationsel data-date="01/25/2020" placeholder=placeholder)
+        <i class="fas fa-check-circle"></i>
+        <i class="fas fa-exclamation-circle"></i>
+        <small>Error message</small>
+        <span>al</span>
+        input(type="text" readonly name="end" id="al" data-date="01/25/2020" placeholder=placeholder)
+        <i class="fas fa-check-circle"></i>
+        <i class="fas fa-exclamation-circle"></i>
+        <small>Error message</small>
+    script.
+        function initView() {
+        console.log("elementi del datepicker="+document.getElementById('foo'));
+        new DateRangePicker(document.getElementById('foo'), {}); 
+        }
+
+    

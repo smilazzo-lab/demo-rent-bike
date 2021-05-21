@@ -1,0 +1,231 @@
+/*
+.page-tile {
+    display:grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 15px;
+}
+.form-row-container {
+    display:grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+}*/
+@media all and (min-width: 500px) {
+    .grid-wrapper {
+        display:grid;
+        grid-template-columns: 300px 1fr 1fr 1fr 1fr;
+       grid-template-areas:  "header header header header header"
+                            "sidebar main main main main"
+                            "footer main main main main";
+      }
+  }
+  
+  @media all and (max-width: 499px) {
+    .grid-wrapper {
+    display:grid;
+    grid-template-columns: 199px 1fr 1fr 1fr 1fr;
+    grid-template-areas:  "header header header header header"
+                            "sidebar sidebar sidebar sidebar sidebar"
+                            "main main main main main"
+                            "footer footer footer footer footer";
+   }
+  }
+  
+  @media all and (min-width: 500px){
+    .grid-item:nth-child(1){
+      grid-area: header;
+      height:10vh;
+      position: fixed;
+      width: 98%;
+      top: 10;
+      left: 10;
+    }
+  }
+
+  @media all and (max-width: 499px){
+    .grid-item:nth-child(1){
+      grid-area: header;
+      height:45vh;
+    
+    }
+  }
+  
+  @media all and (min-width: 500px) {
+  .grid-item:nth-child(2){
+   background-color: transparent;   
+    grid-area: sidebar;
+    margin:5px;
+    height: auto;
+    position: fixed;
+    color:orange !important;
+    top:90px;
+    left:20px;
+   }
+}
+  @media all and (max-width: 499px) {
+  .grid-item:nth-child(2){
+   overflow:inherit;    
+    background-color: transparent;
+    grid-area: sidebar;
+    
+  }
+  }
+  @media all and (max-width: 499px) {
+  .grid-item:nth-child(3){
+    background-color: transparent;
+    grid-area: main;
+    padding-top:50px;
+    min-height:400px;
+    max-height: auto;
+    margin: 65px 20px;
+  }
+  
+  .grid-item:nth-child(3) >h1{
+    background-color: whitesmoke;
+    margin:0;
+    min-height:10vh;
+    text-align: center;
+}
+
+}
+
+@media all and (min-width: 500px) {
+  .grid-item:nth-child(3){
+    background-color: transparent;
+    grid-area: main;
+    padding-top:auto;
+    min-height:400px;
+    max-height: auto;
+    margin: 75px 0px;
+  
+  }
+  
+  .grid-item:nth-child(3) >h1{
+    background-color: whitesmoke;
+    margin:0;
+    min-height:10vh;
+    text-align: center;
+}
+
+}
+
+
+@media all and (max-width: 499px){
+  .grid-item:nth-child(4){
+    grid-area: footer;
+    height:auto;
+    color:white;
+    position: relative;
+    
+  }
+}
+@media all and (min-width: 500px){
+  .grid-item:nth-child(4){
+    grid-area: footer;
+    height:auto;
+    color:white;
+    position: fixed;
+    bottom: 0;
+	  left: 90;}
+}
+
+.cat-listmc-container-header{
+    display:grid;
+    grid-template-columns:1fr 4fr;
+    background-color: cornflowerblue;
+    color: white;
+    border: 1px solid black    ;
+}
+
+.cat-listmc-container{
+    font-size: smaller;
+    display:grid;
+    grid-template-columns:1fr 4fr;
+    border-bottom:  1px solid black;
+}
+
+.cat-listmc-action-container{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+}
+
+.cat-listmc-columns-container{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+    max-width: none;
+    max-height: none;
+    grid-gap: 10px;
+}
+
+.cat-listmc-columns-container > div {
+    min-width: 0px;
+    max-width: none;
+    word-wrap: break-word;
+    max-height: none;
+    
+    
+    align-self: center;
+
+}
+
+
+.cat-listmc-header-container{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    background-color: blue;
+    color:cornsilk;
+    justify-content: center;
+}
+.cat-listmc-header-container-columns{
+    display:grid;
+    display:1fr 1fr 1fr 1fr 1fr;
+}
+
+
+
+
+
+/*
+.page-tile>div:nth-child(odd) {
+    background-color: lightgrey;
+}
+*/
+
+
+.page-tile .page-header {
+    /*background-color: grey; */
+    grid-column: 1/4;
+    height: 4em;
+    align-self: flex-start;
+    width:100%;
+    margin:0;
+    
+}
+
+.page-tile .page-menu {
+    justify-self: right;
+    align-content: center;
+    grid-column: 1/2;
+    background-color: ghostwhite;
+    height: 400px;
+    box-shadow: 2px 2px lightslategray;
+    border-radius: 10px;
+    
+}
+
+
+.page-tile .page-main {
+    justify-self: left;
+   /* background-color: grey; */
+    grid-column: 2/4;
+    height: 400px;
+    
+}
+.page-tile .page-footer {
+    grid-column: 1/4;
+    height: auto;
+    margin: 0px 45px;
+
+   
+}
+
+

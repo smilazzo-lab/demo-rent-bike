@@ -1,0 +1,41 @@
+.file-upload {
+    display: inline-flex;
+    align-items: center;
+    font-size: 15px;
+  }
+  
+  .file-upload__input {
+    display: none;
+
+  }
+  
+  .file-upload__button {
+    -webkit-appearance: none;
+    background: lightskyblue;
+    border: 2px solid lightslategray;
+    border-radius: 4px;
+    outline: none;
+    padding: 0.5em 0.8em;
+    margin-right: 15px;
+    color: #ffffff;
+    font-size: 1em;
+    font-family: "Quicksand", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .file-upload__button:active {
+    background: mediumaquamarine;
+  
+  }
+  }
+  
+  .file-upload__label {
+    max-width: 250px;
+    font-size: 0.95em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: "Quicksand", sans-serif;
+  }
+  

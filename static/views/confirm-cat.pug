@@ -1,0 +1,13 @@
+- let title = info['title'];
+- let message = info['message'];
+<sp-theme scale="large" color="dark">
+<i class="fas fa-exclamation-triangle">
+<sp-banner type="info">
+    <div slot="header"><#{title}</div>
+    <div slot="content">#{message}</div>
+</sp-banner>
+<br>
+<br>
+a(href="/cats" id="btn-0-confirm_yes" data-link class="btn-form" ) Yes!
+a(href="/cat" id="btn-0-annulla" data-link class="btn-form" ) No
+</sp-theme>

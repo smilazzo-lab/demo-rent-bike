@@ -1,0 +1,52 @@
+ [
+   
+                {   "path":        "/", 
+                    "controller" : "STP.HOME_NOLOG",
+                    "args": ["#step","vis"],
+                    "title":"Home Page",
+                    "edit_mode":"vis"
+                },
+                {   "path":       "/cat/notify", 
+                    "controller" : "STP.NOTIFY",
+                    "args":["#step","vis","cat"],
+                    "title":"Messaggio",
+                    "edit_mode":"vis"
+                },
+                {  "path":"/cat/confirm", 
+                    "controller" : "STP.CONFIRM",
+                    "args":["#step","vis","cat"],
+                    "title":"Conferma",
+                    "edit_mode":"vis"
+                },
+                {   "path":"/cats",
+                    "controller" :"STP.LST_CAT",
+                    "args":["#step","search"],
+                    "title":"Cat List",
+                    "search_mode":"search"
+                },
+                {   "path":"/cat", 
+                    "controller" :"STP.VIS_CAT",
+                    "args":["#step","vis"],
+                    "title":"Cat Detail",
+                    "edit_mode":"vis"
+                },
+                {   "path":"/cat/wizard", 
+                    "controller" :"STP.WIZ_CAT",
+                    "args":["#step","vis"],
+                    "title":"Cat Detail Creation",
+                    "edit_mode":"ins"
+                },
+                {   "path":"/cat/wizard/lookup", 
+                    "controller" :"STP.LKP_WIZ_CAT",
+                    "args":["#step","search"],
+                    "title":"Lookup Cat",
+                    "search_mode":"search"
+                },
+                {   "path":"/cat/lookup", 
+                    "controller" :"STP.LKP_CAT",
+                    "args":["#step","search"],
+                    "title":"Messaggio",
+                    "seach_mode":"search"
+                }
+]
+

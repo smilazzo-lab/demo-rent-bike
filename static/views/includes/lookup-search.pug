@@ -1,0 +1,5 @@
+include ./textfield.pug
+mixin lookup-search(validationsel,key,placeholder,href)
+    +textfield(validationsel,key,placeholder)
+    a(href=href id="btn-0-lookup.search" data-link class="lookup__button" name="lookup.search") Go!
+       

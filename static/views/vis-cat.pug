@@ -1,0 +1,82 @@
+.container
+    include ./includes/select.pug
+    include ./includes/textfield.pug
+    include ./includes/lookup-textfield.pug
+    include ./includes/datepicker.pug
+    include ./includes/datepicker-range.pug
+    include ./includes/file-upload.pug
+    include ./includes/radio-button.pug
+    include ./includes/tasto-annulla.pug
+    - let cmbProva = detail['cmbProva'];
+    - let callingLink = detail['meta'].callLink;
+    .header
+        .h2 Edit Cat
+    <div id="form" class="form">
+    <div class="form-control">
+        <label for="cat-id">ID: *</label>
+        +textfield("cat-id","id","id")     
+    </div>
+    <div >
+        <fieldset>
+            <legend>Allegati:</legend>
+                <div>
+                    <fieldset>
+                        <label for="cat-upload">Allegato 1:*</label>
+                        +file-upload("cat-upload","upload","upload")
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <label for="cat-upload-b">Allegato 2:*</label>
+                        +file-upload("cat-upload-b","upload-b","upload-b")
+                         <br>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <label for="cat-upload-c">Allegato 3:*</label>
+                        +file-upload("cat-upload-c","upload-c","upload-c")
+                         <br>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <label for="cat-upload-d">Allegato 4:*</label>
+                        +file-upload("cat-upload-d","upload-d","upload-d")
+                         <hr>
+                    </fieldset>
+                </div>
+        </fieldset>
+    </div>
+    <div class="form-control">
+        <label for="cat-height">radio:*</label>
+        <br>
+
+        - const values=["1","2","3","4"]
+        - const labels=["opzione 1","opzione 2","opzione 3","opzione 4"]
+        +radiobutton("radio-name","radio-val",labels,values)
+    </div>
+    <div class="form-control">
+        <label for="cat-height">data:*</label>
+        +datepicker("cat-date","date","date")
+    </div>
+    <div class="form-control">
+        <label for="cat-id">Comune:</label>
+        +select("cat-select","selectedCmbProva",cmbProva)
+    </div>
+    <div class="form-control">
+        <label for="cat-id">url:*</label>
+        +textfield("cat-url","url","url")
+    </div>
+    <div class="form-control">
+        <label for="cat-width">width:*</label>
+        +lookup-textfield("cat-width","width","width","/cat/lookup")
+    </div>
+    <div class="form-control">
+        <label for="cat-height">height:*</label>
+        +textfield("cat-height","height","height")
+    </div>
+        +tasto-annulla(callingLink,'Indietro')
+    </div>
+    <div>
+</div>

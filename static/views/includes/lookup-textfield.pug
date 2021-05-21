@@ -1,0 +1,6 @@
+mixin lookup-textfield(validationsel,key,placeholder,href)
+    input(type="text" id=validationsel data-bind=key placeholder=placeholder disabled)
+    a(href=href id="btn-0-lookup" data-link class="lookup__button" name="lookup") ...
+    <i class="fas fa-check-circle"></i>
+    <i class="fas fa-exclamation-circle"></i>
+    <small>Error message</small>

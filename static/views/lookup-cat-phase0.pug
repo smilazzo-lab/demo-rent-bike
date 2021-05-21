@@ -1,0 +1,24 @@
+mixin list-mc-row(values,row)
+    .notification
+        radio
+        .notification-action
+            - let id_lookup='btn-'+row + '-lookup.pick'
+             a(href="/cat/wizard" id=id_lookup data-link class="btn-form far fa-sticky-note" name="lookup.pick")
+        .notification-content
+            each i in values
+                div=i
+- let valore_ricerca_razza = detail['name'];
+<sp-theme scale="large" color="light">
+.form-row-container
+    sp-field-label(for="url-1" size="m") descrizione: 
+    sp-textfield(placeholder="select..." id="url-1" value=valore_ricerca_razza)
+    a(href="/cat/wizard/lookup" id="btn-0-lookup.search" data-link class="btn-form fas fa-search" name="lookup.search")
+</sp-theme>
+h6 lista dizionario lookup WIZARD
+-let loaded=false;
+.listamc()
+    - const c= detail
+    each j,r in c
+        +list-mc-row(j,r)
+.toolbar()
+    a(href="/cat/wizard" id="btn-0-annulla" data-link class="btn-form" ) Indietro
