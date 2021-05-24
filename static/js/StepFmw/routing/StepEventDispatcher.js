@@ -11,17 +11,14 @@ import StepRouter from "./StepRouter.js";
 export default class  {
   
     #router;
-    #jsonroutes;
-    #stepLoader;
-
-    constructor(jsonroutes,stepLoader) {
-        this.#jsonroutes=jsonroutes;
-        this.#stepLoader=stepLoader;
+ 
+    constructor() {
+       
     }
 
-    startListening() {
+    startListening(jsonRoutes,stepLoader) {
         console.log("startListening...");
-        this.#router = new StepRouter(this.#jsonroutes,this.#stepLoader);
+        this.#router = new StepRouter(jsonRoutes,stepLoader);
         this.#router.callStep("/",JSON.stringify({}));
         // Install the Dispatcher
         document.body.addEventListener("click", e=> {
@@ -95,4 +92,14 @@ export default class  {
                  }
          });
     }
+    
+    popStateListening(jsonRoutes,stepLoader) {
+        
+        window.onpopstate = function(event) {
+     
+        let backRouter = new StepRouter(jsonRoutes,stepLoader);
+        backRouter.callStep(window.location.pathname,JSON.stringify({}));
+    }
+    }
+
 }

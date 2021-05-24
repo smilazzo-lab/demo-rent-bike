@@ -30,14 +30,14 @@ fetch('/static/js/backend/Routes.json')
     .then( (data) => data.json())
     .then(function (routes)  {
         console.log("STARTING APPLICATION");
-        // export di variabili di scripting
-        // UTILIZZATA DAL WIDGET DI UPLOAD
         window.FileUpload      = FileUpload;
-        // UTILIZZATO PER FAR PARTIRE LA APP
-        window.StepLoader = stepLoader;
-        window.StepDispatcher = new StepEventDispatcher(routes,stepLoader);
-        console.log("creato StepDispatcher in App Scope");
-        window.StepDispatcher.startListening();
+      
+
+        let eventDispatcher = new StepEventDispatcher();
+        // in ascolto sui data link di step
+        eventDispatcher.startListening(routes,stepLoader);
+        // in ascolto sul tasto indietro del browser
+        eventDispatcher.popStateListening(routes,stepLoader);
     }
     );
 

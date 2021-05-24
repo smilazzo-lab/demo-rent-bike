@@ -18,6 +18,9 @@ export default class extends AbstractStep {
     #inputData ={};
     #phaseNo =0;
    
+    constructor(routerRef,specificato,options) {
+        super(routerRef,specificato,options);
+    }
 
     getCurrentPhase() {
         return this.#phaseNo;
@@ -43,9 +46,7 @@ export default class extends AbstractStep {
     }
     
    
-    constructor(specificato,options) {
-        super(specificato,options);
-    }
+  
  
     initialize() {
         throw new Error('not implemented in AbstractDetailStep');

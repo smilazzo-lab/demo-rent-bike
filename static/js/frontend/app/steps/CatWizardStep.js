@@ -21,15 +21,14 @@ export default class  extends AbstractWizardStep{
 
     #validatorPhase0 =new CatWizardPhase0Validator();
     
+    constructor(routerRef,specificato,edit_mode) {
+        super(routerRef,specificato,edit_mode);
+    }
     getValidator() {
         if (super.getCurrentPhase()==0) {
             return this.#validatorPhase0;
         }
         return null;
-    }
-
-    constructor(specificato,edit_mode) {
-        super(specificato,edit_mode);
     }
 
     getBindingModel() {
@@ -65,8 +64,7 @@ export default class  extends AbstractWizardStep{
       insertEntity() {
         console.log("insiede confemra entity");
         let info = {title:this.#titoloNotify,message:this.#messaggioNotigy};
-       // window.StepRouter.callStep("/cat/notify",JSON.stringify(info));
-       window.StepRouter.callStep("/cat/confirm",JSON.stringify(info));
+        super.getStepRouter().callStep("/cat/confirm",JSON.stringify(info));
     }
 
     callback() {
@@ -75,15 +73,11 @@ export default class  extends AbstractWizardStep{
       if (callbackData['command']) {
         console.log("inputData = "+callbackData['command']);
         if (callbackData['command']==='yes') {
-
           console.log("yes rilevato");
           this.getBindingModel().width="YES CONFIRM";
         }
-         
-        
       }
       else if (callbackData['name']){  // se provengo dalla lookup
-        
          console.log("callback called with" + callbackData.name);
          this.getBindingModel().width=callbackData.name;
         

@@ -18,8 +18,8 @@ export default class extends AbstractStep {
     #inputData ={};
     
    
-    constructor(specificato,options) {
-        super(specificato,options);
+    constructor(routerRef,specificato,options) {
+        super(routerRef,specificato,options);
     }
  
     initialize() {

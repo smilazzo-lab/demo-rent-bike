@@ -21,8 +21,8 @@ export default class  {
         this.step_collection[className] = step;
     }
 
-    instantiate(className, args) {
+    instantiate(routerRef,className, args) {
          let S = this.step_collection[className]; 
-         return new S(args[0],args[1])
+         return new S(routerRef,args[0],args[1])
    }
 }

@@ -7,8 +7,8 @@ import AbstractStep from './AbstractStep.js'
 
 export default class extends AbstractStep {
 
-    constructor(specificato,searchMode) {
-        super(specificato,'',searchMode);
+    constructor(routerRef,specificato,searchMode) {
+        super(routerRef,specificato,searchMode);
     }
     
     initialize() {

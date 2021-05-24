@@ -33,12 +33,19 @@ export default class  {
     inputData ={};
     meta={};
     options=[];
-           
-    constructor(specificato,options) {
+    #routerRef;  // per fare la callStep da dentro i metodi
+
+    constructor(routerRef,specificato,options) {
+        console.log("specificatoTarget="+specificato);
         this.#target = specificato;
-        this.options;
+        this.options = options;
+        this.#routerRef=routerRef;
     }
 
+    getStepRouter() {
+        return this.#routerRef;
+    }
+    
     getEditMode(){
         return this.meta['edit_mode'];
     }

@@ -36,9 +36,13 @@ export default  class  {
    // routeTo ('/Home','initialize',inputData={},metaInfos={edit_mode:vis,prevLink='/',actualLink='/'})
    // routeTo ('/cats','initialize',inputData={},metaInfos={search_mode:search,prevLink='/',actualLink='/cats'})
 
-    #routeTo = (url,method,data,metaInfos) => {
-        history.pushState(null,null,url);
-        this.#router(method,data,metaInfos);
+    #routeTo = (url,method,data,metaInfos,routerRef) => {
+      // if( url.indexOf('lookup') === -1) {
+           console.log("push state->");
+            history.pushState(null,null,url);
+      //  }
+       // window.location.pathname=url;
+        this.#router(method,data,metaInfos,routerRef);
     }
 
     #createMetaInfosByRoutePath(routePath) {
@@ -83,7 +87,8 @@ export default  class  {
         this.#routeTo(routePath,
                       'initialize',
                       data,
-                      this.#createMetaInfosByRoutePath(routePath)
+                      this.#createMetaInfosByRoutePath(routePath),
+                      this // il riferimento al Router stesso
             );
         }
      // return to a Previous Web Step   
@@ -113,7 +118,7 @@ export default  class  {
         
     }
 
-    #router(method,data,metaInfos) {
+    #router(method,data,metaInfos,routerRef) {
         let firedRoute = this.#getFiredRoute(window.location.pathname);
         if (method==='initialize') {
             // CREATE memento of last interaction || {}
@@ -124,7 +129,7 @@ export default  class  {
             } 
             // 1. class For Name
             let nextStep = 
-            this.#stepLoader.instantiate( firedRoute.route.controller, 
+            this.#stepLoader.instantiate(routerRef, firedRoute.route.controller, 
                 firedRoute.route.args
             );
             // 2. install new Step

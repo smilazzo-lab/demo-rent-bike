@@ -10,8 +10,8 @@ export default class extends AbstractDetailStep {
     // criteria
     // lista
 
-    constructor(specificato,options) {
-           super(specificato,options);
+    constructor(routerRef,specificato,options) {
+           super(routerRef,specificato,options);
     }
 
     getCriteria() {
