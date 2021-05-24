@@ -8,7 +8,8 @@
 
 import StepStack  from './StepStack.js';
 import MementoStack from './MementoStack.js';
-import CrossStepMetaInfo from './CrossStepMetaInfo.js';
+import StepParameters from './StepParameters.js';
+import StepAction from './StepAction.js';
 
 
 export default  class  {
@@ -17,7 +18,7 @@ export default  class  {
     #mementoStack = new MementoStack();
     #routes =[];
     #stepLoader={};
-    #metaInfoStack=[];
+    #parametersStack=[];
 
     constructor(routes,sl) {
      this.#routes = routes;
@@ -36,72 +37,80 @@ export default  class  {
    // routeTo ('/Home','initialize',inputData={},metaInfos={edit_mode:vis,prevLink='/',actualLink='/'})
    // routeTo ('/cats','initialize',inputData={},metaInfos={search_mode:search,prevLink='/',actualLink='/cats'})
 
-    #routeTo = (url,method,data,metaInfos,routerRef) => {
-       if( url.indexOf('lookup.search') === -1) {
+    #routeTo = (action,inputData,routerRef) => {
+        console.log("action="+JSON.stringify(action));
+       if( action.getUrl().indexOf('lookup.search') === -1) {
            console.log("push state->");
-            history.pushState(null,null,url);
+            history.pushState(null,null,action.getUrl());
         }
        // window.location.pathname=url;
-        this.#router(method,data,metaInfos,routerRef);
+        this.#createStepAndStart(action,inputData,routerRef);
     }
 
-    #createMetaInfosByRoutePath(routePath) {
+    #createStepParameters(inputData,routePath) {
         let firedRoute= this.#getFiredRoute(window.location.pathname).route;
         let linkCurrentStep = firedRoute.path;
         let linkNextStep = routePath;
         let edit_mode= firedRoute.edit_mode;
         let search_mode = firedRoute.search_mode;
         let title =firedRoute.title;
-        let meta_info=CrossStepMetaInfo.createMetaInfo(linkCurrentStep,
-                                                       linkNextStep,
-                                                       edit_mode,
-                                                       search_mode,
-                                                       title
+        let params=StepParameters.createParameters(inputData,
+                                                      linkCurrentStep,
+                                                      linkNextStep,
+                                                      edit_mode,
+                                                      search_mode,
+                                                      title
                      );
-        this.#metaInfoStack.push(meta_info);
-        return meta_info;
+        this.#parametersStack.push(params);
+        return params;
     }
 
-    #getCurrentMetaInfos() {
-        let indexUltimo = this.#metaInfoStack.length;
+    #getCurrentParameters() {
+        let indexUltimo = this.#parametersStack.length;
         if (indexUltimo>0){
-            return this.#metaInfoStack[indexUltimo-1];
+            return this.#parametersStack[indexUltimo-1];
         }else{
             return null;
         }
     }
 
-    #restoreMetaInfos() {
-        this.#metaInfoStack.pop();
-        let restoreLinks =this.#getCurrentMetaInfos();
-        let metaInfo= {};
-        if (restoreLinks){
-            metaInfo=restoreLinks;
+    #restoreStepParameters(data) {
+        this.#parametersStack.pop();
+        let fromStack =this.#getCurrentParameters();
+        fromStack.inputData=data;
+        let stepParams= {};
+        if (fromStack){
+            stepParams=fromStack;
         }else{
-            metaInfo = CrossStepMetaInfo.createMetaInfo("/","/");
+            stepParams = StepParameters.createParameters(data,"/","/");
         }
-        return metaInfo;
+        return stepParams;
     }
+
     // start a new Web Step
-    callStep(routePath, data) {
-        this.#routeTo(routePath,
-                      'initialize',
-                      data,
-                      this.#createMetaInfosByRoutePath(routePath),
-                      this // il riferimento al Router stesso
+    callStep(routePath, callingStepInputData) {
+        this.#routeTo(  //  URL+METHOD
+                        new StepAction(routePath,'initialize'),
+                        // DATA PIU LINKED STEP LINKS
+                        this.#createStepParameters(callingStepInputData,routePath),
+                        // ROUTER REF
+                        this  
             );
-        }
+    }
+
      // return to a Previous Web Step   
-    returnStep(routhPath,data) {
-        this.#routeTo(routhPath,
-                      'callback',
-                      data,
-                      this.#restoreMetaInfos()
+    returnStep(routePath,fromStepOutputdata) {
+       
+        this.#routeTo( // URL+ CALLBACK
+                      new StepAction(routePath,'callback'),
+                      // FETCH PREVIOUS LINK STATE AND OVERRIDE WITH OUTPUT DATA
+                      this.#restoreStepParameters(fromStepOutputdata),
+                      this
           );
         }
 
     callMethodOfCurrentStep(methodName){
-        this.#routeTo(window.location.pathname,methodName);
+        this.#routeTo(new Route(window.location.pathname,methodName));
     }
 
     #getFiredRoute(pathToBeMatched) {
@@ -118,18 +127,18 @@ export default  class  {
         
     }
 
-    #router(method,data,metaInfos,routerRef) {
+    #createStepAndStart(action, parameters, router) {
         let firedRoute = this.#getFiredRoute(window.location.pathname);
-        if (method==='initialize') {
+        if (action.isAnInitializeRoute()) {
             // CREATE memento of last interaction || {}
             let statusOld ={};
             let stepOld = this.getInteractionStack().getCurrentStep();
             if (stepOld){
                 statusOld=stepOld.createMemento();
             } 
-            // 1. class For Name
+            // 1. Istantiate for Name, a Controller(Step)
             let nextStep = 
-            this.#stepLoader.instantiate(routerRef, firedRoute.route.controller, 
+            this.#stepLoader.instantiate(router, firedRoute.route.controller, 
                 firedRoute.route.args
             );
             // 2. install new Step
@@ -137,10 +146,16 @@ export default  class  {
             // 3. save Memento on top of a stack
             this.#getMementoStack().push(statusOld);
             // 4. execute next step
-            nextStep._initialize(data,metaInfos);
+            // es. {  inputData : {},
+            //        metaInfo : { edit_mode:'vis', calledLink='/' calling='/cats'}
+            //    
+            // }
+            nextStep._initialize(parameters.inputData,
+                                 parameters.metaInfo
+            );
            
         }
-        if (method==='callback') {
+        if (action.isACallbackRoute()) {
             // estrae dallo stepcontext l'elemento morente
             this.getInteractionStack().pop();
             let stepLanding=this.getInteractionStack().getCurrentStep();
@@ -149,9 +164,11 @@ export default  class  {
             stepLanding.installMemento(backupMementoStepLanding);
             // cancello una posizione dallo stack degli stati
             this.#getMementoStack().pop();
-            stepLanding._callback(data,metaInfos);
+            stepLanding._callback(parameters.inputData,
+                                  parameters.metaInfo
+                                  );
          }
-        if (method==='conferma'){
+        if (action.getMethod()==='conferma'){
             this.getInteractionStack().getCurrentStep()[method]();
         }
     }
