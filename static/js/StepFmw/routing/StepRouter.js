@@ -37,10 +37,10 @@ export default  class  {
    // routeTo ('/cats','initialize',inputData={},metaInfos={search_mode:search,prevLink='/',actualLink='/cats'})
 
     #routeTo = (url,method,data,metaInfos,routerRef) => {
-      // if( url.indexOf('lookup') === -1) {
+       if( url.indexOf('lookup.search') === -1) {
            console.log("push state->");
             history.pushState(null,null,url);
-      //  }
+        }
        // window.location.pathname=url;
         this.#router(method,data,metaInfos,routerRef);
     }
