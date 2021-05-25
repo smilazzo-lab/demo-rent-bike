@@ -1,5 +1,10 @@
+/**
+ * @author salvo Milazzo
+ * @description general purpose stack
+ */
 export default class  {
     #stk=[];
+
 
     constructor() {
 

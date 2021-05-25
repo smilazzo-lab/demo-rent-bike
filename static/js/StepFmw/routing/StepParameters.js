@@ -1,3 +1,7 @@
+/**
+ * @author salvatore Milazzo
+ * @description factory for StepParameters
+ */
 export default class {
 
     static createParameters (data,callLink,calledLink,edit_mode='vis',search_mode="search",title="no title") {
