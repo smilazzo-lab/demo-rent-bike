@@ -36,13 +36,13 @@ export default class  {
                  if (comando==='avanti') {
                      this.#_$tep_context.
                      getInteractionStack()
-                     .getCurrentStep()
+                     .getCurrent()
                      .avanti();
                 }
                  if (comando==='indietro') {
                     this.#_$tep_context
                     .getInteractionStack()
-                    .getCurrentStep()
+                    .getCurrent()
                     .indietro();
                 }
                  if (comando==='annulla') {
@@ -74,16 +74,16 @@ export default class  {
                  }
                  else if (comando==='lookup.search') {
                      let criteria =  this.#_$tep_context
-                     .getInteractionStack().getCurrentStep().getCriteria();
+                     .getInteractionStack().getCurrent().getCriteria();
                      
                      this.#_$tep_context
                      .getInteractionStack()
-                     .getCurrentStep()
+                     .getCurrent()
                      .doLookupSearch(criteria);
                  }
                  else if (comando==='lookup.pick') {
                      let selected = this.#_$tep_context.getInteractionStack().
-                                    getCurrentStep().pickElement(index);
+                                    getCurrent().pickElement(index);
 
                      this.#_$tep_context.returnStep(e.target.pathname,selected);
                  }
@@ -92,7 +92,7 @@ export default class  {
                     .callStep(e.target.pathname,
                               this.#_$tep_context
                               .getInteractionStack()
-                              .getCurrentStep()
+                              .getCurrent()
                               .getElementOfCollection(index));
                      }
                  }
@@ -100,9 +100,8 @@ export default class  {
     }
     
     #popStateListening(stepContextRef) {
-        
         window.onpopstate = function(event) {
-        stepContextRef.returnStep(window.location.pathname);
+             stepContextRef.returnStep(window.location.pathname);
     }
 }
 

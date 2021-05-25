@@ -7,18 +7,18 @@
  */
 
 import StepStack  from './StepStack.js';
-import MementoStack from './MementoStack.js';
 import StepParameters from './StepParameters.js';
 import StepUrl from './StepUrl.js';
 
 
 export default  class  {
    
-    #stepStack = new StepStack(); 
-    #mementoStack = new MementoStack();
+    #stepStack      = new StepStack(); 
+    #mementoStack   = new StepStack();
+    #parametersStack= new StepStack();
     #routes =[];
     #stepLoader={};
-    #parametersStack=[];
+    
 
     constructor(routes,sl) {
      this.#routes = routes;
@@ -32,12 +32,17 @@ export default  class  {
     #getMementoStack() {
         return this.#mementoStack;
     }
+
+    #getParamsStack() {
+        return this.#parametersStack;
+    }
    
    // Examples:
    // routeTo ('/Home','initialize',inputData={},metaInfos={edit_mode:vis,prevLink='/',actualLink='/'})
    // routeTo ('/cats','initialize',inputData={},metaInfos={search_mode:search,prevLink='/',actualLink='/cats'})
 
     #routeTo = (stepUrl,stepParams,stepContextRef) => {
+
        if( stepUrl.getUrl().indexOf('lookup.search') === -1) {
            console.log("push state->");
             history.pushState(null,null,stepUrl.getUrl());
@@ -59,22 +64,13 @@ export default  class  {
                                                    search_mode,
                                                    title
                      );
-        this.#parametersStack.push(params);
+        this.#getParamsStack().push(params);
         return params;
     }
 
-    #getCurrentParameters() {
-        let indexUltimo = this.#parametersStack.length;
-        if (indexUltimo>0){
-            return this.#parametersStack[indexUltimo-1];
-        }else{
-            return null;
-        }
-    }
-
     #restoreStepParameters(data) {
-        this.#parametersStack.pop();
-        let fromStack =this.#getCurrentParameters();
+        this.#getParamsStack().pop();
+        let fromStack =this.#getParamsStack().getCurrent();
         fromStack.inputData=data;
         let stepParams= {};
         if (fromStack){
@@ -130,7 +126,7 @@ export default  class  {
         if (stepUrl.isAnInitializeRoute()) {
             // CREATE memento of last interaction || {}
             let statusOld ={};
-            let stepOld = this.getInteractionStack().getCurrentStep();
+            let stepOld = this.getInteractionStack().getCurrent();
             if (stepOld){
                 statusOld=stepOld.createMemento();
             } 
@@ -157,9 +153,9 @@ export default  class  {
         if (stepUrl.isACallbackRoute()) {
             // estrae dallo stepcontext l'elemento morente
             this.getInteractionStack().pop();
-            let stepLanding=this.getInteractionStack().getCurrentStep();
+            let stepLanding=this.getInteractionStack().getCurrent();
             let backupMementoStepLanding=this.#getMementoStack()
-                                         .getCurrentMemento();
+                                         .getCurrent();
             stepLanding.installMemento(backupMementoStepLanding);
             // cancello una posizione dallo stack degli stati
             this.#getMementoStack().pop();
@@ -169,7 +165,7 @@ export default  class  {
                                   );
          }
         if (stepUrl.getMethod()==='conferma'){
-            this.getInteractionStack().getCurrentStep()[method]();
+            this.getInteractionStack().getCurrent()[method]();
         }
     }
 }
