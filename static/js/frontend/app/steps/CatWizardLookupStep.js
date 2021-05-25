@@ -14,8 +14,8 @@ export default class  extends AbstractLookupStep{
         return JSON.stringify(this.#lookup);
     }
 
-    constructor(routerRef,specificato,search_mode) {
-        super(routerRef,specificato,search_mode);
+    constructor(stepContext,specificato,search_mode) {
+        super(stepContext,specificato,search_mode);
     }
 
     buildCriteria() {

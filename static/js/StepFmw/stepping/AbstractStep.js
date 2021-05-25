@@ -33,17 +33,17 @@ export default class  {
     inputData ={};
     meta={};
     options=[];
-    #routerRef;  // per fare la callStep da dentro i metodi
+    #_$tep_context_ref;  // per fare la callStep da dentro i metodi
 
-    constructor(routerRef,specificato,options) {
+    constructor(stepContext,specificato,options) {
         console.log("specificatoTarget="+specificato);
         this.#target = specificato;
         this.options = options;
-        this.#routerRef=routerRef;
+        this.#_$tep_context_ref=stepContext;
     }
 
-    getStepRouter() {
-        return this.#routerRef;
+    getStepContext() {
+        return this.#_$tep_context_ref;
     }
     
     getEditMode(){

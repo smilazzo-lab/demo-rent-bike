@@ -1,6 +1,8 @@
 export default class  {
+
     #url
-    #method
+    #method  // {initialize || callback || annulla || lookup}
+
     constructor(url='/',method='initialize') {
         this.#url=url;
         this.#method=method;

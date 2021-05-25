@@ -11,9 +11,12 @@ export default class  extends AbstractLookupStep{
     criteria;
     #listaCategorie=[];
     #header=['codice','descrizione'];
-
+    
+    constructor(stepContext,specificato,search_mode) {
+        super(stepContext,specificato,search_mode);
+    }
     getCriteria() {
-        return JSON.stringify(this.criteria);
+        return this.criteria;
     }
 
     setCollection(lst) {
@@ -21,16 +24,13 @@ export default class  extends AbstractLookupStep{
      }
 
      pickElement(i){
-         return JSON.stringify(this.#listaCategorie[i]);
+         return this.#listaCategorie[i];
      }
 
-    constructor(specificato,search_mode) {
-        super(specificato,search_mode);
-    }
 
     buildCriteria() {
         // carica nel proprio stato la struttura del criterio e della lista
-       this.criteria = JSON.parse(super.getInputData());
+       this.criteria = super.getInputData();
        
      }
 

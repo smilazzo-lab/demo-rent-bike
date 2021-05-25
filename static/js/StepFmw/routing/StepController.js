@@ -1,26 +1,28 @@
 /**
  * @author Salvatore Milazzo
- * @description EventDispatcher ,able to manage user actions 
+ * @description StepContext ,able to manage user actions 
  * @date 2021
  * @name $tep MVC SPA framework
  * @license MIT
  */
 
-import StepRouter from "./StepRouter.js";
+import StepContext from "./StepContext.js";
 
 export default class  {
   
-    #router;
+    #_$tep_context;
  
     constructor() {
        
     }
 
     startListening(jsonRoutes,stepLoader) {
-        console.log("startListening...");
-        this.#router = new StepRouter(jsonRoutes,stepLoader);
-        this.#router.callStep("/",JSON.stringify({}));
-        this.#popStateListening(this.#router);
+       
+        this.#_$tep_context = new StepContext(jsonRoutes,stepLoader);
+        this.#_$tep_context.callStep("/");
+
+        this.#popStateListening(this.#_$tep_context);
+        
         // Install the Dispatcher
         document.body.addEventListener("click", e=> {
             if (e.target.matches("[data-link]")) {
@@ -32,61 +34,63 @@ export default class  {
                   * gestione 'Annulla/Indietro'
                   */
                  if (comando==='avanti') {
-                     this.#router.
+                     this.#_$tep_context.
                      getInteractionStack()
                      .getCurrentStep()
                      .avanti();
                 }
                  if (comando==='indietro') {
-                    this.#router
+                    this.#_$tep_context
                     .getInteractionStack()
                     .getCurrentStep()
                     .indietro();
                 }
                  if (comando==='annulla') {
-                    this.#router
-                    .returnStep(e.target.pathname,JSON.stringify({}));
+                    this.#_$tep_context
+                    .returnStep(e.target.pathname);
                 }
                  // aggiornamento entity
                  if (comando==='conferma') {
-                    this.#router
+                    this.#_$tep_context
                     .callMethodOfCurrentStep('conferma');
                 } // cliccare si su confirm dialog
                  if (comando==='confirm_yes') {
-                    this.#router
-                    .returnStep(e.target.pathname,JSON.stringify({command:'yes'}));
+                    this.#_$tep_context
+                    .returnStep(e.target.pathname,{command:'yes'});
                 }
                  else if (comando==='menu'){
-                     this.#router
+                     this.#_$tep_context
                      .getInteractionStack()
                      .reset();
-                     this.#router
-                     .callStep(e.target.pathname,JSON.stringify({}));
+                     this.#_$tep_context
+                     .callStep(e.target.pathname);
                 }  
                  /**
                   * Sezione per la gestione del lookup
                   */
                  else if (comando==='lookup'){
-                     this.#router
-                     .callStep(e.target.pathname,JSON.stringify({}));
+                     this.#_$tep_context
+                     .callStep(e.target.pathname);
                  }
                  else if (comando==='lookup.search') {
-                     let criteria =  this.#router.getInteractionStack().getCurrentStep().getCriteria();
-                     this.#router
+                     let criteria =  this.#_$tep_context
+                     .getInteractionStack().getCurrentStep().getCriteria();
+                     
+                     this.#_$tep_context
                      .getInteractionStack()
                      .getCurrentStep()
-                     .doLookupSearch(JSON.stringify(criteria));
+                     .doLookupSearch(criteria);
                  }
                  else if (comando==='lookup.pick') {
-                     let selected = JSON.parse(this.#router.getInteractionStack().
-                                               getCurrentStep().pickElement(index));
-                     this.#router
-                     .returnStep(e.target.pathname,JSON.stringify(selected));
+                     let selected = this.#_$tep_context.getInteractionStack().
+                                    getCurrentStep().pickElement(index);
+
+                     this.#_$tep_context.returnStep(e.target.pathname,selected);
                  }
                 else if (comando==='listamc.vis'){
-                     this.#router
+                     this.#_$tep_context
                     .callStep(e.target.pathname,
-                              this.#router
+                              this.#_$tep_context
                               .getInteractionStack()
                               .getCurrentStep()
                               .getElementOfCollection(index));
@@ -95,10 +99,10 @@ export default class  {
          });
     }
     
-    #popStateListening(router) {
+    #popStateListening(stepContextRef) {
         
         window.onpopstate = function(event) {
-        router.returnStep(window.location.pathname,JSON.stringify({}));
+        stepContextRef.returnStep(window.location.pathname);
     }
 }
 

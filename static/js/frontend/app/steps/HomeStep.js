@@ -2,12 +2,10 @@ import AbstractEditController from "../../../StepFmw/stepping/AbstractDetailStep
 
 export default class  extends AbstractEditController{
    
-    constructor(specificato,edit_mode) {
-      console.log("Inside Home Step Contructor!");
-      console.log("specificato = "+specificato);
-      console.log("edit-mode="+edit_mode);
-        super(specificato,edit_mode);
+    constructor(router,specificato,edit_mode) {
+        super(router,specificato,edit_mode);
     }
+    
    // lifecycle 0
     buildModel() {
           

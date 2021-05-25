@@ -26,7 +26,7 @@ export default class extends AbstractStep {
                 .then(data=>data.json())
                  .then(data => {
                             super.setSearchMode('list');
-                            this._initialize(JSON.stringify(data),m);
+                            this._initialize(data,m);
                  });
          }
         // se è la lista lavora

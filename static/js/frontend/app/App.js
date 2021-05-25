@@ -13,7 +13,7 @@
 
 // dipendenze dal framework
 import FileUpload from '../../StepFmw/data-binding/FileUpload.js'
-import StepEventDispatcher from '../../StepFmw/routing/StepEventDispatcher.js';
+import StepController from '../../StepFmw/routing/StepController.js';
 import StepLoader from '../../StepFmw/routing/StepLoader.js';
 
 
@@ -31,10 +31,9 @@ fetch('/static/js/backend/Routes.json')
     .then(function (routes)  {
         console.log("STARTING APPLICATION");
         window.FileUpload      = FileUpload;
-        let eventDispatcher = new StepEventDispatcher();
-        // in ascolto sui data link di step
-        eventDispatcher.startListening(routes,stepLoader);
-        
+        // START
+        new StepController().startListening(routes,stepLoader);
+       
     }
     );
 

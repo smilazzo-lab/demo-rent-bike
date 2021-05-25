@@ -12,12 +12,13 @@ export default class  extends AbstractCollectionStep{
 
     #apiCommandListaGattiUrl='https://api.thecatapi.com/v1/images/search?limit=4&page=1&order=Desc';
   
-    getElementOfCollection(index) {
-        console.log("sto inviando indietro al router elemento:"+this.#cats[index]);
-        return JSON.stringify(this.#cats[index]);
+    constructor(stepContext,specificato,search_mode) {
+        super(stepContext,specificato,search_mode);
     }
-    constructor(specificato,search_mode) {
-        super(specificato,search_mode);
+
+    getElementOfCollection(index) {
+        console.log("sto inviando indietro al contoller elemento:"+this.#cats[index]);
+        return this.#cats[index];
     }
 
     asyncSearch(criteria) {
@@ -30,7 +31,8 @@ export default class  extends AbstractCollectionStep{
     }
 
     getBindingModel() {
-        return this.#cats;
+       return this.#cats;
+      
     }
 
     setBindingModel(state) {
@@ -40,7 +42,7 @@ export default class  extends AbstractCollectionStep{
     // lifecycle 0
     initialize() {
             console.log("INSIDE INITIALIZE DI CAT CONTROLLER");
-             let inputData = JSON.parse(super.getInputData());
+             let inputData = super.getInputData();
              this.setBindingModel(inputData);
             
      }
@@ -50,6 +52,7 @@ export default class  extends AbstractCollectionStep{
      }
     
     async asyncFetchHtmlTemplate() {
+        console.log("FETCH ="+JSON.stringify({header:this.#header,data:this.#cats}));
         return super.asyncFetchHtmlTemplateParam(
             'http://localhost:3000/launcher/collection/cats',
             JSON.stringify({header:this.#header,data:this.#cats}));
