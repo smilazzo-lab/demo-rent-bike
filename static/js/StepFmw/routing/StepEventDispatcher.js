@@ -20,6 +20,7 @@ export default class  {
         console.log("startListening...");
         this.#router = new StepRouter(jsonRoutes,stepLoader);
         this.#router.callStep("/",JSON.stringify({}));
+        this.#popStateListening(this.#router);
         // Install the Dispatcher
         document.body.addEventListener("click", e=> {
             if (e.target.matches("[data-link]")) {
@@ -77,7 +78,8 @@ export default class  {
                      .doLookupSearch(JSON.stringify(criteria));
                  }
                  else if (comando==='lookup.pick') {
-                     let selected = JSON.parse(this.#router.getInteractionStack().getCurrentStep().pickElement(index));
+                     let selected = JSON.parse(this.#router.getInteractionStack().
+                                               getCurrentStep().pickElement(index));
                      this.#router
                      .returnStep(e.target.pathname,JSON.stringify(selected));
                  }
@@ -93,13 +95,11 @@ export default class  {
          });
     }
     
-    popStateListening(jsonRoutes,stepLoader) {
+    #popStateListening(router) {
         
         window.onpopstate = function(event) {
-     
-        let backRouter = new StepRouter(jsonRoutes,stepLoader);
-        backRouter.callStep(window.location.pathname,JSON.stringify({}));
+        router.returnStep(window.location.pathname,JSON.stringify({}));
     }
-    }
+}
 
 }

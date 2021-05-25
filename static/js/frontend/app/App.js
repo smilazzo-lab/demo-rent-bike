@@ -31,13 +31,10 @@ fetch('/static/js/backend/Routes.json')
     .then(function (routes)  {
         console.log("STARTING APPLICATION");
         window.FileUpload      = FileUpload;
-      
-
         let eventDispatcher = new StepEventDispatcher();
         // in ascolto sui data link di step
         eventDispatcher.startListening(routes,stepLoader);
-        // in ascolto sul tasto indietro del browser
-        eventDispatcher.popStateListening(routes,stepLoader);
+        
     }
     );
 
