@@ -3,8 +3,8 @@
  * @date 2021
  * $tep framework
  */
-import postUCs from '../use-cases/index.js';
-import AbstractCollectionStep from "../../../step-fmw/stepping/AbstractCollectionStep.js";
+import postUCs from '../use-cases/manifest.js';
+import AbstractCollectionStep from "../../step-fmw/stepping/AbstractCollectionStep.js";
 
 export default class  extends AbstractCollectionStep{
     #cats = [];

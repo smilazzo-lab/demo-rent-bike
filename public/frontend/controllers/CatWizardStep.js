@@ -1,4 +1,4 @@
-import AbstractWizardStep from "../../../step-fmw/stepping/AbstractWizardStep.js";
+import AbstractWizardStep from "../../step-fmw/stepping/AbstractWizardStep.js";
 import CacheDizionari from "../dictionaries/CacheDizionari.js";
 import CatWizardPhase0Validator from "../validators/CatWizardPhase0Validator.js";
 

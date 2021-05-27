@@ -1,4 +1,4 @@
-import AbstractValidator from "../../../step-fmw/data-binding/AbstractValidator.js";
+import AbstractValidator from "../../step-fmw/data-binding/AbstractValidator.js";
 /**
  * @author smilazzo
  * 

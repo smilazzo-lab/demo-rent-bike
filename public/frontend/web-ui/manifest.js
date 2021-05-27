@@ -1,15 +1,15 @@
 // dipendenza dal layer controller
-import CatCollectionStep        from './steps/CatCollectionStep.js';
-import CatDetailStep            from './steps/CatDetailStep.js';
-import CatLookupRaceStep        from './steps/CatLookupRaceStep.js';
-import HomeStep                 from './steps/HomeStep.js';
+import CatCollectionStep        from './steps/CatCollectionStep.js.js';
+import CatDetailStep            from './steps/CatDetailStep.js.js';
+import CatLookupRaceStep        from './steps/CatLookupRaceStep.js.js';
+import HomeStep                 from './steps/HomeStep.js.js';
 
 // dipendenze dal framework
 import makeWebUi from '../../../step-fmw/routing/StepController.js';
 import makeControllerLoader from '../../../step-fmw/routing/StepController.js';
 
-import FileUpload from '../../StepFmw/data-binding/FileUpload.js'
-import StepLoader from '../../StepFmw/routing/StepLoader.js';
+import FileUpload from '../../StepFmw/data-binding/FileUpload.js.js'
+import StepLoader from '../../StepFmw/routing/StepLoader.js.js';
 
 
 // Definisco l'associazione Controller/Etichetta

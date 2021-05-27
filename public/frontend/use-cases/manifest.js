@@ -1,4 +1,4 @@
-import daoPost from '../data-access/index.js'
+import daoPost from '../data-access/manifest.js'
 import makeListPosts from './list-posts.js'
 import makeCreatePost from './create-post.js';
 

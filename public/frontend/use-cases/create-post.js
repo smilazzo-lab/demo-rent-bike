@@ -1,5 +1,5 @@
 // import top-down 
-import makePostEntity from '../entities/index.js';
+import makePostEntity from '../entities/manifest.js';
 // dependency injection
 export default function makeCreatePost ({ daoPost }) {
     return async function addPost() {

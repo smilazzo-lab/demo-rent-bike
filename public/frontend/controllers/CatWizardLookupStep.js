@@ -4,7 +4,7 @@
  * $tep framework
  */
 
-import AbstractLookupStep from "../../../step-fmw/stepping/AbstractLookupStep.js";
+import AbstractLookupStep from "../../step-fmw/stepping/AbstractLookupStep.js";
 
 export default class  extends AbstractLookupStep{
     
