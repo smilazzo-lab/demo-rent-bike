@@ -1,4 +1,4 @@
-import AbstractEditController from "../../../StepFmw/stepping/AbstractDetailStep.js";
+import AbstractEditController from "../../../step-fmw/stepping/AbstractDetailStep.js";
 
 export default class  extends AbstractEditController{
    
@@ -27,4 +27,9 @@ export default class  extends AbstractEditController{
       return super.asyncFetchHtmlTemplateParam(
         'http://localhost:3000/launcher/detail/home',JSON.stringify({}));
       }
+
+      callback() {
+
+      }
+     
 }

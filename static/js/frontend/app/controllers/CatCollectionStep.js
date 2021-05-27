@@ -3,12 +3,13 @@
  * @date 2021
  * $tep framework
  */
-
-import AbstractCollectionStep from "../../../StepFmw/stepping/AbstractCollectionStep.js";
+import postUCs from '../use-cases/index.js';
+import AbstractCollectionStep from "../../../step-fmw/stepping/AbstractCollectionStep.js";
 
 export default class  extends AbstractCollectionStep{
     #cats = [];
     #header=['id','url','width','height'];
+    
 
     #apiCommandListaGattiUrl='https://api.thecatapi.com/v1/images/search?limit=4&page=1&order=Desc';
   
@@ -22,6 +23,8 @@ export default class  extends AbstractCollectionStep{
     }
 
     asyncSearch(criteria) {
+      //  postUCs.listAllPostsUC();
+      
         return fetch(this.#apiCommandListaGattiUrl,  {
               method: 'GET', 
               headers: {          'Content-Type': 'application/json',

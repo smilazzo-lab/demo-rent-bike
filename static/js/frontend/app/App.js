@@ -2,19 +2,19 @@
  * @author smilazzo
  */
 // dipendenza dagli step dell'applicazione
- import CatCollectionStep        from './steps/CatCollectionStep.js';
- import CatDetailStep            from './steps/CatDetailStep.js';
- import CatLookupRaceStep        from './steps/CatLookupRaceStep.js';
- import HomeStep                 from './steps/HomeStep.js';
- import CatWizardStep            from './steps/CatWizardStep.js';
- import CatWizardLookupStep      from './steps/CatWizardLookupStep.js';
- import NotifyStep               from '../../StepFmw/stepping/NotifyStep.js';
- import ConfirmStep              from  '../../StepFmw/stepping/ConfirmStep.js';
+ import CatCollectionStep        from './controllers/CatCollectionStep.js';
+ import CatDetailStep            from './controllers/CatDetailStep.js';
+ import CatLookupRaceStep        from './controllers/CatLookupRaceStep.js';
+ import HomeStep                 from './controllers/HomeStep.js';
+ import CatWizardStep            from './controllers/CatWizardStep.js';
+ import CatWizardLookupStep      from './controllers/CatWizardLookupStep.js';
+ import NotifyStep               from '../../step-fmw/stepping/NotifyStep.js';
+ import ConfirmStep              from  '../../step-fmw/stepping/ConfirmStep.js';
 
 // dipendenze dal framework
-import FileUpload from '../../StepFmw/data-binding/FileUpload.js'
-import StepController from '../../StepFmw/routing/StepController.js';
-import StepLoader from '../../StepFmw/routing/StepLoader.js';
+import FileUpload from '../../step-fmw/data-binding/FileUpload.js'
+import StepController from '../../step-fmw/routing/StepController.js';
+import StepLoader from '../../step-fmw/routing/StepLoader.js';
 
 
 // Definisco l'associazione Controller/Etichetta

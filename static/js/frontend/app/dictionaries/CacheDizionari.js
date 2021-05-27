@@ -1,5 +1,5 @@
-import AbstractCacheDizionari from '../../../StepFmw/dictionary/AbstractCacheDizionari.js';
-import Dizionario from '../../../StepFmw/dictionary/Dizionario.js';
+import AbstractCacheDizionari from '../../../step-fmw/dictionary/AbstractCacheDizionari.js';
+import Dizionario from '../../../step-fmw/dictionary/Dizionario.js';
 
 export default class extends AbstractCacheDizionari{
 

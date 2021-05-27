@@ -23,12 +23,7 @@
       return {
           
             getMementoState: function(richiedente) {
-                if (check(richiedente)){
                     return mementoState;
-                } else{
-                    throw new Error(' tentativo di accesso ad uno stato privato');
-                 
-                }
             },
             setMementoState: function(richiedente, state){
                 if (check(richiedente)) {

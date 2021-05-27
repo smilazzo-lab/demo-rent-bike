@@ -1,6 +1,6 @@
-import AbstractWizardStep from "../../../StepFmw/stepping/AbstractWizardStep.js";
+import AbstractWizardStep from "../../../step-fmw/stepping/AbstractWizardStep.js";
 import CacheDizionari from "../dictionaries/CacheDizionari.js";
-import CatWizardPhase0Validator from "../models/CatWizardPhase0Validator.js";
+import CatWizardPhase0Validator from "../validators/CatWizardPhase0Validator.js";
 
 export default class  extends AbstractWizardStep{
    #sem = false;

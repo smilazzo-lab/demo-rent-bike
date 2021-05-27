@@ -100,8 +100,29 @@ export default class  {
     }
     
     #popStateListening(stepContextRef) {
+        var flg=0;
         window.onpopstate = function(event) {
-             stepContextRef.returnStep(window.location.pathname);
+            // nota : qui è gia cambiato
+            console.log("pathname="+window.location.pathname);
+            if (flg===0) {
+                if ("/"===window.location.pathname){
+                    flg=1;
+                    stepContextRef.returnStep('/');
+         
+                }else{
+                    stepContextRef.returnStep(window.location.pathname);
+                }
+            }
+
+            if (flg===1){
+                if ("/"===window.location.pathname){
+                    window.location.pathname='/';
+                }else{
+                    flg=0;
+                    stepContextRef.returnStep(window.location.pathname);
+                
+                }
+            }
     }
 }
 

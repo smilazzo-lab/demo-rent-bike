@@ -42,13 +42,13 @@ export default  class  {
    // routeTo ('/Home','initialize',inputData={},metaInfos={edit_mode:vis,prevLink='/',actualLink='/'})
    // routeTo ('/cats','initialize',inputData={},metaInfos={search_mode:search,prevLink='/',actualLink='/cats'})
 
-    #routeTo = (stepUrl,stepParams,stepContextRef) => {
+    #routeTo = (stepUrl,stepParams,stepContextRef,forward=true) => {
 
-       if( stepUrl.getUrl().indexOf('lookup.search') === -1) {
            console.log("push state->");
-            history.pushState(null,null,stepUrl.getUrl());
-        }
-       this.#installStep(stepUrl,stepParams,stepContextRef);
+           if (forward){
+                   history.pushState(null,null,stepUrl.getUrl());
+            }
+           this.#installStep(stepUrl,stepParams,stepContextRef);
     }
 
     #createStepParameters(inputData,routePath) {
@@ -72,6 +72,7 @@ export default  class  {
     #restoreStepParameters(data) {
         this.#getParamsStack().pop();
         let fromStack =this.#getParamsStack().getCurrent();
+        if (fromStack===null) return null;
         fromStack.inputData=data;
         let stepParams= {};
         if (fromStack){
@@ -123,7 +124,13 @@ export default  class  {
     }
 
     #installStep(stepUrl, stepParams, stepContext) {
-        let firedRoute = this.#getFiredRoute(window.location.pathname);
+        let firedRoute = this.#getFiredRoute(stepUrl.getUrl());
+        let nextStep = 
+        this.#stepLoader.instantiate(stepContext, 
+                                     firedRoute.route.controller, 
+                                     firedRoute.route.args
+             );
+
         if (stepUrl.isAnInitializeRoute()) {
             // CREATE memento of last interaction || {}
             let statusOld ={};
@@ -131,12 +138,6 @@ export default  class  {
             if (stepOld){
                 statusOld=stepOld.createMemento();
             } 
-            // 1. Istantiate for Name, a Controller(Step)
-            let nextStep = 
-            this.#stepLoader.instantiate(stepContext, 
-                                         firedRoute.route.controller, 
-                                         firedRoute.route.args
-                 );
             // 2. install new Step
             this.getInteractionStack().push(nextStep);
             // 3. save Memento on top of a stack
@@ -146,24 +147,35 @@ export default  class  {
             //        metaInfo : { edit_mode:'vis', calledLink='/' calling='/cats'}
             //    
             // }
-            nextStep._initialize(stepParams.inputData,
-                                 stepParams.metaInfo
-            );
+            if (stepParams) {
+
+                nextStep._initialize(stepParams.inputData,
+                                     stepParams.metaInfo
+                );
+            }
            
         }
         if (stepUrl.isACallbackRoute()) {
             // estrae dallo stepcontext l'elemento morente
             this.getInteractionStack().pop();
-            let stepLanding=this.getInteractionStack().getCurrent();
-            let backupMementoStepLanding=this.#getMementoStack()
-                                         .getCurrent();
-            stepLanding.installMemento(backupMementoStepLanding);
-            // cancello una posizione dallo stack degli stati
-            this.#getMementoStack().pop();
-            
-            stepLanding._callback(stepParams.inputData,
-                                  stepParams.metaInfo
-                                  );
+          
+            let backupMemento=this.#getMementoStack()
+                              .getCurrent();
+            //26052021 bugfix
+            console.log("memento recuperato="+JSON.stringify(backupMemento));
+            if (backupMemento) {
+                if (backupMemento.getMementoState){
+                    nextStep.installMemento(backupMemento);
+                    // cancello una posizione dallo stack degli stati
+                    this.#getMementoStack().pop();
+                }
+            }
+            if (stepParams) {
+
+                nextStep._callback(stepParams.inputData,
+                    stepParams.metaInfo
+                    );
+                }
          }
         if (stepUrl.getMethod()==='conferma'){
             this.getInteractionStack().getCurrent()[method]();
