@@ -8,8 +8,8 @@ import CatLookupRaceStep from './LookupCatController.js';
 
  export default function makeStepLoader({renderer}) {
   
-        const stepLoader = new StepLoader();
-        stepLoader.injectUI({renderer});
+        const stepLoader = new StepLoader({renderer});
+      
         // associo ad ogni etichetta una class
         stepLoader.use('STP.HOME_NOLOG',HomeStep);
         stepLoader.use('STP.LST_CAT',CatCollectionStep);

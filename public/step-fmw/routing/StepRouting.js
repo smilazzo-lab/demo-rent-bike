@@ -10,8 +10,6 @@ import StepStack  from './StepStack.js';
 import StepParameters from './StepParameters.js';
 import StepUrl from './StepUrl.js';
 
-
-
 export default  class  {
    
     #stepStack      = new StepStack(); 
@@ -47,11 +45,9 @@ export default  class  {
    // routeTo ('/Home','initialize',inputData={},metaInfos={edit_mode:vis,prevLink='/',actualLink='/'})
    // routeTo ('/cats','initialize',inputData={},metaInfos={search_mode:search,prevLink='/',actualLink='/cats'})
 
-    #routeTo = (stepUrl,stepParams,stepContextRef,forward=true) => {
-           if (forward){
-                   history.pushState(null,null,stepUrl.getUrl());
-            }
-           this.#installStep(stepUrl,stepParams,stepContextRef);
+    #routeTo = (stepUrl,stepParams,stepContextRef) => {
+          history.pushState(null,null,stepUrl.getUrl());
+          this.#installStep(stepUrl,stepParams,stepContextRef);
     }
 
     #createStepParameters(inputData,routePath) {
@@ -156,8 +152,7 @@ export default  class  {
             //    
             // }
             if (stepParams) {
-                console.log("_initialize con inputData="+JSON.stringify(stepParams.inputData));
-                console.log("_initialize con metaInfo="+JSON.stringify(stepParams.metaInfo));
+              
                 nextStep._initialize(stepParams.inputData,
                                      stepParams.metaInfo
                 );

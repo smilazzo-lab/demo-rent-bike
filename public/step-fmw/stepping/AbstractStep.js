@@ -36,19 +36,16 @@ export default class  {
     #_$tep_context_ref;  // per fare la callStep da dentro i metodi
     #injectetUi;
 
-    constructor(stepContext,specificato,options) {
+    constructor(uiRef,stepContext,specificato,options) {
          this.#target = specificato;
         this.options = options;
         this.#_$tep_context_ref=stepContext;
+        this.#injectetUi=uiRef;
     }
 
-    setUI(pippo) {
-         this.#injectetUi=pippo;
-    }
-
-    getUI() {
-        return this.#injectetUi;
-    }
+   getWebUi() {
+       return this.#injectetUi;
+   }
 
     getStepContext() {
         return this.#_$tep_context_ref;

@@ -13,9 +13,9 @@ export default class  {
     getCurrent() {
         let indexUltimo = this.#stk.length;
         if (indexUltimo>0){
-            return this. #stk[indexUltimo-1];
+            return this.#stk[indexUltimo-1];
         }else{
-            return null;
+            return  this.#stk[0];
         }
     }
 
@@ -28,7 +28,10 @@ export default class  {
     }
 
     pop() {
-        return this.#stk.pop();
+        if(this.#stk.length>0) {
+            return this.#stk.pop();
+        }
+        return null;
     }
     
 

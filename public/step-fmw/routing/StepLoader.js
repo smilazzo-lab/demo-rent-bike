@@ -14,20 +14,11 @@ export default class StepLoader {
 
     #injectedUi
     
-    constructor() {
-
+    constructor(ui) {
+        this.#injectedUi=ui
     }
 
-    injectUI(renderer) {
-        
-        this.#injectedUi=renderer;
-      
-    }
-
-    getUI() {
-        return this.#injectedUi;
-    }
-
+    
     use(className,step) {
         this.step_collection[className] = step;
     }
@@ -35,8 +26,8 @@ export default class StepLoader {
     instantiate(routerRef,className, args) {
        
          let S = this.step_collection[className]; 
-         let obj= new S(routerRef,args[0],args[1]);
-         obj.setUI(this.#injectedUi);
+         let obj= new S(this.#injectedUi,routerRef,args[0],args[1]);
+       
          return obj;
    }
 }

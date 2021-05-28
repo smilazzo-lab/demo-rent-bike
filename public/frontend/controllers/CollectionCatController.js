@@ -55,7 +55,7 @@ export default class  extends AbstractCollectionStep{
      }
     
      renderView() {
-        super.getUI().renderer({
+        super.getWebUi().renderer({
             templateName:'cats',
             templateType:'collection',
             templateData: JSON.stringify({header:this.#header,data:this.#cats}),

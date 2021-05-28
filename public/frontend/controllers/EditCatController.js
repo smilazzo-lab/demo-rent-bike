@@ -30,7 +30,7 @@ export default class  extends AbstractDetailStep{
     //  fetch da DETAIL/CAT
 
      renderView() {
-       super.getUI().renderer({
+       super.getWebUi().renderer({
         templateName:'cat',
         templateType:'detail',
         templateMetaInfo:super.getMetaInfo(),

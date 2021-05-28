@@ -48,7 +48,7 @@ export default class  extends AbstractLookupStep{
    
       renderView() {
 
-        super.getUI().renderer({
+        super.getWebUi().renderer({
             templateType:'lookup',
             templateName:'cat',
             templateData:  JSON.stringify({

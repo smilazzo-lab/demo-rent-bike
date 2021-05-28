@@ -24,7 +24,7 @@ export default class  extends AbstractEditController{
     //  fetch da DETAIL/CAT
     renderView() {
       
-      super.getUI().renderer({
+      super.getWebUi().renderer({
         templateType: 'detail',
         templateName: 'home',
         templateData: JSON.stringify({}),
