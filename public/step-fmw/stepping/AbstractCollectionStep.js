@@ -32,7 +32,7 @@ export default class extends AbstractStep {
         // se è la lista lavora
         if (this.getSearchMode() ==='list') {
             this.initialize();
-            super.renderView();
+            this.renderView();
      }
     }
 

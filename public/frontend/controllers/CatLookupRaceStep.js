@@ -46,14 +46,19 @@ export default class  extends AbstractLookupStep{
     }
     
    
-    async asyncFetchHtmlTemplate() {
-      return super.asyncFetchHtmlTemplateParam(
-          'http://localhost:3000/launcher/lookup/cat',
-          JSON.stringify({
-              criteria: this.criteria,
-              header:this.#header,
-              data:this.#listaCategorie
-          }))
-   }
+      renderView() {
+
+        super.getUI()({
+            templateUrl: 'http://localhost:3000/launcher/lookup/cat',
+            templateData:  JSON.stringify({
+                criteria: this.criteria,
+                header:this.#header,
+                data:this.#listaCategorie,
+                metaInfo:super.getMetaInfo()
+            }),
+            uimodel:this.getBindingModel()});
+        }
+
+   
 
 }

@@ -32,7 +32,7 @@ export default class extends AbstractStep {
         super.setMetaInfo(metaInfo);
 
         this.initialize();
-        super.renderView();
+        this.renderView();
        
     }
 

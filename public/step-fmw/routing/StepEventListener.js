@@ -82,9 +82,11 @@ export default class  {
                      .doLookupSearch(criteria);
                  }
                  else if (comando==='lookup.pick') {
+                     console.log("inside pick");
                      let selected = this.#_$tep_context.getInteractionStack().
                                     getCurrent().pickElement(index);
-
+                    console.log("selected="+selected);
+                    console.log("pathname="+e.target.pathname);
                      this.#_$tep_context.returnStep(e.target.pathname,selected);
                  }
                 else if (comando==='listamc.vis'){

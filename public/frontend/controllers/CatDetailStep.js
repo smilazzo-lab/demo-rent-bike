@@ -11,10 +11,7 @@ export default class  extends AbstractDetailStep{
         super(stepContext,specificato,edit_mode);
     }
 
-    getValidator() {
-      return new CatWizardPhase0Validator();
-    }
-
+   
     getBindingModel() {
        return this.#cat;
     }
@@ -32,10 +29,15 @@ export default class  extends AbstractDetailStep{
      }
     //  fetch da DETAIL/CAT
 
-    async asyncFetchHtmlTemplate() {
-      return super.asyncFetchHtmlTemplateParam('http://localhost:3000/launcher/detail/cat',
-        JSON.stringify({edit_mode: this.getEditMode(),cmbProva : this.#cat.cmbProva}));
-    }
+     renderView() {
+      super.getUI()({
+        templateUrl:'http://localhost:3000/launcher/detail/cat',
+        metaInfo:super.getMetaInfo(),
+        templateData: JSON.stringify({cmbProva : this.#cat.cmbProva}),
+        uimodel: this.#cat,
+        validator: new CatWizardPhase0Validator()
+       });
+         }
 
       insertEntity() {
        let info = {title:this.#titoloNotify,message:this.#messaggioNotigy};

@@ -54,11 +54,13 @@ export default class  extends AbstractCollectionStep{
 
      }
     
-    async asyncFetchHtmlTemplate() {
-        console.log("FETCH ="+JSON.stringify({header:this.#header,data:this.#cats}));
-        return super.asyncFetchHtmlTemplateParam(
-            'http://localhost:3000/launcher/collection/cats',
-            JSON.stringify({header:this.#header,data:this.#cats}));
-        }
+     renderView() {
+        super.getUI()({
+            templateUrl:'http://localhost:3000/launcher/collection/cats',
+            templateData: JSON.stringify({header:this.#header,data:this.#cats}),
+            metaInfo: super.getMetaInfo(),
+            uimodel:this.getBindingModel()});
+             }
+        
 
 }

@@ -13,8 +13,20 @@ export default class  {
 
     step_collection={};
 
+    #injectedUi
+    
     constructor() {
 
+    }
+
+    injectUI(renderer) {
+        
+        this.#injectedUi=renderer;
+      
+    }
+
+    getUI() {
+        return this.#injectedUi;
     }
 
     use(className,step) {
@@ -22,7 +34,10 @@ export default class  {
     }
 
     instantiate(routerRef,className, args) {
+       
          let S = this.step_collection[className]; 
-         return new S(routerRef,args[0],args[1])
+         let obj= new S(routerRef,args[0],args[1]);
+         obj.setUI(this.#injectedUi);
+         return obj;
    }
 }

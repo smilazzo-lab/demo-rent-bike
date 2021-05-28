@@ -19,11 +19,15 @@ export default  class  {
 
     #routes =[];
     #stepLoader={};
+    // è un riferimento alla ui da injettare dentro i 
+    // vari
+    
     
 
     constructor(routes,sl) {
      this.#routes = routes;
      this.#stepLoader=sl;
+    
     }
 
     getInteractionStack(){
@@ -124,12 +128,15 @@ export default  class  {
     }
 
     #installStep(stepUrl, stepParams, stepContext) {
+        console.log("nextStep URL="+stepUrl.getUrl());
         let firedRoute = this.#getFiredRoute(stepUrl.getUrl());
         let nextStep = 
         this.#stepLoader.instantiate(stepContext, 
                                      firedRoute.route.controller, 
                                      firedRoute.route.args
              );
+
+        console.log("nextStep:"+JSON.stringify(nextStep));
 
         if (stepUrl.isAnInitializeRoute()) {
             // CREATE memento of last interaction || {}

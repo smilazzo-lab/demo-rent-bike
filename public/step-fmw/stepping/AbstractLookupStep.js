@@ -27,7 +27,7 @@ export default class extends AbstractDetailStep {
         super.setInputData(null);
         super.setMetaInfo(m);
         this.buildCriteria();
-        super.renderView();
+        this.renderView();
      }
 
      setCollection(lst) {

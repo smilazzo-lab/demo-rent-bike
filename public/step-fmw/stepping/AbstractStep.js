@@ -34,12 +34,20 @@ export default class  {
     meta={};
     options=[];
     #_$tep_context_ref;  // per fare la callStep da dentro i metodi
+    #injectetUi;
 
     constructor(stepContext,specificato,options) {
-        console.log("specificatoTarget="+specificato);
-        this.#target = specificato;
+         this.#target = specificato;
         this.options = options;
         this.#_$tep_context_ref=stepContext;
+    }
+
+    setUI(pippo) {
+         this.#injectetUi=pippo;
+    }
+
+    getUI() {
+        return this.#injectetUi;
     }
 
     getStepContext() {
@@ -70,18 +78,7 @@ export default class  {
         throw new Error('getValidator is abstract');
     }
 
-    applyBindings(model) {
-       document.querySelectorAll("[data-bind]").forEach(elem => {
-       let obs = model[elem.getAttribute("data-bind")];
-       if (obs instanceof Observable){
-            obs = new Observable(obs.value);
-        }else{
-            obs = new Observable(obs);
-        }
-        model[elem.getAttribute("data-bind")]=obs;
-        obs.bindToHtmlElement(elem,this.getValidator());
-       });
-    }
+   
 
     setInputData(inpData) {
         this.inputData=inpData;
@@ -89,6 +86,10 @@ export default class  {
 
     setMetaInfo(steplinks) {
         this.meta=steplinks;
+    }
+
+    getMetaInfo() {
+        return this.meta;
     }
 
     getInputData (){
@@ -99,9 +100,7 @@ export default class  {
         this.#target= targetId;
     }
 
-    #renderHTML(html) {
-        document.querySelector(this.#target).innerHTML=html;
-    }
+   
 
     setTabTitle(name) {
         document.title=name;
@@ -127,40 +126,10 @@ export default class  {
         throw new Error('not implemented')
     }
 
-    async asyncFetchHtmlTemplate() {
-        throw new Error('error');
-    }
-
-    async asyncFetchHtmlTemplateParam(templateUrl, templateData) {
-        let t = JSON.parse(templateData);
-        t.meta = this.meta;
-
-        const postData = {
-           method: 'POST', // *GET, POST, PUT, DELETE, etc.
-           mode: 'cors', // no-cors, *cors, same-origin
-           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-           credentials: 'same-origin', // include, *same-origin, omit
-           headers: {
-             'Content-Type': 'application/json'
-           },
-           redirect: 'follow', // manual, *follow, error
-           referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-           body:  JSON.stringify(t)
-         };
-         return fetch(templateUrl, postData); 
-    }
+    
 
     renderView() {
-        this.#renderHTML('<div id="loader" class="loader"></div>');
-        this.asyncFetchHtmlTemplate()
-              .then((html)=> html.text())
-              .then(html => { this.#renderHTML(html);
-                              if (this.getBindingModel()!==null) {
-                                  // 2 way binding
-                                  this.applyBindings(this.getBindingModel());
-                                 }
-                            }
-                    );
+      throw new Error('not implemented here');
     }
 
     // Memento Pattern for Progressive Web Apps

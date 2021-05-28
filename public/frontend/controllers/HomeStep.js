@@ -22,11 +22,16 @@ export default class  extends AbstractEditController{
 
 
     //  fetch da DETAIL/CAT
-  
-    async asyncFetchHtmlTemplate() {
-      return super.asyncFetchHtmlTemplateParam(
-        'http://localhost:3000/launcher/detail/home',JSON.stringify({}));
-      }
+    renderView() {
+      
+      super.getUI()({
+        templateUrl: 'http://localhost:3000/launcher/detail/home',
+        templateData: JSON.stringify({}),
+        metaInfo: super.getMetaInfo(),
+        uimodel:null});
+         }
+
+    
 
       callback() {
 

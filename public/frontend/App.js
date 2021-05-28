@@ -1,39 +1,28 @@
-/**
- * @author smilazzo
- */
-// dipendenza dagli step dell'applicazione
- import CatCollectionStep        from './controllers/CatCollectionStep.js';
- import CatDetailStep            from './controllers/CatDetailStep.js';
- import CatLookupRaceStep        from './controllers/CatLookupRaceStep.js';
- import HomeStep                 from './controllers/HomeStep.js';
- 
-// dipendenze dal framework
-import FileUpload from '../step-fmw/data-binding/FileUpload.js'
-import StepController from '../step-fmw/routing/StepController.js';
+import UI from './web-ui/manifest.js';
 import StepLoader from '../step-fmw/routing/StepLoader.js';
+import HomeStep from './controllers/HomeStep.js';
+import CatDetailStep from './controllers/CatDetailStep.js';
+import CatCollectionStep from './controllers/CatCollectionStep.js';
+import CatLookupRaceStep from './controllers/CatLookupRaceStep.js';
 
-
-// Definisco l'associazione Controller/Etichetta
 let stepLoader = new StepLoader();
+// injetta in ogni controller (step) il riferimento a UI
+let r = UI.renderer;
+let s = JSON.stringify(r);
+
+stepLoader.injectUI(r);
+// associo ad ogni etichetta una class
 stepLoader.use('STP.HOME_NOLOG',HomeStep);
 stepLoader.use('STP.LST_CAT',CatCollectionStep);
 stepLoader.use('STP.VIS_CAT',CatDetailStep);
 stepLoader.use('STP.LKP_CAT',CatLookupRaceStep);
 
-// Lettura del backend di Routes.json 
-// che associa URL a Etichette
-fetch('/static/frontend/web-ui/step-fmw-routes.json')
-    .then( (data) => data.json())
-    .then(function (routes)  {
-        console.log("STARTING APPLICATION");
-        window.FileUpload      = FileUpload;
-        // START
-        new StepController().startListening(routes,stepLoader);
-       
-    }
-    );
+//bisogna associare il validator a CatDetailStep
+// il validator lavora a livello di UI!!!!!
 
-    
+
+UI.eventListener(
+    '/static/frontend/web-ui/step-fmw-routes.json',stepLoader);
 
 
 
