@@ -7,9 +7,8 @@
  * @license MIT
  */
 
-import AbstractStep from '../stepping/AbstractStep.js';
 
-export default class  {
+export default class StepLoader {
 
     step_collection={};
 

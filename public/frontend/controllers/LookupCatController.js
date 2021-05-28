@@ -48,15 +48,16 @@ export default class  extends AbstractLookupStep{
    
       renderView() {
 
-        super.getUI()({
-            templateUrl: 'http://localhost:3000/launcher/lookup/cat',
+        super.getUI().renderer({
+            templateType:'lookup',
+            templateName:'cat',
             templateData:  JSON.stringify({
                 criteria: this.criteria,
                 header:this.#header,
                 data:this.#listaCategorie,
-                metaInfo:super.getMetaInfo()
             }),
-            uimodel:this.getBindingModel()});
+            templateMetaInfo:super.getMetaInfo(),
+            templateBindingZone:this.getBindingModel()});
         }
 
    

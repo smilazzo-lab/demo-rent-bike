@@ -2,20 +2,23 @@ import Observable from '../../step-fmw/data-binding/Observable.js';
 
 export default function buildMakeUIRendering () {
 
-    return function renderView({templateUrl,
-                                metaInfo={},
+    return function renderView({templateType,
+                                templateName,
+                                templateMetaInfo,
                                 templateData,
-                                uimodel=null,
-                                validator={}}) {
+                                templateBindingZone=null,
+                                templateValidator={}}) {
       
               document.querySelector('#step').innerHTML='<div id="loader" class="loader"></div>';
               
-              getHtmlFromNodeServer(templateUrl,templateData,metaInfo)
+              let url = `http://localhost:3000/launcher/${templateType}/${templateName}`;
+              
+              getHtmlFromNodeServer(url,templateData,templateMetaInfo)
               .then((html)=> html.text())
               .then(html => {  document.querySelector('#step').innerHTML=html;
-                              if (uimodel!==null) {
+                              if (templateBindingZone!==null) {
                                   // 2 way binding
-                                  applyBindings(uimodel,validator);
+                                  applyBindings(templateBindingZone,templateValidator);
                                  }
                             }
                     );
@@ -34,10 +37,7 @@ export default function buildMakeUIRendering () {
             });
     }
 
-    function renderHtml(html) {
-        document.querySelector('#step').innerHTML=html;
-    }
-
+   
     async function getHtmlFromNodeServer (templateUrl,templateData,metaInfo) {
             let t = JSON.parse(templateData);
             t.meta = metaInfo;

@@ -6,19 +6,19 @@
  * @license MIT
  */
 
-import StepContext from "./StepContext.js";
+import StepRouting from "./StepRouting.js";
 
 export default class  {
   
     #_$tep_context;
- 
+   
     constructor() {
-       
+    
     }
 
-    startListening(jsonRoutes,stepLoader) {
+    startListening(jsonroutes,stepLoader) {
        
-        this.#_$tep_context = new StepContext(jsonRoutes,stepLoader);
+        this.#_$tep_context = new StepRouting(jsonroutes,stepLoader);
         this.#_$tep_context.callStep("/");
 
         this.#popStateListening(this.#_$tep_context);

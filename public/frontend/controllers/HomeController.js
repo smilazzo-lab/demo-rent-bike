@@ -24,12 +24,13 @@ export default class  extends AbstractEditController{
     //  fetch da DETAIL/CAT
     renderView() {
       
-      super.getUI()({
-        templateUrl: 'http://localhost:3000/launcher/detail/home',
+      super.getUI().renderer({
+        templateType: 'detail',
+        templateName: 'home',
         templateData: JSON.stringify({}),
-        metaInfo: super.getMetaInfo(),
-        uimodel:null});
-         }
+        templateMetaInfo: super.getMetaInfo(),
+        templateBindingZone:null});
+        }
 
     
 

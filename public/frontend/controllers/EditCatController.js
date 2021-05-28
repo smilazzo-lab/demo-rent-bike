@@ -30,12 +30,13 @@ export default class  extends AbstractDetailStep{
     //  fetch da DETAIL/CAT
 
      renderView() {
-      super.getUI()({
-        templateUrl:'http://localhost:3000/launcher/detail/cat',
-        metaInfo:super.getMetaInfo(),
+       super.getUI().renderer({
+        templateName:'cat',
+        templateType:'detail',
+        templateMetaInfo:super.getMetaInfo(),
         templateData: JSON.stringify({cmbProva : this.#cat.cmbProva}),
-        uimodel: this.#cat,
-        validator: new CatWizardPhase0Validator()
+        templateBindingZone: this.#cat,
+        templateValidator: new CatWizardPhase0Validator()
        });
          }
 

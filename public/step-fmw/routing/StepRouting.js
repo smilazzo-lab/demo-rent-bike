@@ -11,6 +11,7 @@ import StepParameters from './StepParameters.js';
 import StepUrl from './StepUrl.js';
 
 
+
 export default  class  {
    
     #stepStack      = new StepStack(); 
@@ -18,15 +19,15 @@ export default  class  {
     #parametersStack= new StepStack();
 
     #routes =[];
-    #stepLoader={};
+    #stepLoader;
     // è un riferimento alla ui da injettare dentro i 
     // vari
     
     
 
-    constructor(routes,sl) {
+    constructor(routes,stepLoader) {
      this.#routes = routes;
-     this.#stepLoader=sl;
+     this.#stepLoader = stepLoader;
     
     }
 
@@ -47,8 +48,6 @@ export default  class  {
    // routeTo ('/cats','initialize',inputData={},metaInfos={search_mode:search,prevLink='/',actualLink='/cats'})
 
     #routeTo = (stepUrl,stepParams,stepContextRef,forward=true) => {
-
-           console.log("push state->");
            if (forward){
                    history.pushState(null,null,stepUrl.getUrl());
             }
@@ -88,13 +87,14 @@ export default  class  {
     }
 
     // start a new Web Step
-    callStep(routePath, callingStepInputData={}) {
+    callStep(routePath,callingStepInputData={}) {
         this.#routeTo(  //  URL+METHOD
                         new StepUrl(routePath,'initialize'),
                         // DATA PIU LINKED STEP LINKS
                         this.#createStepParameters(callingStepInputData,routePath),
                         // ROUTER REF
-                        this  
+                        this
+                        
             );
     }
 
@@ -105,7 +105,8 @@ export default  class  {
                       new StepUrl(routePath,'callback'),
                       // FETCH PREVIOUS LINK STATE AND OVERRIDE WITH OUTPUT DATA
                       this.#restoreStepParameters(fromStepOutputdata),
-                      this
+                      this,
+                      
           );
         }
 
@@ -132,11 +133,11 @@ export default  class  {
         let firedRoute = this.#getFiredRoute(stepUrl.getUrl());
         let nextStep = 
         this.#stepLoader.instantiate(stepContext, 
-                                     firedRoute.route.controller, 
-                                     firedRoute.route.args
+                               firedRoute.route.controller, 
+                               firedRoute.route.args
              );
 
-        console.log("nextStep:"+JSON.stringify(nextStep));
+        
 
         if (stepUrl.isAnInitializeRoute()) {
             // CREATE memento of last interaction || {}
@@ -155,7 +156,8 @@ export default  class  {
             //    
             // }
             if (stepParams) {
-
+                console.log("_initialize con inputData="+JSON.stringify(stepParams.inputData));
+                console.log("_initialize con metaInfo="+JSON.stringify(stepParams.metaInfo));
                 nextStep._initialize(stepParams.inputData,
                                      stepParams.metaInfo
                 );

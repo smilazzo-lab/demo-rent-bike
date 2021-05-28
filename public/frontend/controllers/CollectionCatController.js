@@ -18,7 +18,7 @@ export default class  extends AbstractCollectionStep{
     }
 
     getElementOfCollection(index) {
-        console.log("sto inviando indietro al contoller elemento:"+this.#cats[index]);
+        console.log("sto inviando indietro al contoller elemento:"+JSON.stringify(this.#cats[index]));
         return this.#cats[index];
     }
 
@@ -55,11 +55,12 @@ export default class  extends AbstractCollectionStep{
      }
     
      renderView() {
-        super.getUI()({
-            templateUrl:'http://localhost:3000/launcher/collection/cats',
+        super.getUI().renderer({
+            templateName:'cats',
+            templateType:'collection',
             templateData: JSON.stringify({header:this.#header,data:this.#cats}),
-            metaInfo: super.getMetaInfo(),
-            uimodel:this.getBindingModel()});
+            templateMetaInfo: super.getMetaInfo(),
+            templateBindingZone:null});
              }
         
 
