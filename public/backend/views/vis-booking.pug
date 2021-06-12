@@ -1,0 +1,75 @@
+.container
+    include ./includes/select.pug
+    include ./includes/textfield.pug
+    include ./includes/lookup-textfield.pug
+    include ./includes/datepicker.pug
+    include ./includes/datepicker-range.pug
+    include ./includes/file-upload.pug
+    include ./includes/radio-button.pug
+    include ./includes/tasto-annulla.pug
+    - let cmbProva = detail['cmbProva'];
+    - let callingLink = detail['meta'].callLink;
+    .header
+        .h2 Booking
+    <div id="form" class="form">
+    <div class="form-control">
+        <label for="cat-id">Booking UUID: *</label>
+        <label for="cat-id">? il numero di prenotazione Booking UUID è indispensabile per rintracciare presso il rivenditore la propria prenotazione.</label>
+        +textfield("cat-id","id","id")     
+    </div>
+    
+    <div class="form-control">
+      
+    </div>
+    <fieldset>
+         <legend>Periodo Noleggo:</legend>
+             <div class="form-control">
+                <label for="cat-height">Dal:*</label>
+                +datepicker("cat-date","date","date")
+             </div>
+    <div class="form-control">
+        <label for="cat-height">Al:*</label>
+        +datepicker("cat-date","date","date")
+    </div>
+   
+    </fieldset>
+    <fieldset>
+         <legend>Cliente:</legend>
+    <div class="form-control">
+        <label for="cat-id">Nome:*</label>
+        +textfield("cat-url","url","url")
+    </div>
+    <div class="form-control">
+        <label for="cat-width">Cognome:*</label>
+        +lookup-textfield("cat-width","width","width","/cat/lookup")
+    </div>
+    <div class="form-control">
+        <label for="cat-height">Email:*</label>
+        +textfield("cat-height","height","height")
+    </div>
+    <div class="form-control">
+        <label for="cat-height">Telefono:*</label>
+        +textfield("cat-height","height","height")
+    </div>
+    <div >
+        <fieldset>
+            <legend>Allegati:</legend>
+                <div>
+                   
+                        <label for="cat-upload">FotoCopia Doc. Identità:*</label>
+                        +file-upload("cat-upload","upload","upload")
+                         <label for="cat-height">radio:*</label>
+        <br>
+
+        - const values=["1"]
+        - const labels=["Autorizzo al trattamento dei dati esclusivamente per il tempo necessaro al noleggio."]
+        +radiobutton("radio-name","radio-val",labels,values)
+                </div>
+                
+        </fieldset>
+    </div>
+    </fieldset>
+        +tasto-annulla(callingLink,'Indietro')
+    </div>
+    <div>
+</div>

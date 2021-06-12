@@ -249,7 +249,7 @@
   }
   
   .notification:nth-child(odd) {
-    background-color:lightsteelblue;
+    background-color:lightgoldenrodyellow;
 }
   
   .notification p {
@@ -287,7 +287,7 @@
     align-content: center;
     height: 450px;
     margin:15px 95px;
-   background-color: whitesmoke !important;
+   background-color: transparent !important;
    border-radius: 5px 5px;
    }
  
@@ -349,19 +349,31 @@
     
   }
 
-   .btn-form {
+  .btn-form {/**
     margin: 10px 15x 15px 10px;
-    color: black;
-    background-color: lightskyblue;
-    height:30px;
+    color: white;
+    background-color: orange;
+    height:60px;
     opacity: 0.8;
-    border-radius: 20px;
+    border-radius: 2px;
+    width: 100%;
     text-align: center;
     text-justify: center;
     border-style: solid;
-    border-color:black;
+    border-color:white;
+    box-shadow: 1px 1px grey;**/
+    display: block;
+    border-radius: 2px;
+    border: 1px solid white;
+    width: auto;
+    color: lightskyblue;
+    background-color: white;
+    padding: 14px 28px;
+    font-size: 48px;
+    cursor: pointer;
+    text-align: center;
+    border-color:white;
     box-shadow: 1px 1px grey;
-    
   }
 
   .btn-form:hover {
@@ -401,11 +413,54 @@
     100% { transform: rotate(360deg); }
   }
 
+  .card-trip {
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  }
+  
+  .card-trip > img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .card-trip h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .card-trip p {
+    font-size: 12px;
+    opacity: .7;
+    margin: 0;
+  }
+  
+  
+  .card-trip .card-trip-infos {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+  }
+  
+  .card-trip-infos .card-trip-user {
+    position: absolute;
+    right: 16px;
+    top: -20px;
+    width: 40px;
+  }
+  
+
+
    .principal {
-    background-color: black;
-    /*background-image: url("deploy.jpg");*/
+   /* background-color: black; */
+    background-image: url("deploy.jpg");
     background-size: 100%;
+    ;
     scale: inherit;
    
-    opacity: 0.98;
+    opacity: 1;
    }

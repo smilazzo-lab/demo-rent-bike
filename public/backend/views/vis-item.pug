@@ -1,0 +1,35 @@
+.container
+    include ./includes/select.pug
+    include ./includes/textfield.pug
+    include ./includes/lookup-textfield.pug
+    include ./includes/datepicker.pug
+    include ./includes/datepicker-range.pug
+    include ./includes/file-upload.pug
+    include ./includes/radio-button.pug
+    include ./includes/tasto-annulla.pug
+    include ./includes/tasto-conferma.pug
+    - let cmbQty = detail['cmbQty'];
+    - let callingLink = detail['meta'].callLink;
+    .header
+        .h2 Booking Edit Item
+    <div id="form" class="form">
+    <div class="form-control">
+        <label for="type">Titolo: *</label>
+        +textfield("type","type","type",true)     
+    </div>
+     <div class="form-control">
+        <label for="description">Descrizione: *</label>
+        +textfield("description","description","description",true)     
+    </div>
+    <div class="form-control">
+        <label for="unityCost">Costo Unitario: *</label>
+        +textfield("unityCost","unityCost","unityCost")     
+    </div>
+    <div class="form-control">
+        <label for="qty-select">Qty:</label>
+        +select("qty-select","selectedCmbQty",cmbQty)
+    </div>
+    <div>
+        +tasto-annulla(callingLink,'Indietro')
+        +tasto-conferma(callingLink,'Modifica')
+    </div>

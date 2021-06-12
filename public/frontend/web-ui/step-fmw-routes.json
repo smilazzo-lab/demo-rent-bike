@@ -18,29 +18,37 @@
                     "title":"Conferma",
                     "edit_mode":"vis"
                 },
-                {   "path":"/cats",
-                    "controller" :"STP.LST_CAT",
+                {   "path":"/bookings",
+                    "controller" :"STP.LST_BOOKINGS",
                     "args":["#step","search"],
-                    "title":"Cat List",
+                    "title":"Booking List",
                     "search_mode":"search"
                 },
-                {   "path":"/cat", 
-                    "controller" :"STP.VIS_CAT",
+                {   "path":"/booking", 
+                    "controller" :"STP.VIS_BOOKING",
                     "args":["#step","vis"],
-                    "title":"Cat Detail",
+                    "title":"Booking Details",
                     "edit_mode":"vis"
                 },
-                {   "path":"/cat/wizard", 
-                    "controller" :"STP.WIZ_CAT",
+                {   "path":"/booking/wizard", 
+                    "controller" :"STP.WIZ_BOOKING",
                     "args":["#step","vis"],
-                    "title":"Cat Detail Creation",
+                    "title":"BOOKING Creation",
                     "edit_mode":"ins"
                 },
-                {   "path":"/cat/wizard/lookup", 
-                    "controller" :"STP.LKP_WIZ_CAT",
+                {   "path":"/booking/wizard/lookup-bike", 
+                    "controller" :"STP.LKP_WIZ_ITEM",
                     "args":["#step","search"],
                     "title":"Lookup Cat",
                     "search_mode":"search"
+                },
+                {
+                    "path":"/booking/wizard/edit-item", 
+                    "controller" :"STP.WIZ_BOOKING.UPD_ITEM",
+                    "args":["#step","vis"],
+                    "title":"Edit Booking Item",
+                    "edit_mode":"upd"
+               
                 },
                 {   "path":"/cat/lookup", 
                     "controller" :"STP.LKP_CAT",

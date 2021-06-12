@@ -41,15 +41,29 @@ export default class extends AbstractDetailStep {
      
   // da pulsante
     doLookupSearch(criteria) {
-        this.asyncSearch(JSON.parse(criteria))
-        .then(data=>data.json())
-        .then(data => {
+        let data = this.asyncSearch({});
+        console.log("da sta parte dicevo="+data);
+        /** TODO: ripristinare
+         * 
+         .then(data=>data.json())
+         .then(data => {
+            */
             this.setCollection(data);
-            this.renderView()});
+            this.renderView()
+       // })
+        ;
     }
 
     asyncSearch(criteria) {
         throw new Error('asyncSearch not implemented!')
+    }
+
+    getBindingModel() {
+        return super.getBindingModel();
+    }
+
+    setBindingModel(model) {
+        super.setBindingModel(model);
     }
 
     

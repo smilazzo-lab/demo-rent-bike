@@ -64,4 +64,11 @@ export default class extends AbstractStep {
         throw new Error('cancelEntity() is an abstract!');
     }
    
+    getBindingModel() {
+        return super.getBindingModel();
+    }
+
+    setBindingModel(memento) {
+        super.setBindingModel(memento);
+    }
 }

@@ -5,11 +5,12 @@ import makeStepLoader from '../controllers/manifest.js';
 
 const fileServerURI = '/static/frontend/web-ui/step-fmw-routes.json';
 
-const UI =Object.freeze( {
-    renderer: buildMakeUIRendering(),
-});
+let UIRendeting = buildMakeUIRendering();
+
+
+
 //IoT per il rendering
-const stepClassLoader =  makeStepLoader(UI);
+const stepClassLoader =  makeStepLoader({renderer:UIRendeting.renderView, setErrorMsg: UIRendeting.setErrorMsg});
 const stepListener = buildMakeUIListener(fileServerURI,stepClassLoader);
 
 const view = Object.freeze({ 

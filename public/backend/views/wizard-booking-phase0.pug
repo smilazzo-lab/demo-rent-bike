@@ -1,0 +1,52 @@
+.container
+    include ./includes/select.pug
+    include ./includes/textfield.pug
+    include ./includes/lookup-textfield.pug
+    include ./includes/datepicker.pug
+    include ./includes/datepicker-range.pug
+    include ./includes/file-upload.pug
+    include ./includes/radio-button.pug
+    include ./includes/tasto-annulla.pug
+    - let cmbProva = detail['cmbProva'];
+    - let callingLink = detail['meta'].callLink;
+    <sp-theme scale="large" color="light">
+    <sp-tabs selected="1">
+            <sp-tab label="Booking" value="1"><i class="fas fa-bicycle"><span> Booking</i>
+            </sp-tab>
+            <sp-tab label="Bike Cart" value="2">
+            </sp-tab>
+            <sp-tab label="Customer Infos" value="3">
+            </sp-tab>
+            <sp-tab-panel value="1"></i></sp-tab-panel>
+            <sp-tab-panel value="2"></sp-tab-panel>
+            <sp-tab-panel value="3"></sp-tab-panel>
+    </sp-tabs> 
+    </sp-theme>
+    <div id="form" class="form">
+  
+
+    <div class="form-control">
+        <label for="booking-id">Booking UUID: *</label>
+        +textfield("id","id","generato dal sistema")     
+    </div>
+    
+    
+         <legend>Periodo Noleggo:</legend>
+    <div class="form-control">
+                <label for="">Dal:*</label>
+                +datepicker("from","from","selezionare data inizio noleggio")
+    </div>
+    <div class="form-control">
+        <label for="cat-height">Al:*</label>
+        +datepicker("to","to","selezionare data inizio noleggio")
+    </div>
+   
+   
+    <div>
+   
+     a(href="/booking/wizard" id="btn-0-avanti" data-link class="btn-form" )
+        <i class="far fa-arrow-alt-circle-right"></i>
+   
+    </div>
+   
+</div>

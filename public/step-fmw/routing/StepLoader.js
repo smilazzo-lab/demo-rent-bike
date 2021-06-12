@@ -14,8 +14,10 @@ export default class StepLoader {
 
     #injectedUi
     
-    constructor(ui) {
-        this.#injectedUi=ui
+    constructor({renderer,setErrorMsg}) {
+      
+        this.#injectedUi={renderer,setErrorMsg};
+        console.log(this.#injectedUi);
     }
 
     

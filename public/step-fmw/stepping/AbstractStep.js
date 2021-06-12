@@ -24,12 +24,11 @@
  * @license MIT
  */
 
-import Observable from "../data-binding/Observable.js";
 import createMemento from '../data-binding/Memento.js';
 
 export default class  {
    
-    #target='';
+    #target;
     inputData ={};
     meta={};
     options=[];
@@ -41,7 +40,68 @@ export default class  {
         this.options = options;
         this.#_$tep_context_ref=stepContext;
         this.#injectetUi=uiRef;
+        
     }
+
+    getAutoBindingRootModel () {
+        for (const prop in this) {
+          if (this.hasOwnProperty(prop)) {
+                  if (prop.startsWith('$_model')){
+                    
+                      return this[prop];
+              }
+          }
+        }
+        throw new Error ('$_model+'+" --> model context autowired not found");
+      }
+
+    getAutoBindingModel (phase=0) {
+        let rootStepModel = this.getAutoBindingRootModel();
+        for (const prop in rootStepModel) {
+          if (rootStepModel.hasOwnProperty(prop)) {
+             
+                  if (prop.startsWith('$_'+phase+'___')){
+                             // attenzione: creazione dinamica di proprietà
+                              rootStepModel[prop].shadowPhase=phase;
+                              return rootStepModel[prop];
+              }
+          }
+        }
+        throw new Error ('$_'+phase+"___  --> model context autowired not found");
+      }
+
+      setBindingModel(memento) {
+        let rootStepModel = this.getAutoBindingRootModel();
+        let phase =memento.shadowPhase;
+     
+        for (const prop in rootStepModel) {
+            if (rootStepModel.hasOwnProperty(prop)) {
+                    if (prop.startsWith('$_'+phase+"___")){
+                            rootStepModel[prop] = memento;
+                }
+            }
+          }
+      }
+    
+      getBindingModel() {
+    
+        let modelRef=null;
+       
+       if (this.getCurrentPhase) {
+            modelRef = this.getAutoBindingModel(this.getCurrentPhase());
+       }else{
+            modelRef= this.getAutoBindingModel();
+        }
+        
+        if (!modelRef) {
+            throw new Error(' non è presente un model per $tep');
+        }
+
+        return modelRef;
+
+    }
+      
+    
 
    getWebUi() {
        return this.#injectetUi;
@@ -63,13 +123,7 @@ export default class  {
         this.meta['search_mode']=newMode;
     }
 
-    getBindingModel(){
-        return null;
-    }
-
-    setBindingModel() {
-        return null;
-    }
+    
 
     getValidator() {
         throw new Error('getValidator is abstract');
@@ -132,13 +186,17 @@ export default class  {
     // Memento Pattern for Progressive Web Apps
     createMemento()  {
         let memento = createMemento(this);
-        memento.setMementoState(this,this.getBindingModel());
+        let innerControllerStatus = this.getBindingModel();
+        console.log("memento push -> "+JSON.stringify(innerControllerStatus));
+        memento.setMementoState(this,innerControllerStatus);
         return memento;
     }
 
     installMemento(memento) {
-        console.log("install memento in callback");
-        this.setBindingModel(memento.getMementoState(this));
+
+        let innerControllerStatus = memento.getMementoState(this);
+        console.log("memento pop <-"+JSON.stringify(innerControllerStatus));
+        this.setBindingModel(innerControllerStatus);
     }
    
 }

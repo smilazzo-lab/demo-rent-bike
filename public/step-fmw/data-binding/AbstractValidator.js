@@ -13,7 +13,7 @@
 export default class AbstractValidator {
 
         #map = new Map();
-        #flgValidationErrors = false;
+       
     
     _validate(tagElement, value) {
         let elementName = tagElement.getAttribute('id');
@@ -23,11 +23,12 @@ export default class AbstractValidator {
         let error= this.validateField(elementName,value);
 
         if (error) {
-            this.#flgValidationErrors=true;
+           
             this.setErrorFor(tagElement,error);
         }
 
         if (!error) {
+           
             this.setSuccessFor(tagElement);
         }
         this.#map.set(elementName, error);
@@ -39,7 +40,12 @@ export default class AbstractValidator {
     }
 
     isValid() {
-        return  !this.#flgValidationErrors;
+      let mapIter = this.#map.values()
+      let count=0;
+      while (mapIter.next().value) {
+        count++;
+      }
+      return count===0;
     }
 
 

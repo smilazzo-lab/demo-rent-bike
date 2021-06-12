@@ -2,8 +2,21 @@ import AbstractDetailStep from "../../step-fmw/stepping/AbstractDetailStep.js";
 import CacheDizionari from "../dictionaries/CacheDizionari.js";
 import CatWizardPhase0Validator from "../validators/CatWizardPhase0Validator.js";
 
-export default class  extends AbstractDetailStep{
-    #cat;
+export default class EditItemController  extends AbstractDetailStep{
+    
+    $_model =  {
+      $_0___item :{
+                   
+                    unityCost: 0,
+                    type: 'CB',
+                    description:'des',
+                    selectedCmbQty : null,
+                    
+      }
+    };
+
+    cmbQty = [];
+    
     #titoloNotify = 'Messaggio di Sistema';
     #messaggioNotigy= 'Attenzione , dichiara di prendere visione di questa supercazzola';
 
@@ -12,31 +25,37 @@ export default class  extends AbstractDetailStep{
     }
 
    
-    getBindingModel() {
-       return this.#cat;
-    }
 
-    setBindingModel(state) {
-      this.#cat=state;
-     }
     // lifecycle 0
     initialize() {
       // nella initialize prendo solo INPUT DATA COME RIFERIMENTO
       let inputData = this.getInputData();
-      inputData.cmbProva = CacheDizionari.getDizionario('Prova');
-      inputData.selectedCmbProva = null;
-      this.setBindingModel(inputData);
-     }
+     
+     console.log( JSON.stringify("INPUT DAT = "+JSON.stringify(inputData)));
+
+
+
+      let modelRef =  this.getBindingModel();
+     
+      modelRef.selectedCmbQty = inputData.quantity;
+      modelRef.type=inputData.type;
+      modelRef.description= inputData.description;
+      modelRef.unityCost = inputData.unityCost;
+      // inizializzazione non parametrica (fissa)
+      this.cmbQty= CacheDizionari.getDizionario('Qty');
+      
+     
+    }
     //  fetch da DETAIL/CAT
 
      renderView() {
        super.getWebUi().renderer({
-        templateName:'cat',
+        templateName:'item',
         templateType:'detail',
         templateMetaInfo:super.getMetaInfo(),
-        templateData: JSON.stringify({cmbProva : this.#cat.cmbProva}),
-        templateBindingZone: this.#cat,
-        templateValidator: new CatWizardPhase0Validator()
+        templateData: JSON.stringify({cmbQty : this.cmbQty}),
+        templateBindingZone: super.getBindingModel(),
+        templateValidator: null
        });
          }
 
@@ -46,19 +65,6 @@ export default class  extends AbstractDetailStep{
     }
 
     callback() {
-      let callbackData = this.getInputData();
-      // se provengo dal confirm interaction
-      if (callbackData['command']) {
-       
-        if (callbackData['command']==='yes') {
-         
-          this.getBindingModel().width="YES CONFIRM";
-        }
-      }
-      else if (callbackData['name']){  // se provengo dalla lookup
-       
-         this.getBindingModel().width=callbackData.name;
-        
-      }
-    }
+
+}
 }

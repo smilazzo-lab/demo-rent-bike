@@ -1,0 +1,14 @@
+mixin lookup-cards(header,values,selflink)
+    each j,r in values
+        <div class="card-trip">
+            <img src="https://via.placeholder.com/350/150" />
+            <div class="card-trip-infos">
+                <div>
+                    <h2>title</h2>:Titolo
+                    <p>description: Meglio di sta bici guarda.. </p>
+                </div>
+                <h2 class="card-trip-pricing">prezzo: per te 10 euri</h2>
+                -let id= "btn-"+r+"-lookup.pick";
+                a(href=selflink id=id data-link class="lookup__button" name="lookup.pick") Pick
+            </div>
+        </div>   

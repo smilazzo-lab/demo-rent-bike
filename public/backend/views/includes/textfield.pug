@@ -1,5 +1,5 @@
-mixin textfield(validationsel,key,placeholder)
-    input(type="text" id=validationsel data-bind=key placeholder=placeholder)
+mixin textfield(validationsel,key,placeholder,d=false)
+    input(type="text" id=validationsel data-bind=key placeholder=placeholder disabled=d)
     <i class="fas fa-check-circle"></i>
     <i class="fas fa-exclamation-circle"></i>
     <small>Error message</small>

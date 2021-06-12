@@ -3,12 +3,12 @@
  * @date 2021
  * $tep framework
  */
-import postUCs from '../use-cases/manifest.js';
+
 import AbstractCollectionStep from "../../step-fmw/stepping/AbstractCollectionStep.js";
 
 export default class  extends AbstractCollectionStep{
-    #cats = [];
-    #header=['id','url','width','height'];
+    #bookings = [];
+    #header=['uuid','surname','total','total'];
     
 
     #apiCommandListaGattiUrl='https://api.thecatapi.com/v1/images/search?limit=4&page=1&order=Desc';
@@ -18,8 +18,7 @@ export default class  extends AbstractCollectionStep{
     }
 
     getElementOfCollection(index) {
-        console.log("sto inviando indietro al contoller elemento:"+JSON.stringify(this.#cats[index]));
-        return this.#cats[index];
+        return this.#bookings[index];
     }
 
     asyncSearch(criteria) {
@@ -34,12 +33,12 @@ export default class  extends AbstractCollectionStep{
     }
 
     getBindingModel() {
-       return this.#cats;
+       return this.#bookings;
       
     }
 
     setBindingModel(state) {
-     this.#cats = state;
+     this.#bookings = state;
     }
     
     // lifecycle 0
@@ -56,9 +55,9 @@ export default class  extends AbstractCollectionStep{
     
      renderView() {
         super.getWebUi().renderer({
-            templateName:'cats',
+            templateName:'bookings',
             templateType:'collection',
-            templateData: JSON.stringify({header:this.#header,data:this.#cats}),
+            templateData: JSON.stringify({header:this.#header,data:this.#bookings}),
             templateMetaInfo: super.getMetaInfo(),
             templateBindingZone:null});
              }

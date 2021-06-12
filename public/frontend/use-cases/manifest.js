@@ -1,13 +1,6 @@
-import daoPost from '../data-access/manifest.js'
-import makeListPosts from './list-posts.js'
-import makeCreatePost from './create-post.js';
+import BookingServiceFactorySingleton from './booking.js'
 
-const listAllPostsUC = makeListPosts({ daoPost });
-const createPostUC = makeCreatePost({daoPost});
+const BookingServiceSingleton = BookingServiceFactorySingleton();
 
-const postUCs = Object.freeze({
-    createPostUC,
-    listAllPostsUC
-});
 
-export default postUCs;
+export default BookingServiceSingleton;

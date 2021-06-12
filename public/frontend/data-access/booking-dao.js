@@ -1,8 +1,8 @@
-export default function makePostDao ( {backend}) {
+export default function BookingDaoFactory ( {backend}) {
  
 return Object.freeze({
     findAll,
-    addPost,
+    saveBooking,
   
   })
 
@@ -14,9 +14,9 @@ return Object.freeze({
 
   }
     
-  async function addPost ( dataInfo ) {
+  async function saveBooking ( dataInfo ) {
     
-    return backend.callApi({uri:'/posts',method:'POST',
+    return backend.callApi({uri:'/bookings',method:'POST',
                         body:{
                               idepost: dataInfo.id,
                               titolo: 'no title',

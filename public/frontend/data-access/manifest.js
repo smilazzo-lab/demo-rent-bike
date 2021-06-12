@@ -1,4 +1,5 @@
-import makePostDao from './post-dao.js';
+import BookingDaoFactory from './booking-dao.js';
+import makePostDao from './booking-dao.js';
 
 const url = 'http://localhost:3000/strapi/';
 
@@ -21,5 +22,5 @@ const backend =  function makeBackend(_url){
        }
    } (url);
 
-const daoPost = makePostDao( { backend } );
-export default daoPost;
+const bookingDao = BookingDaoFactory( { backend } );
+export default bookingDao;

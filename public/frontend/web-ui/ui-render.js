@@ -1,8 +1,22 @@
 import Observable from '../../step-fmw/data-binding/Observable.js';
 
 export default function buildMakeUIRendering () {
+    return Object.freeze({
+        renderView,
+        setErrorMsg
+    });
 
-    return function renderView({templateType,
+    function setErrorMsg(input,errorMsg) {
+        let errorZone =document.querySelector('#'+input).parentElement;
+        console.log(errorZone);
+        const small = errorZone.querySelector('small');
+        console.log("small");
+        errorZone.className = 'form-control error';
+        small.innerText=errorMsg;
+       
+    }
+
+     function renderView({templateType,
                                 templateName,
                                 templateMetaInfo,
                                 templateData,
@@ -26,6 +40,7 @@ export default function buildMakeUIRendering () {
 
     function applyBindings(model,validator){
         document.querySelectorAll("[data-bind]").forEach(elem => {
+          
             let obs = model[elem.getAttribute("data-bind")];
             if (obs instanceof Observable){
                  obs = new Observable(obs.value);

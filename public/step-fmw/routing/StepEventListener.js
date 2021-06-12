@@ -97,7 +97,30 @@ export default class  {
                               .getCurrent()
                               .getElementOfCollection(index));
                      }
-                 }
+                     else if (comando==='listamc.upd'){
+                        this.#_$tep_context
+                       .callStep(e.target.pathname,
+                                 this.#_$tep_context
+                                 .getInteractionStack()
+                                 .getCurrent()
+                                 .getElementOfCollection(index));
+                        }
+                        else if (comando==='listamc.del'){
+                            this.#_$tep_context
+                           .callStep(e.target.pathname,
+                                     this.#_$tep_context
+                                     .getInteractionStack()
+                                     .getCurrent()
+                                     .getElementOfCollection(index));
+                            }
+                 // versione SHORTCUT 
+                 else if (comando==='listamc.del.shortcat'){
+                     console.log("deleting?");
+                    this.#_$tep_context.getInteractionStack()
+                             .getCurrent()
+                             .removeElementOfCollection(index);
+                    }
+                }
          });
     }
     

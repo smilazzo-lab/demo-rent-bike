@@ -132,16 +132,13 @@ export default  class  {
                                firedRoute.route.controller, 
                                firedRoute.route.args
              );
-
-        
-
-        if (stepUrl.isAnInitializeRoute()) {
+      if (stepUrl.isAnInitializeRoute()) {
             // CREATE memento of last interaction || {}
             let statusOld ={};
             let stepOld = this.getInteractionStack().getCurrent();
             if (stepOld){
                 statusOld=stepOld.createMemento();
-            } 
+           } 
             // 2. install new Step
             this.getInteractionStack().push(nextStep);
             // 3. save Memento on top of a stack
@@ -168,7 +165,7 @@ export default  class  {
             //26052021 bugfix
             console.log("memento recuperato="+JSON.stringify(backupMemento));
             if (backupMemento) {
-                if (backupMemento.getMementoState){
+                if (backupMemento.getMementoState()){
                     nextStep.installMemento(backupMemento);
                     // cancello una posizione dallo stack degli stati
                     this.#getMementoStack().pop();

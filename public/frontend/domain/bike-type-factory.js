@@ -1,35 +1,23 @@
-import AbstractCacheDizionari from '../../step-fmw/dictionary/AbstractCacheDizionari.js';
-import Dizionario from '../../step-fmw/dictionary/Dizionario.js';
+import BikeTypeCityBike from "./bike-type-citybike"
+import BikeTypeMtb from "./bike-type-mtb";
 
-export default class extends AbstractCacheDizionari{
+export default function buildMakeBikeType () {
 
-    constructor() {
-        super();
-    }
-
-    static toLiteral(dizionario) {
-        return
-            dizionario.map(x => {
-              return{
-                codice: x.getCodice(),
-                descrizione: x.getDescrizione()
-              }
-            });
-    }
+    let istance = Object.freeze({
+      createBykeType
+    });
+    
+    return  {
+      getIstance:   ()=> istance 
+    };
 
 
-       getDizionarioQty()   {
-         return [
-           new Dizionario('1','1'),
-           new Dizionario('2','2'), 
-           new Dizionario('TRE','3'),
-           new Dizionario('QUATTRO','4'),
-           new Dizionario('CINQUE','5')
-          ];
-       }
-
-       getDizionarioProva() {
-       return  [
+     function createBikeType (codBikeType)
+     
+    {
+     
+      switch(codBikeType) {
+        /*
         new Dizionario('BC','BICI CITTÀ	'),
         new Dizionario('MBF','MOUNTAIN BIKE FRONT'), 
         new Dizionario('MBFS','MOUNTAIN BIKE FULL SUSPENDED'),
@@ -49,11 +37,14 @@ export default class extends AbstractCacheDizionari{
         new Dizionario('BEP','BICI ELETTRICA PIEGHEVOLE'),
         new Dizionario('BSE','BICI DA STRADA ELETTRICA'),
         new Dizionario('BGE','BICI GRAVEL ELETTRICA')
-
-       
-        
-       ];
-
+        */
+        case 'BC': return new BikeTypeCityBike();break;
+        case 'MBF' :return new BikeTypeMtb();break;
+        default: return new BikeTypeCityBike();
+      }
     }
-}
- 
+  }
+  
+      
+    
+  

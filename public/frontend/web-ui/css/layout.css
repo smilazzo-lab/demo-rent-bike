@@ -13,18 +13,18 @@
         display:grid;
         grid-template-columns: 300px 1fr 1fr 1fr 1fr;
        grid-template-areas:  "header header header header header"
-                            "sidebar main main main main"
-                            "footer main main main main";
+                            "main main main main main"
+                            "footer footer footer footer footer";
       }
   }
   
   @media all and (max-width: 499px) {
     .grid-wrapper {
     display:grid;
-    grid-template-columns: 199px 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:  "header header header header header"
                             "sidebar sidebar sidebar sidebar sidebar"
-                            "main main main main main"
+                            "sidebar main main main sidebar"
                             "footer footer footer footer footer";
    }
   }
@@ -33,10 +33,11 @@
     .grid-item:nth-child(1){
       grid-area: header;
       height:10vh;
-      position: fixed;
-      width: 98%;
-      top: 10;
-      left: 10;
+      position: relative;
+      width:60%;
+      justify-self: center;
+      top: 0;
+  
     }
   }
 
@@ -89,13 +90,12 @@
 
 @media all and (min-width: 500px) {
   .grid-item:nth-child(3){
-    background-color: transparent;
-    grid-area: main;
-    padding-top:auto;
-    min-height:400px;
-    max-height: auto;
-    margin: 75px 0px;
-  
+   grid-area: main;
+    max-width: 700px;
+    min-width: 700px;
+    max-height: 450px;
+    justify-self: center;
+   
   }
   
   .grid-item:nth-child(3) >h1{
@@ -215,7 +215,7 @@
 
 .page-tile .page-main {
     justify-self: left;
-   /* background-color: grey; */
+   background-color: transparent; 
     grid-column: 2/4;
     height: 400px;
     

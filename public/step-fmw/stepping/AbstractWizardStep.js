@@ -12,7 +12,7 @@
 
 import AbstractStep from "./AbstractStep.js";
 
-export default class extends AbstractStep {
+export default class extends AbstractStep{
     // il target html dove renderizzare la classe
     #target='';
     #inputData ={};
@@ -26,15 +26,23 @@ export default class extends AbstractStep {
         return this.#phaseNo;
     }
 
-    switchToPhase(phaseNo){
-       this.initialize();
+    getBindingModel() {
+        return super.getBindingModel();
     }
 
+    setBindingModel(memento) {
+        super.setBindingModel(memento);
+    }
+    switchToPhase(phaseNo){
+      this.#phaseNo=phaseNo;
+    }
+
+   
     avanti() {
       
         this.#phaseNo++;
         this.switchToPhase(this.#phaseNo);
-        super.renderView();
+        this.renderView();
     }
 
     indietro() {
@@ -42,7 +50,7 @@ export default class extends AbstractStep {
             this.#phaseNo--;
         }
         this.switchToPhase(this.#phaseNo);
-        super.renderView();
+        this.renderView();
     }
     
    
@@ -54,15 +62,22 @@ export default class extends AbstractStep {
 
     // pipeline di template 
     _initialize(c,m) {
-        super.setInputData(c);
-        super.setMetaInfo(m);
+        // Clonare gli oggetti interrompere il riferimento diretto
+        let metaInfo= JSON.parse(JSON.stringify(m));
+        let inputData=JSON.parse(JSON.stringify(c));
+
+        super.setInputData(inputData);
+        super.setMetaInfo(metaInfo);
+
         this.initialize();
-        super.renderView();
+        this.renderView();
+       
     }
 
     conferma() {
         console.log("inside conferma");
         console.log("edit_mode="+super.getEditMode());
+
        if(super.getEditMode()==='vis'){
         this.insertEntity();
        }
