@@ -249,7 +249,7 @@
   }
   
   .notification:nth-child(odd) {
-    background-color:lightgoldenrodyellow;
+    background-color: lightgrey;
 }
   
   .notification p {
@@ -459,7 +459,8 @@
    /* background-color: black; */
     background-image: url("deploy.jpg");
     background-size: 100%;
-    ;
+    font-family: 'Tangerine', serif ;
+   
     scale: inherit;
    
     opacity: 1;

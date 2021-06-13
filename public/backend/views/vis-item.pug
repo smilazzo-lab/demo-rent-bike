@@ -13,21 +13,27 @@
     .header
         .h2 Booking Edit Item
     <div id="form" class="form">
-    <div class="form-control">
-        <label for="type">Titolo: *</label>
-        +textfield("type","type","type",true)     
-    </div>
-     <div class="form-control">
-        <label for="description">Descrizione: *</label>
-        +textfield("description","description","description",true)     
-    </div>
-    <div class="form-control">
-        <label for="unityCost">Costo Unitario: *</label>
-        +textfield("unityCost","unityCost","unityCost")     
-    </div>
-    <div class="form-control">
-        <label for="qty-select">Qty:</label>
-        +select("qty-select","selectedCmbQty",cmbQty)
+      <div class="card-trip">
+            <img src="https://via.placeholder.com/350/150" />
+            <div class="card-trip-infos">
+                <div class="form-control">
+                    <label for="type">Titolo: *</label>
+                    +textfield("type","type","type",true)     
+                </div>
+                <div class="form-control">
+                    <label for="description">Descrizione: *</label>
+                    +textfield("description","description","description",true)     
+                </div>
+                <div class="form-control">
+                    <label for="unityCost">Costo Unitario: *</label>
+                    +textfield("unityCost","unityCost","unityCost")     
+                </div>
+                <div class="form-control">
+                    <label for="qty-select">Qty:</label>
+                    +select("qty-select","selectedCmbQty",cmbQty)
+                </div>
+            </div>
+      </div>  
     </div>
     <div>
         +tasto-annulla(callingLink,'Indietro')

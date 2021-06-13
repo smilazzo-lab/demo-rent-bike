@@ -21,6 +21,7 @@ mixin lista-mc-items(header,values,href)
                     a(href=href id=id_can data-link class="lookup__button_del") elimina
                 .cat-listmc-columns-container
                     -let currentRowData = values[r];
+                    <img src="https://via.placeholder.com/100/100"/>
                     each i in currentRowData
                        if i===2
                         +select('qty','qty','qty')

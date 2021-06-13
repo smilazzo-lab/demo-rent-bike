@@ -1,7 +1,7 @@
   
   .lookup__button {
     -webkit-appearance: none;
-    background: lightgreen;
+    background: mediumseagreen;
     border: 2px solid black;
     border-radius: 20px;
     outline: none;
@@ -9,7 +9,7 @@
     margin-right: 15px;
     color: #ffffff;
     font-size: 1em;
-    font-family: "Quicksand", sans-serif;
+    
     font-weight: bold;
     cursor: pointer;
   }
@@ -23,7 +23,7 @@
     margin-right: 15px;
     color: #ffffff;
     font-size: 1em;
-    font-family: "Quicksand", sans-serif;
+   
     font-weight: bold;
     cursor: pointer;
   }
