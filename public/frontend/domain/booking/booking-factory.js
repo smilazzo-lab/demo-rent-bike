@@ -1,4 +1,4 @@
-import Booking from "./booking.js"
+import BookingEntity from "./booking-entity.js"
 
 export default function buildMakeBooking() {
 
@@ -14,9 +14,9 @@ export default function buildMakeBooking() {
   }
 
   function createBooking({ id = createUUID(),
-    name, surname, email, phoneNo,
-    createdAt = Date.now(),
-    interval
+                          name, surname, email, phoneNo,
+                          createdAt = Date.now(),
+                          interval
   } = {}) {
     if (!id) {
       throw new Error('Booking must have a valid id.');
@@ -55,14 +55,13 @@ export default function buildMakeBooking() {
     }
 
 
-    return new Booking({ id, interval, name, surname, email, phoneNo, createdAt });
+    return new BookingEntity({ id, interval, name, surname, email, phoneNo, createdAt });
 
 
   }
 
 
   function createUUID() {
-
     let dt = new Date().getTime()
 
     const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

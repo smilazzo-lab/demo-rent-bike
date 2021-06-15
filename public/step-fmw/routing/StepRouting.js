@@ -6,30 +6,26 @@
  * @license MIT
  */
 
-import StepStack  from './StepStack.js';
+import StepStack from './StepStack.js';
 import StepParameters from './StepParameters.js';
 import StepUrl from './StepUrl.js';
 
-export default  class  {
-   
-    #stepStack      = new StepStack(); 
-    #mementoStack   = new StepStack();
-    #parametersStack= new StepStack();
+export default class {
 
-    #routes =[];
+    #stepStack = new StepStack();
+    #mementoStack = new StepStack();
+    #parametersStack = new StepStack();
+
+    #routes = [];
     #stepLoader;
-    // è un riferimento alla ui da injettare dentro i 
-    // vari
-    
-    
 
-    constructor(routes,stepLoader) {
-     this.#routes = routes;
-     this.#stepLoader = stepLoader;
-    
+    constructor(routes, stepLoader) {
+        this.#routes = routes;
+        this.#stepLoader = stepLoader;
+
     }
 
-    getInteractionStack(){
+    getInteractionStack() {
         return this.#stepStack;
     }
 
@@ -40,146 +36,145 @@ export default  class  {
     #getParamsStack() {
         return this.#parametersStack;
     }
-   
-   // Examples:
-   // routeTo ('/Home','initialize',inputData={},metaInfos={edit_mode:vis,prevLink='/',actualLink='/'})
-   // routeTo ('/cats','initialize',inputData={},metaInfos={search_mode:search,prevLink='/',actualLink='/cats'})
 
-    #routeTo = (stepUrl,stepParams,stepContextRef) => {
-          history.pushState(null,null,stepUrl.getUrl());
-          this.#installStep(stepUrl,stepParams,stepContextRef);
+    // Examples:
+    // routeTo ('/Home','initialize',inputData={},metaInfos={edit_mode:vis,prevLink='/',actualLink='/'})
+    // routeTo ('/cats','initialize',inputData={},metaInfos={search_mode:search,prevLink='/',actualLink='/cats'})
+
+    #routeTo = (stepUrl, stepParams, stepContextRef) => {
+        history.pushState(null, null, stepUrl.getUrl());
+        this.#installStep(stepUrl, stepParams, stepContextRef);
     }
 
-    #createStepParameters(inputData,routePath) {
-        let firedRoute= this.#getFiredRoute(window.location.pathname).route;
+    #createStepParameters(inputData, routePath) {
+        let firedRoute = this.#getFiredRoute(window.location.pathname).route;
         let linkCurrentStep = firedRoute.path;
         let linkNextStep = routePath;
-        let edit_mode= firedRoute.edit_mode;
+        let edit_mode = firedRoute.edit_mode;
         let search_mode = firedRoute.search_mode;
-        let title =firedRoute.title;
-        let params=StepParameters.createParameters(inputData,
-                                                   linkCurrentStep,
-                                                   linkNextStep,
-                                                   edit_mode,
-                                                   search_mode,
-                                                   title
-                     );
+        let title = firedRoute.title;
+        let params = StepParameters.createParameters(inputData,
+            linkCurrentStep,
+            linkNextStep,
+            edit_mode,
+            search_mode,
+            title
+        );
         this.#getParamsStack().push(params);
         return params;
     }
 
     #restoreStepParameters(data) {
         this.#getParamsStack().pop();
-        let fromStack =this.#getParamsStack().getCurrent();
-        if (fromStack===null) return null;
-        fromStack.inputData=data;
-        let stepParams= {};
-        if (fromStack){
-            stepParams=fromStack;
-        }else{
-            stepParams = StepParameters.createParameters(data,"/","/");
+        let fromStack = this.#getParamsStack().getCurrent();
+        if (fromStack === null) return null;
+        fromStack.inputData = data;
+        let stepParams = {};
+        if (fromStack) {
+            stepParams = fromStack;
+        } else {
+            stepParams = StepParameters.createParameters(data, "/", "/");
         }
         return stepParams;
     }
 
     // start a new Web Step
-    callStep(routePath,callingStepInputData={}) {
+    callStep(routePath, callingStepInputData = {}) {
         this.#routeTo(  //  URL+METHOD
-                        new StepUrl(routePath,'initialize'),
-                        // DATA PIU LINKED STEP LINKS
-                        this.#createStepParameters(callingStepInputData,routePath),
-                        // ROUTER REF
-                        this
-                        
-            );
+            new StepUrl(routePath, 'initialize'),
+            // DATA PIU LINKED STEP LINKS
+            this.#createStepParameters(callingStepInputData, routePath),
+            // ROUTER REF
+            this
+
+        );
     }
 
-     // return to a Previous Web Step   
-    returnStep(routePath,fromStepOutputdata={}) {
-       
-        this.#routeTo( // URL+ CALLBACK
-                      new StepUrl(routePath,'callback'),
-                      // FETCH PREVIOUS LINK STATE AND OVERRIDE WITH OUTPUT DATA
-                      this.#restoreStepParameters(fromStepOutputdata),
-                      this,
-                      
-          );
-        }
+    // return to a Previous Web Step   
+    returnStep(routePath, fromStepOutputdata = {}) {
 
-    callMethodOfCurrentStep(methodName){
-        this.#routeTo(new StepUrl(window.location.pathname,methodName));
+        this.#routeTo( // URL+ CALLBACK
+            new StepUrl(routePath, 'callback'),
+            // FETCH PREVIOUS LINK STATE AND OVERRIDE WITH OUTPUT DATA
+            this.#restoreStepParameters(fromStepOutputdata),
+            this,
+
+        );
+    }
+
+    callMethodOfCurrentStep(methodName) {
+        this.#routeTo(new StepUrl(window.location.pathname, methodName));
     }
 
     #getFiredRoute(pathToBeMatched) {
-         let firedRoute = 
-          this.#routes.map(x => {
-                          return {route: x, 
-                                  fired: pathToBeMatched=== x.path
-                                  }
-                                }
-                        )
-                      .find(y => y.fired);
+        let firedRoute =
+            this.#routes.map(x => {
+                return {
+                    route: x,
+                    fired: pathToBeMatched === x.path
+                }
+            }
+            )
+                .find(y => y.fired);
 
-        return firedRoute ? firedRoute : {route:this.#routes[0],fired:true}
-        
+        return firedRoute ? firedRoute : { route: this.#routes[0], fired: true }
+
     }
 
     #installStep(stepUrl, stepParams, stepContext) {
-        console.log("nextStep URL="+stepUrl.getUrl());
         let firedRoute = this.#getFiredRoute(stepUrl.getUrl());
-        let nextStep = 
-        this.#stepLoader.instantiate(stepContext, 
-                               firedRoute.route.controller, 
-                               firedRoute.route.args
-             );
-      if (stepUrl.isAnInitializeRoute()) {
+        // factory del controller/step che deve gestire la route sul client spa
+        let nextStep = this.#stepLoader.instantiate(
+            stepContext,
+            firedRoute.route.controller,
+            firedRoute.route.args
+        );
+        let stepMethodToInvoke;
+        // NUOVO ROTTA NELL'ALBERO DI NAVIGAZIONE
+        if (stepUrl.isAnInitializeRoute()) {
+            stepMethodToInvoke = '_initialize';
             // CREATE memento of last interaction || {}
-            let statusOld ={};
+            let statusOld = {};
             let stepOld = this.getInteractionStack().getCurrent();
-            if (stepOld){
-                statusOld=stepOld.createMemento();
-           } 
-            // 2. install new Step
+            if (stepOld) {
+                // ATTENZIONE: la creazione del memento da salvare e ripristinare successivamente riguarda 
+                // solo il model della phase corrente dell'interazione a wizard.
+                // il motivo? tutta la session è già disponibile sul client, il mememnto viene utilizzato 
+                // esclusivamente per avere effetti collaterali tra una interazione e la successsiva
+                // ma relativamente al model della phase corrente ha senso! 
+                statusOld = stepOld.createMemento();
+            }
+            // install new Step
             this.getInteractionStack().push(nextStep);
             // 3. save Memento on top of a stack
             this.#getMementoStack().push(statusOld);
-            // 4. execute next step
-            // es. {  inputData : {},
-            //        metaInfo : { edit_mode:'vis', calledLink='/' calling='/cats'}
-            //    
-            // }
-            if (stepParams) {
-              
-                nextStep._initialize(stepParams.inputData,
-                                     stepParams.metaInfo
-                );
-            }
            
         }
+        // RITORNO DI ROTTA NELL'ALBERO DI NAVIGAZIONE
         if (stepUrl.isACallbackRoute()) {
+            stepMethodToInvoke = '_callback';
             // estrae dallo stepcontext l'elemento morente
             this.getInteractionStack().pop();
-          
-            let backupMemento=this.#getMementoStack()
-                              .getCurrent();
+            // per ripristinare lo step, recupero il suo ultimo snapshot dello stato
+            let backupMemento = this.#getMementoStack().getCurrent();
             //26052021 bugfix
-            console.log("memento recuperato="+JSON.stringify(backupMemento));
             if (backupMemento) {
-                if (backupMemento.getMementoState()){
+                if (backupMemento.getMementoState()) {
                     nextStep.installMemento(backupMemento);
                     // cancello una posizione dallo stack degli stati
                     this.#getMementoStack().pop();
                 }
             }
-            if (stepParams) {
-
-                nextStep._callback(stepParams.inputData,
-                    stepParams.metaInfo
-                    );
-                }
-         }
-        if (stepUrl.getMethod()==='conferma'){
-            this.getInteractionStack().getCurrent()[method]();
+        }
+        if (stepUrl.getMethod() === 'conferma') {
+            stepMethodToInvoke = 'conferma';
+        }
+        //  INVOCA IL GIUSTO METHOD DINAMICAMENTE
+        if (stepParams) {
+            this.getInteractionStack().getCurrent()[stepMethodToInvoke](
+                stepParams.inputData,
+                stepParams.metaInfo
+            );
         }
     }
 }

@@ -1,12 +1,20 @@
-import buildMakeBooking from './booking-factory.js';
-import buildMakeBikeType from './bike-type-factory.js'
-import buildMakeBookingRepository from './booking-repository.js';
-import {daoBooking} from '../data-access/manifest.js';
+import buildMakeBooking from './booking/booking-factory.js';
+import buildMakeBookingRepository from './catalog/product-repository.js';
+import buildMakeBikeProductRepository from './catalog/product-repository.js';
+import buildMakePriceStrategy from './price-strategy/price-strategy-factory.js';
+import daoBooking from '../data-access/manifest.js';
  
-const BookingFactorySingleton = buildMakeBooking();
-const BikeTypeFactorySingleton = buildMakeBikeType();
-const BookingRepositoryFactorySingleton = buildMakeBookingRepository({ daoBooking });
 
-export default {BookingFactorySingleton,
-                BikeTypeFactorySingleton,
-                BookingRepositoryFactorySingleton};
+const BookingRepositoryFactorySingleton = buildMakeBookingRepository({ daoBooking });
+const ProductRepositorySingleton = buildMakeBikeProductRepository({ daoBooking });
+const PriceStrategyFactorySingleton = buildMakePriceStrategy();
+
+
+let ddd = {BookingFactorySingleton : buildMakeBooking(),
+    BookingRepositoryFactorySingleton,
+   ProductRepositorySingleton,
+   PriceStrategyFactorySingleton};
+
+export default  ddd;
+
+            

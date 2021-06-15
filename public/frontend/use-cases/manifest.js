@@ -1,4 +1,4 @@
-import BookingServiceFactorySingleton from './booking.js'
+import BookingServiceFactorySingleton from './booking-some-bikes.js'
 
 const BookingServiceSingleton = BookingServiceFactorySingleton();
 

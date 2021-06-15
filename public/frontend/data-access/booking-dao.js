@@ -1,22 +1,30 @@
 export default function BookingDaoFactory ( {backend}) {
- 
-return Object.freeze({
-    findAll,
-    saveBooking,
-  
-  })
+
+  let restBackend= backend;
 
   async function findAll () {
     // 
-     return backend.callApi({uri:'/posts'})
+     return restBackend.callApi({uri:'/posts'})
      .then(data => data.json());
    
 
   }
+
+ async  function  findAllProducts() {
+    console.log("INside DAO. findAllProducts");
+    console.log("restBackend = "+restBackend);
+    return restBackend.callAPI({uri:"/services"})
+           
+           
+           //.error(err=>console.log(error));
+
+          
+           
+  }
     
   async function saveBooking ( dataInfo ) {
     
-    return backend.callApi({uri:'/bookings',method:'POST',
+    return restBackend.callApi({uri:'/bookings',method:'POST',
                         body:{
                               idepost: dataInfo.id,
                               titolo: 'no title',
@@ -26,5 +34,15 @@ return Object.freeze({
                        .then(data => data.json());
   }
 
+   
+  
+let dao=  Object.freeze({
+  findAll,
+  saveBooking,
+  findAllProducts
+
+});
+
+return dao;
    
 }

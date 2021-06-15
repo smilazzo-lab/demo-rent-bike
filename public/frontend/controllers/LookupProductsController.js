@@ -3,8 +3,8 @@
  * @date 2021
  * $tep framework
  */
-
 import AbstractLookupStep from "../../step-fmw/stepping/AbstractLookupStep.js";
+import BookingServiceSingleton from "../use-cases/manifest.js";
 
 export default class  extends AbstractLookupStep{
     
@@ -13,8 +13,6 @@ export default class  extends AbstractLookupStep{
         $_0___items: { elencoTipologieBici : []     }
     };
     #header=['type','description','unityCost','qty'];
-
-    
      /*
         item: {
             qty: 0,
@@ -22,8 +20,7 @@ export default class  extends AbstractLookupStep{
             unityCost: 0,
             type: ''
             */
-    
-    constructor(stepContext,specificato,search_mode) {
+        constructor(stepContext,specificato,search_mode) {
         
         super(stepContext,specificato,search_mode);
         // shortcut perchè sull'inizio della interazione
@@ -51,7 +48,7 @@ export default class  extends AbstractLookupStep{
      }
 
 
-     asyncSearch(criteria) {
+     async asyncSearch(criteria) {
    /*
         item: {
             qty: 0,
@@ -60,18 +57,8 @@ export default class  extends AbstractLookupStep{
             type: ''
             */
           
-        let ret =  [
-            {type:'CB1',description:'City Bike 1',unityCost :'1',quantity:1},
-            {type:'CB2',description:'City Bike 2',unityCost :'2',quantity:1},
-            {type:'CB3',description:'City Bike 3',unityCost :'3',quantity:1},
-            {type:'CB4',description:'City Bike 4',unityCost :'4',quantity:1},
-            {type:'CB5',description:'City Bike 5',unityCost :'5',quantity:1},
-            {type:'CB6',description:'City Bike 6',unityCost :'6',quantity:1},
-            {type:'CB7',description:'City Bike 7',unityCost :'7',quantity:1},
-            {type:'CB8',description:'City Bike 8',unityCost :'8',quantity:1},
-                  ];
-      
-        return ret;
+        return BookingServiceSingleton.getIstance()
+                                       .queryProductServices();
     }
     
    
@@ -88,7 +75,4 @@ export default class  extends AbstractLookupStep{
             templateMetaInfo:super.getMetaInfo(),
             templateBindingZone:super.getBindingModel()});
         }
-
-   
-
 }

@@ -100,7 +100,7 @@ sp-tabs{
 
 
 .form-control.success input {
-	border-color: #2ecc71;
+	/*border-color: lightblue;*/
 	
 	background-color:white !important ;
 	color:black !important;
@@ -108,7 +108,10 @@ sp-tabs{
 
 
 .form-control.error input {
-	border-color: #e74c3c;
+	/*border-color: yellow;*/
+		
+	background-color:white !important ;
+	color:black !important;
 }
 
 .form-control a {
@@ -130,10 +133,10 @@ sp-tabs{
 }
 
 .form-control.success i.fa-check-circle {
-	color: #2ecc71;
+	color: lightblue;
 	visibility: visible;
 
-    font-size: 33px;
+    font-size: 2em;
 }
 
 .form-control.error i.fa-exclamation-circle {
@@ -141,7 +144,7 @@ sp-tabs{
 	visibility: visible;
 	color: #e74c3c;
     visibility: visible;
-    font-size: 33px;
+    font-size: 2em;
 }
 
 .form-control small {
@@ -325,7 +328,7 @@ sp-tabs{
 }
 
 .floating-text a {
-	color: #FF7500;
+	color: lightblue;
 	text-decoration: none;
 }
 

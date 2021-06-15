@@ -41,20 +41,18 @@ export default class extends AbstractDetailStep {
      
   // da pulsante
     doLookupSearch(criteria) {
-        let data = this.asyncSearch({});
-        console.log("da sta parte dicevo="+data);
-        /** TODO: ripristinare
-         * 
-         .then(data=>data.json())
+        let data = this.asyncSearch({})
+       
+         
          .then(data => {
-            */
+            
             this.setCollection(data);
             this.renderView()
-       // })
+        })
         ;
     }
 
-    asyncSearch(criteria) {
+    async asyncSearch(criteria) {
         throw new Error('asyncSearch not implemented!')
     }
 

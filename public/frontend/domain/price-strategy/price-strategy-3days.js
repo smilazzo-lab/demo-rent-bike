@@ -1,7 +1,6 @@
-import CostReduxStrategyInterface from "./cost-redux-strategy-i.js";
-import intervalToDuration from 'date-fns/intervalToDuration.js'
+import PriceStrategyInterface from "./price-strategy-i.js";
 
-export default class CostReduxStrategy3Days extends CostReduxStrategyInterface {
+export default class Price3DaysStrategy extends PriceStrategyInterface {
     saleRatio(periodoNoleggio) {
         let duration = intervalToDuration(periodoNoleggio);
         

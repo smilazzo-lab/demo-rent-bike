@@ -36,10 +36,10 @@
                     "title":"BOOKING Creation",
                     "edit_mode":"ins"
                 },
-                {   "path":"/booking/wizard/lookup-bike", 
-                    "controller" :"STP.LKP_WIZ_ITEM",
+                {   "path":"/booking/wizard/lookup-products", 
+                    "controller" :"STP.LKP_WIZ_PRODUCTS",
                     "args":["#step","search"],
-                    "title":"Lookup Cat",
+                    "title":"Lookup From Product Catalog",
                     "search_mode":"search"
                 },
                 {

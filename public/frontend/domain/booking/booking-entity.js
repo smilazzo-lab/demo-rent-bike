@@ -1,6 +1,6 @@
-import BookingItem from "./booking-item";
+import BookingItem from "./booking-item-entity.js";
 
-export default class Booking {
+export default class BookingEntity {
      #id;  // todo creazione dell'id
      #interval;
      #name;
@@ -26,14 +26,12 @@ export default class Booking {
 
      }
 
-    
-
      addBookingItem(bookingItem) {
          if ( !bookingItem instanceof BookingItem) {
              throw new Error('not adding a valid item');
          }
          bookingItem.push(bookingItem);
-         this.#totalPrize=this.calculateTotal();
+       
 
      }
 
@@ -42,7 +40,4 @@ export default class Booking {
          this.#bookingItems.forEach((item) => total+= item.getItemCost());
          return total;
      }
-      
-     
-
 }

@@ -1,6 +1,5 @@
 import AbstractDetailStep from "../../step-fmw/stepping/AbstractDetailStep.js";
 import CacheDizionari from "../dictionaries/CacheDizionari.js";
-import CatWizardPhase0Validator from "../validators/CatWizardPhase0Validator.js";
 
 export default class  extends AbstractDetailStep{
     #cat;
@@ -36,7 +35,7 @@ export default class  extends AbstractDetailStep{
         templateMetaInfo:super.getMetaInfo(),
         templateData: JSON.stringify({cmbProva : this.#cat.cmbProva}),
         templateBindingZone: this.#cat,
-        templateValidator: new CatWizardPhase0Validator()
+        templateValidator: null
        });
          }
 

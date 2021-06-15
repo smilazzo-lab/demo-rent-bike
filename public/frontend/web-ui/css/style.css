@@ -125,11 +125,11 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    border-radius: 10px;
+    border-radius: 30px;
     list-style: none;
     margin: 0px 2px;
-    background: rgba(12, 190, 185, 0.185);
-    box-shadow: 2px 2px lightslategray;
+    
+    box-shadow: 4px 4px lightblue;
    
     
   }
@@ -142,7 +142,10 @@
   }
   
   .navigation a:hover {
-    background: #1565C0;
+    background: lightblue;
+    color: black;
+    min-width: 70px;
+    border-radius: 30px;
   }
   
   @media all and (max-width: 800px) {
@@ -456,12 +459,19 @@
 
 
    .principal {
-   /* background-color: black; */
+    
     background-image: url("deploy.jpg");
     background-size: 100%;
+
+
+
+    
+    
     font-family: 'Tangerine', serif ;
-   
+    font-style: italic;
+    font-size: large;
+    
     scale: inherit;
    
-    opacity: 1;
+    opacity: 0.99;
    }

@@ -105,6 +105,11 @@ export default class WizardBookingController extends AbstractWizardStep {
       // validazione delle data from > data To
       let from = Date.parse(super.getBindingModel().from.value);
       let to = Date.parse(super.getBindingModel().to.value);
+      let limiteValiditaApp= new Date('01/01/2022').getTime();
+
+      console.log("from="+from);
+      console.log("to="+to);
+      console.log("limiteValiditaApp="+limiteValiditaApp);
       let error = false;
       if (!(super.getBindingModel().from.value)) {
         super.getWebUi().setErrorMsg('from', 'La data è obbligatoria');
@@ -112,6 +117,15 @@ export default class WizardBookingController extends AbstractWizardStep {
       }
       if (!(super.getBindingModel().to.value)) {
         super.getWebUi().setErrorMsg('to', 'La data è obbligatoria');
+        error = true;
+      }
+      if (from >limiteValiditaApp) {
+        super.getWebUi().setErrorMsg('from', 'La data iniziale non può superare il 31/12/2021');
+        error = true;
+      }
+
+      if (to >limiteValiditaApp) {
+        super.getWebUi().setErrorMsg('to', 'La data finale non può superare il 31/12/2021');
         error = true;
       }
       if (from > to) {
