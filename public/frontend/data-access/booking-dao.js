@@ -11,6 +11,7 @@ export default function BookingDaoFactory({ backend }) {
   }
 
   async function findAllProducts() {
+    
     return restBackend.callAPI({ uri: "/services" })
       .then(data => data.json())
       .then(productList => {

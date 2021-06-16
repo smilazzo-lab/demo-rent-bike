@@ -20,7 +20,8 @@ export default function BookingServiceFactorySingleton() {
 
 // 
 async function queryProductServices() {
-  return  ddd.ProductRepositorySingleton.getInstance()
+  console.log("+++++++++++++++++++");
+  return  ddd.ProductRepositorySingleton.getInstance().findAllProducts();
 }
 
   // aggancia una nuova categoria di bici alla prenotazione

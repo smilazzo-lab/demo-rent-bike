@@ -7,6 +7,7 @@ const url = 'http://localhost:1337';
    console.log("making backend..");
    let baseUrl = _url;
    return Object.freeze( { callAPI : async function ({_url,uri='/', method='GET',body={}}) {
+     console.log("uri="+uri);
                                         const request4post = {
                                             method: method, // *GET, POST, PUT, DELETE, etc.
                                             mode: 'cors', // no-cors, *cors, same-origin
@@ -36,7 +37,8 @@ const url = 'http://localhost:1337';
 
                                           console.log("requesting "+baseUrl+uri+ " with "+JSON.stringify(request4get));
                                          
-                                        return fetch(baseUrl+uri, request4get); 
+                                       // return fetch(baseUrl+uri, request4get); 
+                                        return fetch('http://localhost:1337/services', request4get); 
                                        }
                            });
                    }

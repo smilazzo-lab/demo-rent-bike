@@ -32,6 +32,7 @@ export default function buildMakeBikeProductRepository ({ daoBooking}) {
 ]
 */
     async function  findAllProducts() {
+      console.log("+++++++++++++++++++");
       return daoBooking.findAllProducts();
     }
 
