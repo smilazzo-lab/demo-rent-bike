@@ -196,7 +196,7 @@
 
   .card-product {
     overflow: hidden;
-    height: 120px;
+    height: 300px;
     background: white;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     margin-left: 20;
@@ -205,9 +205,9 @@
   }
   
   .card-product img {
-    height: 100%;
-    width: 120px;
-    object-fit: cover;
+    height: 300px;
+    width: 300px;
+    object-fit: scale-down;
   }
   
   .card-product h2 {
@@ -226,7 +226,11 @@
   
   .card-product .card-product-infos {
     padding: 16px;
-  }
+    width: 100%;
+    
+    margin: 30px 150px;
+}
+  
   
   .notification {
   
@@ -352,35 +356,26 @@
     
   }
 
-  .btn-form {/**
-    margin: 10px 15x 15px 10px;
-    color: white;
-    background-color: orange;
-    height:60px;
-    opacity: 0.8;
-    border-radius: 2px;
-    width: 100%;
-    text-align: center;
-    text-justify: center;
-    border-style: solid;
-    border-color:white;
-    box-shadow: 1px 1px grey;**/
+  .btn-form {
     display: block;
-    border-radius: 2px;
-    border: 1px solid white;
+    border-radius: 100px;
+    border: 1px solid lightblue;
     width: auto;
     color: lightskyblue;
     background-color: white;
     padding: 14px 28px;
-    font-size: 48px;
+    font-size: 18px;
     cursor: pointer;
     text-align: center;
-    border-color:white;
-    box-shadow: 1px 1px grey;
+    border-color: grey;
+    
   }
 
+ 
+
   .btn-form:hover {
-    opacity: 1;
+    background: lightskyblue;
+     color: black;
   }
 
   .btn-form-text {
@@ -423,9 +418,9 @@
   }
   
   .card-trip > img {
-    height: 200px;
-    width: 100%;
-    object-fit: cover;
+    height: 300px;
+    width: 300px;
+    object-fit: scale-down;
   }
   
   .card-trip h2 {

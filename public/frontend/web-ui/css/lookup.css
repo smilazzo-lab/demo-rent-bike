@@ -1,5 +1,5 @@
   
-  .lookup__button {
+  .lookup__button {/*
     -webkit-appearance: none;
     background: mediumseagreen;
     border: 2px solid black;
@@ -11,7 +11,24 @@
     font-size: 1em;
     
     font-weight: bold;
+    cursor: pointer;*/
+    display: block;
+    border-radius: 100px;
+    border: 1px solid lightblue;
+    width: auto;
+    color: lightskyblue;
+    background-color: white;
+    padding: 14px 28px;
+    font-size: 18px;
     cursor: pointer;
+    text-align: center;
+    border-color: grey;
+    
+  }
+
+  .lookup__button:hover {
+     background: lightskyblue;
+     color: black;
   }
   .lookup__button_del {
     -webkit-appearance: none;
@@ -29,7 +46,7 @@
   }
   
   .lookup__button:active {
-    background: mediumaquamarine;
+    background: grey;
   }
   
   

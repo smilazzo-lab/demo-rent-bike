@@ -10,9 +10,9 @@ export default class  extends AbstractLookupStep{
     
     criteria={};
     $_model ={
-        $_0___items: { elencoTipologieBici : []     }
+        $_0___items: { listOfProducts : []     }
     };
-    #header=['type','description','unityCost','qty'];
+    #header=['type','description','unityCost','qty','picture_uri'];
      /*
         item: {
             qty: 0,
@@ -25,19 +25,26 @@ export default class  extends AbstractLookupStep{
         super(stepContext,specificato,search_mode);
         // shortcut perchè sull'inizio della interazione
         // gia voglio l elenco dei tipi di bici
-        super.doLookupSearch(this.criteria);
-    }
+        super.doLookupSearch(this.criteria)
+        .then(data => this.setCollection(data));
+        //.then(this.renderView());
+        }
+       
+    
     getCriteria() {
         return this.criteria;
     }
 
     setCollection(lst) {
-      this.$_model.$_0___items.elencoTipologieBici=lst;
+        console.log("set Collection = "+JSON.stringify(lst));
+      this.$_model.$_0___items.listOfProducts=lst;
+      console.log("set Collection = "+JSON.stringify(this.$_model.$_0___items.listOfProducts));
+      this.renderView();
     }
       
 
      pickElement(i){
-         return super.getBindingModel().elencoTipologieBici[i];
+         return super.getBindingModel().listOfProducts[i];
      }
 
 
@@ -57,20 +64,20 @@ export default class  extends AbstractLookupStep{
             type: ''
             */
           
-        return BookingServiceSingleton.getIstance()
+        return await BookingServiceSingleton.getIstance()
                                        .queryProductServices();
     }
     
    
       renderView() {
-
+        console.log("render = "+JSON.stringify( this.$_model.$_0___items.listOfProducts));
         super.getWebUi().renderer({
             templateType:'lookup',
-            templateName:'items',
+            templateName:'products',
             templateData:  JSON.stringify({
                 criteria: this.criteria,
                 header:this.#header,
-                data: super.getBindingModel().elencoTipologieBici
+                data:  this.$_model.$_0___items.listOfProducts
             }),
             templateMetaInfo:super.getMetaInfo(),
             templateBindingZone:super.getBindingModel()});

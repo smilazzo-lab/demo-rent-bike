@@ -141,7 +141,14 @@ export default class WizardBookingController extends AbstractWizardStep {
       
     }
 
-    
+    if (this.getCurrentPhase() == 1){
+        console.log(this.$_model.$_1___bikes.$_1___bikes);
+      if ( ! this.$_model.$_1___bikes.$_1___bikes){
+        console.log("SELEZIONARE UNA BICI")
+        super.getWebUi().setErrorMsg('val-box', 'Selezionare una bici');
+        return;
+      }
+    }
     super.avanti();
   }
 

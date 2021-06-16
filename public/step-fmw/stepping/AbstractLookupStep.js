@@ -27,7 +27,7 @@ export default class extends AbstractDetailStep {
         super.setInputData(null);
         super.setMetaInfo(m);
         this.buildCriteria();
-        this.renderView();
+       // this.renderView();
      }
 
      setCollection(lst) {
@@ -40,16 +40,10 @@ export default class extends AbstractDetailStep {
      
      
   // da pulsante
-    doLookupSearch(criteria) {
-        let data = this.asyncSearch({})
+    async doLookupSearch(criteria) {
+        return this.asyncSearch({})
        
-         
-         .then(data => {
-            
-            this.setCollection(data);
-            this.renderView()
-        })
-        ;
+       
     }
 
     async asyncSearch(criteria) {

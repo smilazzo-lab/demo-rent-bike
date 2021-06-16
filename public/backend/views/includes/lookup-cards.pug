@@ -1,14 +1,21 @@
 mixin lookup-cards(header,values,selflink)
     each j,r in values
-        <div class="card-trip">
-            <img src="https://via.placeholder.com/350/150" />
-            <div class="card-trip-infos">
-                <div>
-                    <h2>title</h2>:Titolo
-                    <p>description: Meglio di sta bici guarda.. </p>
-                </div>
-                <h2 class="card-trip-pricing">prezzo: per te 10 euri</h2>
-                -let id= "btn-"+r+"-lookup.pick";
-                a(href=selflink id=id data-link class="lookup__button" name="lookup.pick") Pick
-            </div>
-        </div>   
+        -let description=j.description
+        -let price= j.unityCost
+        -let qty=j.quantity
+        -let uri=j.picture_uri;
+        -let url="http://localhost:1337"+uri;
+        <div class="card-product">
+        img(src=url)
+        <div class="card-product-infos">
+            <h2>Categoria:</h2>
+            <p>#{description}</p>
+            <h2>Prezzo Giornaliero:</h2>
+            <p>#{price},00 Eur</p>
+            <h2>
+            <p>
+            -let id2= "btn-"+r+"-lookup.pick";
+            a(href=selflink id=id2 data-link class="lookup__button" name="lookup.pick")  <i class="fas fa-plus-circle"></i>Seleziona
+            </p>
+        </div>
+        </div>

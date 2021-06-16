@@ -20,12 +20,7 @@ export default function BookingServiceFactorySingleton() {
 
 // 
 async function queryProductServices() {
-  console.log("inside SERVICE");
-  console.log(JSON.stringify(ddd.ProductRepositorySingleton));
-  
-  return ddd.ProductRepositorySingleton.getInstance()
-                                    .findAllProducts();
-  
+  return  ddd.ProductRepositorySingleton.getInstance()
 }
 
   // aggancia una nuova categoria di bici alla prenotazione
