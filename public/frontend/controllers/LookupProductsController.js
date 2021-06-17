@@ -13,14 +13,8 @@ export default class  extends AbstractLookupStep{
         $_0___items: { listOfProducts : []     }
     };
     #header=['type','description','unityCost','qty','picture_uri'];
-     /*
-        item: {
-            qty: 0,
-            description: '',
-            unityCost: 0,
-            type: ''
-            */
-        constructor(stepContext,specificato,search_mode) {
+    
+    constructor(stepContext,specificato,search_mode) {
         
         super(stepContext,specificato,search_mode);
         // shortcut perchè sull'inizio della interazione
@@ -36,34 +30,19 @@ export default class  extends AbstractLookupStep{
     }
 
     setCollection(lst) {
-        console.log("set Collection = "+JSON.stringify(lst));
-      this.$_model.$_0___items.listOfProducts=lst;
-      console.log("set Collection = "+JSON.stringify(this.$_model.$_0___items.listOfProducts));
-      this.renderView();
+       this.$_model.$_0___items.listOfProducts=lst;
+       this.renderView();
     }
       
 
      pickElement(i){
-         return super.getBindingModel().listOfProducts[i];
+        
+       return this.$_model.$_0___items.listOfProducts[i];
      }
 
 
-    buildCriteria() {
-        // carica nel proprio stato la struttura del criterio e della lista
-       this.criteria = super.getInputData();
-       
-     }
-
-
+   
      async asyncSearch(criteria) {
-   /*
-        item: {
-            qty: 0,
-            description: '',
-            unityCost: 0,
-            type: ''
-            */
-          
         return await BookingServiceSingleton.getIstance()
                                        .queryProductServices();
     }

@@ -1,3 +1,4 @@
+import BookingEntity from '../domain/booking/booking-entity.js';
 import BookingItemEntity               from '../domain/booking/booking-item-entity.js';
 import  ddd from '../domain/manifest.js';
 
@@ -5,13 +6,17 @@ import  ddd from '../domain/manifest.js';
 
 
 
-export default function BookingServiceFactorySingleton() {
+export default function BookingSomeBikesSingleton() {
+
+  let currentBooking;
 
    let istance = Object.freeze({
      // prende tutti i servizi a catalodo (daily_cost, tipo di bici , tipo di sconto)
                 queryProductServices,
-                createBooking,
-                addItemToBookingId
+                queryAllBookings,
+                createIfNotExist,
+                addItemToCurrentBooking,
+                calcolaTotaleCarrello
   });
 
   return {
@@ -20,35 +25,47 @@ export default function BookingServiceFactorySingleton() {
 
 // 
 async function queryProductServices() {
-  console.log("+++++++++++++++++++");
   return  ddd.ProductRepositorySingleton.getInstance().findAllProducts();
 }
 
-  // aggancia una nuova categoria di bici alla prenotazione
-  function addItemToBookingId(bookingId,  { codProduct,qty=1}) {
-    try{
-        let BookingRepository = BookingRepositoryFactorySingleton.getInstance();
-        let ProductRepository = ProductRepositorySingleton.getInstance();
-        let bookingEntity = BookingRepository.findById(bookingId);
-        let productEntity = ProductRepository.findProductByCod(codProduct);
+async function queryAllBookings() {
+  
+  return ddd.BookingRepositoryFactorySingleton.getInstance().findAllBookings();
+}
 
-        bookingEntity.addBookingItem(new BookingItemEntity(productEntity,qty));
-       // bookingRepository.save(bookingEntity);
-    } catch(ex) {
-      console.error(ex);
-      
-    }
+  // aggancia una nuova categoria di bici alla prenotazione
+   function  addItemToCurrentBooking( { idProduct,qty=1}) {
+  
+        ddd.ProductRepositorySingleton.getInstance().findProductById(idProduct)
+        .then(x=>x) .then( x => {
+          console.log("x="+x.getDailyCost());
+          currentBooking.addBookingItem(new BookingItemEntity(x,qty));
+          
+
+        });
+       
+       
+
   }
 
-  function createBooking({name,surname,email,phoneNo,period }) {
+  function createIfNotExist({from, to }) {
       // creazione dell'entità
       try {
-        let BookingFactory = BookingFactorySingleton.getInstance();
-        return BookingFactory.createBooking({name,surname,email,phoneNo,period});
+        if (!currentBooking ){
+         // console.log(ddd);
+          console.log(ddd.BookingFactorySingleton.getInstance());
+          currentBooking =   ddd.BookingFactorySingleton.getInstance().createBooking({from,to});
+        }
+
+        return currentBooking.getId();
       }
       catch(error) {
         console.log(error);
         return null;
       }
+    }
+
+    function calcolaTotaleCarrello(){
+      return currentBooking.calculateTotal();
     }
 }

@@ -13,9 +13,9 @@
         .h2 Booking
     <div id="form" class="form">
     <div class="form-control">
-        <label for="cat-id">Booking UUID: *</label>
-        <label for="cat-id">? il numero di prenotazione Booking UUID è indispensabile per rintracciare presso il rivenditore la propria prenotazione.</label>
-        +textfield("cat-id","id","id")     
+        <label for="booking_uuid">Booking UUID: *</label>
+        <label for="booking_uuid">? il numero di prenotazione Booking UUID è indispensabile per rintracciare presso il rivenditore la propria prenotazione.</label>
+        +textfield("cbooking_uuid","booking_uuid","booking_uuid")     
     </div>
     
     <div class="form-control">
@@ -24,32 +24,24 @@
     <fieldset>
          <legend>Periodo Noleggo:</legend>
              <div class="form-control">
-                <label for="cat-height">Dal:*</label>
-                +datepicker("cat-date","date","date")
+                <label for="date_ini">Dal:*</label>
+                +datepicker("date_ini","date_ini","date_ini")
              </div>
     <div class="form-control">
-        <label for="cat-height">Al:*</label>
-        +datepicker("cat-date","date","date")
+        <label for="date_fin">Al:*</label>
+        +datepicker("date_fin","date_fin","date_fin")
     </div>
    
     </fieldset>
     <fieldset>
          <legend>Cliente:</legend>
     <div class="form-control">
-        <label for="cat-id">Nome:*</label>
-        +textfield("cat-url","url","url")
+        <label for="surname">Cognome:*</label>
+        +textfield("surname","surname","surname")
     </div>
     <div class="form-control">
-        <label for="cat-width">Cognome:*</label>
-        +lookup-textfield("cat-width","width","width","/cat/lookup")
-    </div>
-    <div class="form-control">
-        <label for="cat-height">Email:*</label>
-        +textfield("cat-height","height","height")
-    </div>
-    <div class="form-control">
-        <label for="cat-height">Telefono:*</label>
-        +textfield("cat-height","height","height")
+        <label for="name">Nome:*</label>
+        +textfield("name","name","name")
     </div>
     <div >
         <fieldset>

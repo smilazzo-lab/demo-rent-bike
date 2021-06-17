@@ -1,6 +1,6 @@
 import AbstractWizardStep from "../../step-fmw/stepping/AbstractWizardStep.js";
-import CacheDizionari from "../dictionaries/CacheDizionari.js";
 import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
+import BookingServiceSingleton from "../use-cases/manifest.js";
 
 export default class WizardBookingController extends AbstractWizardStep {
 
@@ -9,7 +9,7 @@ export default class WizardBookingController extends AbstractWizardStep {
   $_model = {
     // 1 maschera
     $_0___booking: {
-      id: 'xxxx-xxxx-xxxx-xxxx',
+      id: null,
       from: null,
       to: null,
     },
@@ -17,7 +17,8 @@ export default class WizardBookingController extends AbstractWizardStep {
     $_1___bikes: {
       listOfItems: [],
       from: null,
-      to: null
+      to: null,
+      totalPrice: 0.00
     },
     // 3 maschera del wizard
     $_2___customerInfo: {
@@ -66,9 +67,9 @@ export default class WizardBookingController extends AbstractWizardStep {
   }
 
   renderView() {
-   let templateName = 'booking-phase' + super.getCurrentPhase();
-   let header = super.getCurrentPhase() === 1 ? ["type", "qty", "daily cost"] : {};
-   let data;
+    let templateName = 'booking-phase' + super.getCurrentPhase();
+    let header = super.getCurrentPhase() === 1 ? ["type", "qty", "daily cost"] : {};
+    let data;
     if (super.getCurrentPhase() === 1) {
       //data = this.model.bikes.listOfItems;
       data = this.getBindingModel().listOfItems;
@@ -91,65 +92,84 @@ export default class WizardBookingController extends AbstractWizardStep {
     super.switchToPhase(1);
     let callbackData = super.getInputData();
     this.getBindingModel().listOfItems.push(callbackData);
+
+    // inizialmente è null
+    let bookingId = this.$_model.$_0___booking.id;
+    let from = this.$_model.$_0___booking.from;
+    let to = this.$_model.$_0___booking.to;
+    let idProduct = callbackData.id;
+    let qty = callbackData.qty;
+
+
+    this.$_model.$_0___booking.id = BookingServiceSingleton.getIstance().createIfNotExist({ from, to });
+
+    BookingServiceSingleton.getIstance().addItemToCurrentBooking({ idProduct: 1, qty: 1 });
+
+      
+        let totale = BookingServiceSingleton.getIstance().calcolaTotaleCarrello();
+        console.log(totale);
+        this.$_model.$_1___bikes.totalPrice = totale;  
+  
+
+
+}
+
+
+avanti() {
+  // se ci sono errori non si va avanti
+  if (!this.validator.isValid()) {
+    return;
   }
 
+  if (this.getCurrentPhase() === 0) {
+    // validazione delle data from > data To
+    let from = Date.parse(super.getBindingModel().from.value);
+    let to = Date.parse(super.getBindingModel().to.value);
+    let limiteValiditaApp = new Date('01/01/2022').getTime();
 
+    console.log("from=" + from);
+    console.log("to=" + to);
+    console.log("limiteValiditaApp=" + limiteValiditaApp);
+    let error = false;
+    if (!(super.getBindingModel().from.value)) {
+      super.getWebUi().setErrorMsg('from', 'La data è obbligatoria');
+      error = true;
+    }
+    if (!(super.getBindingModel().to.value)) {
+      super.getWebUi().setErrorMsg('to', 'La data è obbligatoria');
+      error = true;
+    }
+    if (from > limiteValiditaApp) {
+      super.getWebUi().setErrorMsg('from', 'La data iniziale non può superare il 31/12/2021');
+      error = true;
+    }
 
-  avanti() {
-     // se ci sono errori non si va avanti
-    if (!this.validator.isValid()) {
+    if (to > limiteValiditaApp) {
+      super.getWebUi().setErrorMsg('to', 'La data finale non può superare il 31/12/2021');
+      error = true;
+    }
+    if (from > to) {
+      super.getWebUi().setErrorMsg('to', 'La data finale non può essere inferiore alla data iniziale');
+      error = true;
+    }
+    if (error) {
       return;
     }
+    // copio i valori al model della fase successiva
+    this.$_model.$_1___bikes.from = super.getBindingModel().from.value;
+    this.$_model.$_1___bikes.to = super.getBindingModel().to.value;
 
-    if (this.getCurrentPhase() === 0) {
-      // validazione delle data from > data To
-      let from = Date.parse(super.getBindingModel().from.value);
-      let to = Date.parse(super.getBindingModel().to.value);
-      let limiteValiditaApp= new Date('01/01/2022').getTime();
-
-      console.log("from="+from);
-      console.log("to="+to);
-      console.log("limiteValiditaApp="+limiteValiditaApp);
-      let error = false;
-      if (!(super.getBindingModel().from.value)) {
-        super.getWebUi().setErrorMsg('from', 'La data è obbligatoria');
-        error = true;
-      }
-      if (!(super.getBindingModel().to.value)) {
-        super.getWebUi().setErrorMsg('to', 'La data è obbligatoria');
-        error = true;
-      }
-      if (from >limiteValiditaApp) {
-        super.getWebUi().setErrorMsg('from', 'La data iniziale non può superare il 31/12/2021');
-        error = true;
-      }
-
-      if (to >limiteValiditaApp) {
-        super.getWebUi().setErrorMsg('to', 'La data finale non può superare il 31/12/2021');
-        error = true;
-      }
-      if (from > to) {
-        super.getWebUi().setErrorMsg('to', 'La data finale non può essere inferiore alla data iniziale');
-        error = true;
-      }
-      if (error) {
-        return;
-      }
-      // copio i valori al model della fase successiva
-     this.$_model.$_1___bikes.from = super.getBindingModel().from.value;
-     this.$_model.$_1___bikes.to = super.getBindingModel().to.value;
-      
-    }
-
-    if (this.getCurrentPhase() == 1){
-        console.log(this.$_model.$_1___bikes.$_1___bikes);
-      if ( ! this.$_model.$_1___bikes.$_1___bikes){
-        console.log("SELEZIONARE UNA BICI")
-        super.getWebUi().setErrorMsg('val-box', 'Selezionare una bici');
-        return;
-      }
-    }
-    super.avanti();
   }
+
+  if (this.getCurrentPhase() == 1) {
+    console.log(this.$_model.$_1___bikes.$_1___bikes);
+    if (!this.$_model.$_1___bikes.$_1___bikes) {
+      console.log("SELEZIONARE UNA BICI")
+      super.getWebUi().setErrorMsg('val-box', 'Selezionare una bici');
+      return;
+    }
+  }
+  super.avanti();
+}
 
 }

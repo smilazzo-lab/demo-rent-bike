@@ -3,62 +3,20 @@ import BookingEntity from "./booking-entity.js"
 export default function buildMakeBooking() {
 
 
-  let istance = Object.freeze(
+  let istance = Object.freeze({
     createBooking
-  )
+  }
+  );
 
   return {
-    getIstance: function () {
+    getInstance: function () {
       return istance;
     }
   }
 
-  function createBooking({ id = createUUID(),
-                          name, surname, email, phoneNo,
-                          createdAt = Date.now(),
-                          interval
-  } = {}) {
-    if (!id) {
-      throw new Error('Booking must have a valid id.');
-    }
-    if (!name) {
-      throw new Error('name is missing');
-    }
-    if (!surname) {
-      throw new Error('surname is missing.');
-    }
-    if (!email) {
-      throw new Error('email is missing.');
-    }
-    if (!phoneNo) {
-      throw new Error('phoneNo is missing.');
-    }
-
-    if (!interval) {
-      throw new Error('interval is missing.');
-    }
-
-    if (!validateName(name)) {
-      throw new Error('name is not valid ');
-    }
-
-    if (!validateName(surname)) {
-      throw new Error('surname is not valid ');
-    }
-
-    if (!validateEmail(email)) {
-      throw new Error('email is not valid');
-    }
-
-    if (!validatePhoneNo(phoneNo)) {
-      throw new Error('phoneNo is not valid');
-    }
-
-
-    return new BookingEntity({ id, interval, name, surname, email, phoneNo, createdAt });
-
-
-  }
+  function createBooking({ id=createUUID(), from,to }) {
+    return new BookingEntity({ id, from, to });
+}
 
 
   function createUUID() {

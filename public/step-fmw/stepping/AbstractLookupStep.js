@@ -26,7 +26,7 @@ export default class extends AbstractDetailStep {
         // get rid of this.. not used in search mode
         super.setInputData(null);
         super.setMetaInfo(m);
-        this.buildCriteria();
+        // this.buildCriteria();
        // this.renderView();
      }
 

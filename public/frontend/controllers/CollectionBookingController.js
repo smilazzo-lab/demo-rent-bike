@@ -5,59 +5,55 @@
  */
 
 import AbstractCollectionStep from "../../step-fmw/stepping/AbstractCollectionStep.js";
+import BookingServiceSingleton from "../use-cases/manifest.js";
 
 export default class  extends AbstractCollectionStep{
-    #bookings = [];
-    #header=['uuid','surname','total','total'];
+
+    $_model ={
+        $_0___bookings: {
+            listAllBookings:[]
+        }
+    };
+
+    //#bookings = [];
+    #header=['booking-id','cognome','nome','dal','al'];
     
 
-    #apiCommandListaGattiUrl='https://api.thecatapi.com/v1/images/search?limit=4&page=1&order=Desc';
-  
     constructor(stepContext,specificato,search_mode) {
         super(stepContext,specificato,search_mode);
     }
 
     getElementOfCollection(index) {
-        return this.#bookings[index];
+        return this.$_model.$_0___bookings.listAllBookings[index];
     }
 
-    asyncSearch(criteria) {
-      //  postUCs.listAllPostsUC();
-      
-        return fetch(this.#apiCommandListaGattiUrl,  {
-              method: 'GET', 
-              headers: {          'Content-Type': 'application/json',
-                                  'x-api-key':'f7b94ad6-4924-4bea-9bd0-a126a7116e13'
-                      }
-            });
+    setCollection(data){
+        this.$_model.$_0___bookings.listAllBookings=data;
     }
 
-    getBindingModel() {
-       return this.#bookings;
-      
+    async asyncSearch(criteria) {
+        console.log("inside CollectionBookingController::asyncSearch");
+      return await BookingServiceSingleton.getIstance()
+            .queryAllBookings();
     }
 
-    setBindingModel(state) {
-     this.#bookings = state;
-    }
+ 
     
     // lifecycle 0
     initialize() {
-            console.log("INSIDE INITIALIZE DI CAT CONTROLLER");
-             let inputData = super.getInputData();
-             this.setBindingModel(inputData);
-            
-     }
+    }
 
-     callback() {
+   
 
-     }
-    
-     renderView() {
+    renderView() {
+        // TOLGO id dalla visualizzazzione
+        let data = super.sanitizeId(this.$_model.$_0___bookings.listAllBookings);
+       // data = super.sanitizeField(data,'name');
+
         super.getWebUi().renderer({
             templateName:'bookings',
             templateType:'collection',
-            templateData: JSON.stringify({header:this.#header,data:this.#bookings}),
+            templateData: JSON.stringify({header:this.#header,data}),
             templateMetaInfo: super.getMetaInfo(),
             templateBindingZone:null});
              }

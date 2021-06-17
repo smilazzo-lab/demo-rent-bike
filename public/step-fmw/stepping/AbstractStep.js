@@ -62,6 +62,7 @@ export default class  {
         for (const prop in rootStepModel) {
             if (rootStepModel.hasOwnProperty(prop)) {
                     if (prop.startsWith('$_'+phase+"___")){
+                        console.log("---trovato!")
                             rootStepModel[prop] = memento;
                 }
             }

@@ -1,63 +1,42 @@
 import AbstractDetailStep from "../../step-fmw/stepping/AbstractDetailStep.js";
-import CacheDizionari from "../dictionaries/CacheDizionari.js";
 
 export default class  extends AbstractDetailStep{
-    #cat;
-    #titoloNotify = 'Messaggio di Sistema';
-    #messaggioNotigy= 'Attenzione , dichiara di prendere visione di questa supercazzola';
+  //{"id":4,"booking_uuid":"1111-1111-1111-1111","surname":"milazzo","name":"salvatore","date_ini":"2021-06-01T10:00:00.000Z","date_fin":"2021-06-01T10:00:00.000Z"}
+   $_model = {
+     $_0___booking : {
+       booking_uuid:null
+       ,surname:null
+       ,name:null
+       ,date_ini:null
+       ,date_from:null
+     }
+   }
 
     constructor(stepContext,specificato,edit_mode) {
         super(stepContext,specificato,edit_mode);
-    }
+    
 
-   
-    getBindingModel() {
-       return this.#cat;
     }
-
-    setBindingModel(state) {
-      this.#cat=state;
-     }
+    
     // lifecycle 0
     initialize() {
       // nella initialize prendo solo INPUT DATA COME RIFERIMENTO
       let inputData = this.getInputData();
-      inputData.cmbProva = CacheDizionari.getDizionario('Prova');
-      inputData.selectedCmbProva = null;
-      this.setBindingModel(inputData);
-     }
-    //  fetch da DETAIL/CAT
+      this.$_model.$_0___booking=inputData;
+    }
+      
+    
 
      renderView() {
        super.getWebUi().renderer({
         templateName:'booking',
         templateType:'detail',
         templateMetaInfo:super.getMetaInfo(),
-        templateData: JSON.stringify({cmbProva : this.#cat.cmbProva}),
-        templateBindingZone: this.#cat,
+        templateData: JSON.stringify({}),
+        templateBindingZone: this.$_model.$_0___booking,
         templateValidator: null
        });
          }
 
-      insertEntity() {
-       let info = {title:this.#titoloNotify,message:this.#messaggioNotigy};
-       super.getStepContext().callStep("/cat/confirm",info);
-    }
-
-    callback() {
-      let callbackData = this.getInputData();
-      // se provengo dal confirm interaction
-      if (callbackData['command']) {
-       
-        if (callbackData['command']==='yes') {
-         
-          this.getBindingModel().width="YES CONFIRM";
-        }
-      }
-      else if (callbackData['name']){  // se provengo dalla lookup
-       
-         this.getBindingModel().width=callbackData.name;
-        
-      }
-    }
+    
 }

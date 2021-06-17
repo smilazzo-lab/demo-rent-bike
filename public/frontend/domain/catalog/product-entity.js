@@ -4,9 +4,10 @@ export default class ProductEntity {
     #dailyPrice;
     #id;
 
-   constructor({ id=-1, dailyPrice }){
-     this.#dailyPrice = dailyPrice;
-     this.#id=id;
+   constructor({ idProduct=-1, daily_cost }){
+     this.#dailyPrice = daily_cost;
+     this.#id=idProduct;
+     
    }
 
    getId() {
@@ -18,9 +19,7 @@ export default class ProductEntity {
     }
 
     setPriceStrategy (costReduxStrategy) {
-        if (!costReduxStrategy instanceof CostReduxStrategyInterface){
-            throw new Error('setCostReduxStrategy non ha un oggetto CostReduxStrategyInterface');
-        }
+        
        this.#costReduxStrategy=costReduxStrategy;
     }
 

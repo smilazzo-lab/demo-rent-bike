@@ -37,8 +37,8 @@ const url = 'http://localhost:1337';
 
                                           console.log("requesting "+baseUrl+uri+ " with "+JSON.stringify(request4get));
                                          
-                                       // return fetch(baseUrl+uri, request4get); 
-                                        return fetch('http://localhost:1337/services', request4get); 
+                                        return fetch(baseUrl+uri, request4get); 
+                                       // return fetch('http://localhost:1337/services', request4get); 
                                        }
                            });
                    }

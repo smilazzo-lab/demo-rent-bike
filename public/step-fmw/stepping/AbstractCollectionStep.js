@@ -23,21 +23,57 @@ export default class extends AbstractStep {
         console.log("search_mode = "+super.getSearchMode());
         if (super.getSearchMode() ==='search') {
             this.asyncSearch(c)
-                .then(data=>data.json())
                  .then(data => {
+                            console.log("i dati che sono arrivati dalla ricerca = "+JSON.stringify(data))
                             super.setSearchMode('list');
                             this._initialize(data,m);
                  });
+                 return;
          }
         // se è la lista lavora
         if (this.getSearchMode() ==='list') {
             this.initialize();
+            this.setCollection(c);
             this.renderView();
      }
     }
 
+    setCollection(c) {
+        throw new Error('set Collection ot implemented!');
+    }
     asyncSearch(criteria) {
         throw new Error('asyncSearch not implemented!')
     }
+
+    // non passa alla view l'id del database
+    sanitizeId(sourceObj) {
+        return sourceObj.map(x=>{
+             let newObj = {};
+             for (const prop in x) {
+                 if (x.hasOwnProperty(prop)) {
+                     console.log(prop);
+                         if (prop!=='id'){
+                                 newObj[prop] = x[prop];
+                     }
+                 }
+               }
+               return newObj;
+        });
+     }
+
+     sanitizeField(sourceObj,field) {
+        return sourceObj.map(x=>{
+             let newObj = {};
+             for (const prop in x) {
+                 if (x.hasOwnProperty(prop)) {
+                     console.log(prop);
+                         if (prop!==field){
+                                 newObj[prop] = x[prop];
+                     }
+                 }
+               }
+               return newObj;
+        });
+     }
 
 }
