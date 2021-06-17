@@ -1,6 +1,6 @@
 import AbstractWizardStep from "../../step-fmw/stepping/AbstractWizardStep.js";
 import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
-import BookingServiceSingleton from "../use-cases/manifest.js";
+import BookingBikesDomain from "../use-cases/manifest.js";
 
 export default class WizardBookingController extends AbstractWizardStep {
 
@@ -18,7 +18,7 @@ export default class WizardBookingController extends AbstractWizardStep {
       listOfItems: [],
       from: null,
       to: null,
-      totalPrice: 0.00
+      totalPrice: 0
     },
     // 3 maschera del wizard
     $_2___customerInfo: {
@@ -52,6 +52,7 @@ export default class WizardBookingController extends AbstractWizardStep {
     this.switchToPhase(1);
     if (index > -1) {
       this.getBindingModel().listOfItems.splice(index, 1);
+      this.$_model.$_1___bikes.totalPrice =  BookingBikesDomain.getIstance().removeItemToCurrentBooking(index);
     }
     this.renderView();
   }
@@ -87,32 +88,44 @@ export default class WizardBookingController extends AbstractWizardStep {
   }
 
 
-  callback() {
+  async callback() {
     // ASSUMO DIRETTAMENTE LA LOOKUP RITORNARE ALLA PHASE 1
     super.switchToPhase(1);
     let callbackData = super.getInputData();
+    console.log("callback data="+JSON.stringify(callbackData));
     this.getBindingModel().listOfItems.push(callbackData);
 
     // inizialmente è null
-    let bookingId = this.$_model.$_0___booking.id;
+    
     let from = this.$_model.$_0___booking.from;
     let to = this.$_model.$_0___booking.to;
-    let idProduct = callbackData.id;
-    let qty = callbackData.qty;
+    let idProduct = callbackData.type;
+
+    console.log("idProduct= "+idProduct);
+    let qty = callbackData.quantity;
+    
+    
+    this.$_model.$_0___booking.id = BookingBikesDomain.getIstance().createIfNotExist({ from, to });
+
+    BookingBikesDomain.getIstance().addItemToCurrentBooking({ idProduct, qty })
+    .then((total) => {
+      this.$_model.$_1___bikes.totalPrice = total; 
+    });
+     
 
 
-    this.$_model.$_0___booking.id = BookingServiceSingleton.getIstance().createIfNotExist({ from, to });
+    
+    
+      
+    }
 
-    BookingServiceSingleton.getIstance().addItemToCurrentBooking({ idProduct: 1, qty: 1 });
 
       
-        let totale = BookingServiceSingleton.getIstance().calcolaTotaleCarrello();
-        console.log(totale);
-        this.$_model.$_1___bikes.totalPrice = totale;  
+       
   
 
 
-}
+
 
 
 avanti() {

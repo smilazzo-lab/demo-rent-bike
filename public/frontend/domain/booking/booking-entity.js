@@ -5,6 +5,7 @@ export default class BookingEntity {
     #from;
     #to;
      #bookingItems;
+     #total=0;
      
 
      constructor({id,from,to}) {
@@ -20,23 +21,34 @@ export default class BookingEntity {
          return this.#id;
      }
 
-     addBookingItem(bookingItem) {
-         if ( !bookingItem instanceof BookingItem) {
+     addBookingItem(bi) {
+         if ( !bi instanceof BookingItem) {
              throw new Error('not adding a valid item');
          }
-         this.#bookingItems.push(bookingItem);
+         this.#bookingItems.push(bi);
+         console.log("items="+JSON.stringify( this.#bookingItems));
+         this.calculateTotal();
        
 
      }
 
+     removeBookingItem(index){
+        this.#bookingItems.splice(index,1);
+         this.calculateTotal();
+     }
+
      calculateTotal(){
-         let total = 0;
-         this.#bookingItems.forEach(item =>{
-             total+= item.getItemCost(1);
+         this.#total=0;
+         this.#bookingItems.forEach((item) =>{
+             this.#total+= item.getItemCost(1);
              console.log("item.getCost="+item.getItemCost(1));
-             console.log("il totale CARRELLO è ="+total);
+             console.log("il totale CARRELLO è ="+this.#total);
             
             } );
-         return total;
+         
+     }
+
+     getTotal(){
+         return this.#total;
      }
 }

@@ -8,8 +8,9 @@ export default function buildMakePriceStrategy() {
     switch (codStrategy) {
       case 0 : return new PriceDefaultStrategy();
       case 1: return new Price3DaysStrategy();
+      default: return new PriceDefaultStrategy();
     }
-    return null;
+   
   }
 
   let istance = Object.freeze({

@@ -141,8 +141,7 @@ export default class  {
    _callback(inputdata,m) {
         this.setInputData(inputdata);
         this.setMetaInfo(m);
-        this.callback();
-        this.renderView();
+        this.callback().then(this.renderView());
     }
     
     callback() {

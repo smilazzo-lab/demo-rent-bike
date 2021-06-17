@@ -16,11 +16,14 @@ export default function BookingSomeBikesSingleton() {
                 queryAllBookings,
                 createIfNotExist,
                 addItemToCurrentBooking,
-                calcolaTotaleCarrello
+                getTotal,
+                removeItemToCurrentBooking
   });
 
   return {
-    getIstance: () =>  istance
+    getIstance: function(){
+       return istance;
+    } 
   }
 
 // 
@@ -34,23 +37,27 @@ async function queryAllBookings() {
 }
 
   // aggancia una nuova categoria di bici alla prenotazione
-   function  addItemToCurrentBooking( { idProduct,qty=1}) {
+   async function   addItemToCurrentBooking( { idProduct,qty=1}) {
   
-        ddd.ProductRepositorySingleton.getInstance().findProductById(idProduct)
-        .then(x=>x) .then( x => {
+       return ddd.ProductRepositorySingleton.getInstance().findProductById(idProduct)
+         .then( x => {
           console.log("x="+x.getDailyCost());
           currentBooking.addBookingItem(new BookingItemEntity(x,qty));
-          
+          return currentBooking.getTotal();
 
         });
        
        
 
   }
+  function  removeItemToCurrentBooking(index){
+    currentBooking.removeBookingItem(index);
+    return currentBooking.getTotal();
+  }
 
   function createIfNotExist({from, to }) {
       // creazione dell'entità
-      try {
+    
         if (!currentBooking ){
          // console.log(ddd);
           console.log(ddd.BookingFactorySingleton.getInstance());
@@ -58,14 +65,10 @@ async function queryAllBookings() {
         }
 
         return currentBooking.getId();
-      }
-      catch(error) {
-        console.log(error);
-        return null;
-      }
+      
     }
 
-    function calcolaTotaleCarrello(){
-      return currentBooking.calculateTotal();
+    function getTotal(){
+       return currentBooking.getTotal();
     }
 }
