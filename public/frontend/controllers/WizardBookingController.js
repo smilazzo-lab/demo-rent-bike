@@ -92,6 +92,10 @@ export default class WizardBookingController extends AbstractWizardStep {
     // ASSUMO DIRETTAMENTE LA LOOKUP RITORNARE ALLA PHASE 1
     super.switchToPhase(1);
     let callbackData = super.getInputData();
+    // non fa nessuna modifica al model se non ho selezionato prodotto bici
+    if (!callbackData.type) {
+      return;
+    }
     console.log("callback data="+JSON.stringify(callbackData));
     this.getBindingModel().listOfItems.push(callbackData);
 

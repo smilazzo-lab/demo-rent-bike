@@ -4,7 +4,7 @@
  * $tep framework
  */
 import AbstractLookupStep from "../../step-fmw/stepping/AbstractLookupStep.js";
-import BookingServiceSingleton from "../use-cases/manifest.js";
+import BookingBikeServices from "../use-cases/manifest.js";
 
 export default class  extends AbstractLookupStep{
     
@@ -12,7 +12,7 @@ export default class  extends AbstractLookupStep{
     $_model ={
         $_0___items: { listOfProducts : []     }
     };
-    #header=['type','description','unityCost','qty','picture_uri'];
+    #header=['type','description','unityCost','qty','picture_uri',"des_price_strategy"];
     
     constructor(stepContext,specificato,search_mode) {
         
@@ -43,7 +43,7 @@ export default class  extends AbstractLookupStep{
 
    
      async asyncSearch(criteria) {
-        return await BookingServiceSingleton.getIstance()
+        return await BookingBikeServices.getIstance()
                                        .queryProductServices();
     }
     

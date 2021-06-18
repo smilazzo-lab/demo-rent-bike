@@ -4,15 +4,23 @@ mixin lookup-cards(header,values,selflink)
         -let price= j.unityCost
         -let qty=j.quantity
         -let uri=j.picture_uri;
+        -let des_price_strategy=j.des_price_strategy;
         -let url="http://localhost:1337"+uri;
         <div class="card-product">
         img(src=url)
         <div class="card-product-infos">
             <h2>Categoria:</h2>
             <p>#{description}</p>
-            <h2>Prezzo Giornaliero:</h2>
-            <p>#{price},00 Eur</p>
+            <hr>
+            <h2>Promozioni:</h2>
+            <p style="font-color:red">#{des_price_strategy}</p>
             <h2>
+            <hr>
+            <h2>Prezzo Giornaliero:</h2>
+            <h1>#{price},00 Eur</h1>
+            <h2>
+            <hr>
+            
             <p>
             -let id2= "btn-"+r+"-lookup.pick";
             a(href=selflink id=id2 data-link class="lookup__button" name="lookup.pick")  <i class="fas fa-plus-circle"></i>Seleziona

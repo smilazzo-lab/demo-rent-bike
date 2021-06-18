@@ -43,10 +43,12 @@ export default function BookingDaoFactory({ backend }) {
             let formats = x.bike_category.picture[0].formats;
             let format = formats['small'] || formats['medium'] || formats['large'] || formats['thumbnail'];
             let picture_uri = format.url;
+            let des_price_strategy = x.price_strategy.DES_PRICE_REDUX;
+            console.log("dao::des_price_Strategy"+des_price_strategy);
 
 
             // PROJECTIONS
-            return Object.freeze({ type, description, unityCost, quantity, picture_uri });
+            return Object.freeze({ type, description, unityCost, quantity, picture_uri,des_price_strategy });
 
           });
 
