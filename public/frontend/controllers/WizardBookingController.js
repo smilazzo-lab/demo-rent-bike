@@ -103,7 +103,7 @@ export default class WizardBookingController extends AbstractWizardStep {
     
     let from = this.$_model.$_0___booking.from;
     let to = this.$_model.$_0___booking.to;
-    let idProduct = callbackData.type;
+    let idProduct = callbackData.id;
 
     console.log("idProduct= "+idProduct);
     let qty = callbackData.quantity;

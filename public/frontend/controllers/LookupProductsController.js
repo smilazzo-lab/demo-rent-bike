@@ -17,12 +17,18 @@ export default class  extends AbstractLookupStep{
     constructor(stepContext,specificato,search_mode) {
         
         super(stepContext,specificato,search_mode);
+    }
+
+    async initialize(){
+
         // shortcut perchè sull'inizio della interazione
         // gia voglio l elenco dei tipi di bici
-        super.doLookupSearch(this.criteria)
-        .then(data => this.setCollection(data));
+        return super.doLookupSearch(this.criteria)
+        .then(data => {this.setCollection(data)
+        return '';});
         //.then(this.renderView());
-        }
+    }
+
        
     
     getCriteria() {
@@ -31,12 +37,14 @@ export default class  extends AbstractLookupStep{
 
     setCollection(lst) {
        this.$_model.$_0___items.listOfProducts=lst;
-       this.renderView();
+   
     }
       
 
      pickElement(i){
-        
+        console.log("***************************************");
+        console.log(JSON.stringify(this.$_model.$_0___items.listOfProducts[i]));
+        console.log("***************************************");
        return this.$_model.$_0___items.listOfProducts[i];
      }
 
@@ -49,6 +57,7 @@ export default class  extends AbstractLookupStep{
     
    
       renderView() {
+          
         console.log("render = "+JSON.stringify( this.$_model.$_0___items.listOfProducts));
         super.getWebUi().renderer({
             templateType:'lookup',

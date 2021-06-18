@@ -40,7 +40,7 @@ export default class  extends AbstractCollectionStep{
  
     
     // lifecycle 0
-    initialize() {
+    async initialize() {
     }
 
    

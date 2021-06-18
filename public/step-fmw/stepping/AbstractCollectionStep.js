@@ -11,7 +11,7 @@ export default class extends AbstractStep {
         super(routerRef,specificato,searchMode);
     }
     
-    initialize() {
+    async initialize() {
         throw new Error('not implemented in AbstractCollectionStep');
     }
 
@@ -32,9 +32,9 @@ export default class extends AbstractStep {
          }
         // se è la lista lavora
         if (this.getSearchMode() ==='list') {
-            this.initialize();
             this.setCollection(c);
-            this.renderView();
+            this.initialize().then(x=>this.renderView()).catch(err=>{console.log("errore segnalato da UI:"+err)});
+           // this.renderView();
      }
     }
 

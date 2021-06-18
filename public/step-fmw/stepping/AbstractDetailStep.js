@@ -18,7 +18,7 @@ export default class extends AbstractStep {
         super(routerRef,specificato,options);
     }
  
-    initialize() {
+    async initialize() {
         throw new Error('not implemented in AbstractDetailStep');
     }
 
@@ -31,8 +31,8 @@ export default class extends AbstractStep {
         super.setInputData(inputData);
         super.setMetaInfo(metaInfo);
 
-        this.initialize();
-        this.renderView();
+        this.initialize().then(x=>this.renderView());
+       // this.renderView();
        
     }
 

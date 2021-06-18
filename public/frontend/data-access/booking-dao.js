@@ -37,18 +37,21 @@ export default function BookingDaoFactory({ backend }) {
         let prg =
           productList.map(x => {
             let type = x.bike_category.id;
+            let id=x.id;
             let description = x.bike_category.DES_BIKE_TYPE;
             let unityCost = x.daily_cost;
             let quantity = 1;
             let formats = x.bike_category.picture[0].formats;
-            let format = formats['small'] || formats['medium'] || formats['large'] || formats['thumbnail'];
+            let format = formats['large'] || formats['medium'] || formats['small'] || formats['thumbnail'];
             let picture_uri = format.url;
             let des_price_strategy = x.price_strategy.DES_PRICE_REDUX;
             console.log("dao::des_price_Strategy"+des_price_strategy);
 
 
             // PROJECTIONS
-            return Object.freeze({ type, description, unityCost, quantity, picture_uri,des_price_strategy });
+            return Object.freeze({ 
+              id,
+              type, description, unityCost, quantity, picture_uri,des_price_strategy });
 
           });
 

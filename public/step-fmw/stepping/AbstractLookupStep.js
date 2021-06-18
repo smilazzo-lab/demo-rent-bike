@@ -23,11 +23,7 @@ export default class extends AbstractDetailStep {
     }
    
     _initialize(c,m) {
-        // get rid of this.. not used in search mode
-        super.setInputData(null);
-        super.setMetaInfo(m);
-        // this.buildCriteria();
-       // this.renderView();
+        super._initialize(c,m);
      }
 
      setCollection(lst) {
@@ -41,7 +37,7 @@ export default class extends AbstractDetailStep {
      
   // da pulsante
     async doLookupSearch(criteria) {
-        return this.asyncSearch({})
+        return this.asyncSearch({});
        
        
     }

@@ -16,26 +16,54 @@ export default function buildMakeUIRendering () {
        
     }
 
-     function renderView({templateType,
+     async function renderView({templateType,
                                 templateName,
                                 templateMetaInfo,
                                 templateData,
                                 templateBindingZone=null,
                                 templateValidator={}}) {
       
-              document.querySelector('#step').innerHTML='<div id="loader" class="loader"></div>';
-              
+             
+              document.querySelector('#step-loading').style.visibility='visible';
+              let oldOpacity = document.querySelector('#step').style.opacity;
+              document.querySelector('#step').style.opacity='0.2';
+              document.querySelector('#step-loading').style.opacity='1';
               let url = `http://localhost:3000/launcher/${templateType}/${templateName}`;
               
               getHtmlFromNodeServer(url,templateData,templateMetaInfo)
               .then((html)=> html.text())
-              .then(html => {  document.querySelector('#step').innerHTML=html;
+              .then(html => {  
+                              document.querySelector('#step-loading').style.visibility='hidden';
+                              document.querySelector('#step').innerHTML=html;
+                              document.querySelector('#step').style.opacity=oldOpacity;
                               if (templateBindingZone!==null) {
                                   // 2 way binding
                                   applyBindings(templateBindingZone,templateValidator);
                                  }
+                                
+                                 
+                                
                             }
-                    );
+                    )
+                .catch(err=>{console.log("Problemi di connessione ajax con il server:"+err);
+                             document.querySelector('#step').innerHTML= `
+                             
+                             <h1>Si è verificato un errore nella connessione col server</h1>
+                             <p>
+                             <img class="avatar-large" alt="io" src="./bike_crash.png" />
+                             </p>
+                             <p>
+                             Dettaglio Errore :[${err}]
+                             </p>
+                             
+                             
+                             
+                             
+                             
+                             `;
+                             document.querySelector('#step').style.opacity=oldOpacity;
+                            
+            });
     }
 
     function applyBindings(model,validator){

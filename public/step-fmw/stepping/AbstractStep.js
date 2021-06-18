@@ -141,10 +141,10 @@ export default class  {
    _callback(inputdata,m) {
         this.setInputData(inputdata);
         this.setMetaInfo(m);
-        this.callback().then(this.renderView());
+        this.callback().then(x=>this.renderView());
     }
     
-    callback() {
+    async callback() {
         throw new Error('not implemented')
     }
     renderView() {

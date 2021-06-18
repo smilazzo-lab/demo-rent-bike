@@ -16,8 +16,8 @@ export default class  extends AbstractEditController{
        return {};
      }
      
-    initialize() {
-      // niente
+    async initialize() {
+      return '';
     }
 
 
@@ -34,7 +34,7 @@ export default class  extends AbstractEditController{
 
     
 
-      callback() {
+      async callback() {
 
       }
      

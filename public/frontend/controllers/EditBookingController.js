@@ -19,10 +19,11 @@ export default class  extends AbstractDetailStep{
     }
     
     // lifecycle 0
-    initialize() {
+    async initialize() {
       // nella initialize prendo solo INPUT DATA COME RIFERIMENTO
       let inputData = this.getInputData();
       this.$_model.$_0___booking=inputData;
+      return '';
     }
       
     

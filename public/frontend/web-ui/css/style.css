@@ -198,11 +198,15 @@
     overflow: hidden;
     height: 400px;
     background: white;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    box-shadow: 25px 0 25px rgba(0,200,200,0.5);
     margin-left: 20;
     display: flex;
     align-items: left;
+    opacity: 0.80;
     
+  }
+  .card-product:hover{
+    opacity: 1;
   }
   
   .card-product img {
@@ -395,15 +399,16 @@
   }
 
   .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 16px solid black; /* Light grey */
+    border-top: 5px solid lightseagreen; /* Blue */
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    position: absolute;
+    width: 75px;
+    height: 75px;
+    position: absolute !important;
     top:50%;
     left:50%;
     animation: spin 2s linear infinite;
+    opacity: 1 !important;
   }
   
   @keyframes spin {

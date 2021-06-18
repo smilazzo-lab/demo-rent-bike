@@ -26,7 +26,7 @@ export default class EditItemController  extends AbstractDetailStep{
    
 
     // lifecycle 0
-    initialize() {
+    async initialize() {
       // nella initialize prendo solo INPUT DATA COME RIFERIMENTO
       let inputData = this.getInputData();
      
@@ -63,7 +63,7 @@ export default class EditItemController  extends AbstractDetailStep{
        super.getStepContext().callStep("/cat/confirm",info);
     }
 
-    callback() {
+   async   callback() {
 
 }
 }
