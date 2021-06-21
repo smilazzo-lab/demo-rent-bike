@@ -5,12 +5,22 @@
  */
 import AbstractLookupStep from "../../step-fmw/stepping/AbstractLookupStep.js";
 import BookingBikeServices from "../use-cases/manifest.js";
+import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
 
 export default class  extends AbstractLookupStep{
+
+    emptyValidator = new BookingCustomerInfoValidator();
     
-    criteria={};
+  
     $_model ={
-        $_0___items: { listOfProducts : []     }
+        $_0___items: {
+             listOfProducts : []   ,
+             cmbListOfCategories:[],
+             selectedIdCategory:-1,
+           //  flgOrdirePrezzoCrescente,
+             cmbListOfPriceRedux:[],
+             selectedIdPriceRedux:-1 
+             }
     };
     #header=['type','description','unityCost','qty','picture_uri',"des_price_strategy"];
     
@@ -21,18 +31,22 @@ export default class  extends AbstractLookupStep{
 
     async initialize(){
 
-        // shortcut perchè sull'inizio della interazione
-        // gia voglio l elenco dei tipi di bici
-        return super.doLookupSearch(this.criteria)
-        .then(data => {this.setCollection(data)
-        return '';});
-        //.then(this.renderView());
+        this.$_model.$_0___items.cmbListOfCategories = await BookingBikeServices.getIstance().queryAllCategories();
+        this.$_model.$_0___items.cmbListOfCategories.push({codice: -1,descrizione:'Tutte le categorie'});
+        this.$_model.$_0___items.cmbListOfPriceRedux = await BookingBikeServices.getIstance().queryAllPriceStrategies();
+        this.$_model.$_0___items.cmbListOfPriceRedux.push({codice: -1,descrizione:'Tutte le promozioni'});
+        return super.doLookupSearch({});
+      
     }
 
        
     
     getCriteria() {
-        return this.criteria;
+        let criteria = {
+            selectedIdCategory :   this.$_model.$_0___items.selectedIdCategory,
+            selectedIdPriceRedux: this.$_model.$_0___items.selectedIdPriceRedux
+        }
+       return criteria;
     }
 
     setCollection(lst) {
@@ -51,8 +65,11 @@ export default class  extends AbstractLookupStep{
 
    
      async asyncSearch(criteria) {
+        console.log("***************************************");
+         console.log("CRITERIA = "+JSON.stringify(criteria));
+         console.log("***************************************");
         return await BookingBikeServices.getIstance()
-                                       .queryProductServices();
+                                       .queryProductServices(criteria);
     }
     
    
@@ -65,9 +82,15 @@ export default class  extends AbstractLookupStep{
             templateData:  JSON.stringify({
                 criteria: this.criteria,
                 header:this.#header,
-                data:  this.$_model.$_0___items.listOfProducts
+                data:  {
+                            listOfProducts :this.$_model.$_0___items.listOfProducts,
+                            cmbListOfCategories:this.$_model.$_0___items.cmbListOfCategories,
+                            cmbListOfPriceRedux:this.$_model.$_0___items.cmbListOfPriceRedux
+                        }
             }),
             templateMetaInfo:super.getMetaInfo(),
-            templateBindingZone:super.getBindingModel()});
+            templateBindingZone:super.getBindingModel(),
+            templateValidator: this.emptyValidator
+        });
         }
 }

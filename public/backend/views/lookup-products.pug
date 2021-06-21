@@ -3,7 +3,10 @@
     include ./includes/textfield.pug
     include ./includes/tasto-annulla.pug
     include ./includes/lookup-search.pug
-    - const data=detail.data;
+    include ./includes/select.pug
+    - const data=detail.data.listOfProducts;
+    - const dizCategories=detail.data.cmbListOfCategories;
+    - const dizPriceReduxes=detail.data.cmbListOfPriceRedux;
     - const headers=detail.header;
     - const criteria=detail.criteria;
     - const linkIndietro = detail['meta'].callLink;
@@ -13,11 +16,26 @@
             <i class="fas fa-bicycle"></i> Selezionare La tipologia di bicicletta 
     
     <div>
-        <br>
-        .h6 Categorie di Biciclette disponibili nella nostra flotta:
-        <hr>
+    <fieldset>
+        <legend> Filtro di ricerca </legend>
+        <div class="form-control">
+        <label for="selectedIdCategory">Categoria:</label>
+            +select("selectedIdCategory","selectedIdCategory",dizCategories) 
+        </div>
+        <div class="form-control">
+        <label for="selectedIdPriceRedux">Promozione:</label>
+            +select("selectedIdPriceRedux","selectedIdPriceRedux",dizPriceReduxes) 
+        </div>
+        -let id2= "btn-"+"-lookup.search";
+        a(href=selflink id=id2 data-link class="lookup__button" name="lookup.search")  Filtrare
+        </fieldset>
+        </div>
+       
         <div>
-            +lookup-cards(headers,data,linkIndietro)
+         <fieldset>
+         <legend>Categorie di Biciclette disponibili nella nostra flotta:</legend>
+         +lookup-cards(headers,data,linkIndietro)
+         </fieldset>
         </div>
         +tasto-annulla(linkIndietro,'Indietro')
     <div>

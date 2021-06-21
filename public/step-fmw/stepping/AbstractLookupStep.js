@@ -37,7 +37,11 @@ export default class extends AbstractDetailStep {
      
   // da pulsante
     async doLookupSearch(criteria) {
-        return this.asyncSearch({});
+        return this.asyncSearch(criteria)
+         .then(data => {this.setCollection(data)
+                         return '';
+                        }
+              );
        
        
     }

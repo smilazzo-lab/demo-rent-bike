@@ -4,9 +4,18 @@ import Price3DaysStrategy from '../price-strategy/price-strategy-3days.js';
 
 export default function buildMakeBikeProductRepository ({ daoBooking}) {
  
-  
+
+  async function  findAllPriceStrategies() {
+    return daoBooking.findAllPriceStrategies();
+  }
+
+
     async function  findAllProducts() {
       return daoBooking.findAllProducts();
+    }
+
+    async function  findAllCategories() {
+      return daoBooking.findAllCategories();
     }
 
     async function findProductById(idProduct) {
@@ -34,7 +43,9 @@ export default function buildMakeBikeProductRepository ({ daoBooking}) {
 
     let repository = Object.freeze({
         findProductById,
-        findAllProducts
+        findAllProducts,
+        findAllCategories,
+        findAllPriceStrategies
         
     });
     // PATTERN SINGLETON

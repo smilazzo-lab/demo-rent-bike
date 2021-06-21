@@ -29,6 +29,49 @@ export default function BookingDaoFactory({ backend }) {
       );
   }
 
+  async function findAllCategories() {
+
+    return restBackend.callAPI({ uri: "/diz-bike-types" })
+      .then(data => data.json())
+      .then(typeList => {
+        return typeList.map(b => {
+          let codice = b.id;
+          let descrizione = b.DES_BIKE_TYPE;
+
+
+          return Object.freeze({
+            codice,
+            descrizione
+          });
+        });
+
+      }
+      );
+  }
+
+  async function findAllPriceStrategies() {
+
+    return restBackend.callAPI({ uri: "/diz-price-reduxes" })
+      .then(data => data.json())
+      .then(typeList => {
+        return typeList.map(b => {
+          let codice = b.id;
+          let descrizione = b.DES_PRICE_REDUX;
+
+
+          return Object.freeze({
+            codice,
+            descrizione
+          });
+        });
+
+      }
+      );
+  }
+
+
+
+
   async function findAllProducts() {
 
     return restBackend.callAPI({ uri: "/services" })
@@ -37,7 +80,7 @@ export default function BookingDaoFactory({ backend }) {
         let prg =
           productList.map(x => {
             let type = x.bike_category.id;
-            let id=x.id;
+            let id = x.id;
             let description = x.bike_category.DES_BIKE_TYPE;
             let unityCost = x.daily_cost;
             let quantity = 1;
@@ -45,13 +88,17 @@ export default function BookingDaoFactory({ backend }) {
             let format = formats['large'] || formats['medium'] || formats['small'] || formats['thumbnail'];
             let picture_uri = format.url;
             let des_price_strategy = x.price_strategy.DES_PRICE_REDUX;
-            console.log("dao::des_price_Strategy"+des_price_strategy);
+            let id_price_strategy =x.price_strategy.id;
+            let id_bike_category=x.bike_category.id;
+
+            console.log("dao::des_price_Strategy" + des_price_strategy);
 
 
             // PROJECTIONS
-            return Object.freeze({ 
+            return Object.freeze({
               id,
-              type, description, unityCost, quantity, picture_uri,des_price_strategy });
+              type, description, unityCost, quantity, picture_uri, des_price_strategy,id_price_strategy,id_bike_category
+            });
 
           });
 
@@ -68,10 +115,10 @@ export default function BookingDaoFactory({ backend }) {
   }
 
   async function findProductById(ideProduct) {
-     return restBackend.callAPI({ uri: '/services/' + ideProduct })
+    return restBackend.callAPI({ uri: '/services/' + ideProduct })
       .then(data => data.json())
-      .then(x => {return Object.freeze({daily_cost:x.daily_cost,id_price_strategy:x.price_strategy.id});});
-      
+      .then(x => { return Object.freeze({ daily_cost: x.daily_cost, id_price_strategy: x.price_strategy.id }); });
+
   }
 
   async function saveBooking(dataInfo) {
@@ -94,7 +141,9 @@ export default function BookingDaoFactory({ backend }) {
     findAllBookings,
     saveBooking,
     findAllProducts,
-    findProductById
+    findProductById,
+    findAllCategories,
+    findAllPriceStrategies
 
   });
 

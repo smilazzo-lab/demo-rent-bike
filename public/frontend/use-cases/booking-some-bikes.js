@@ -14,10 +14,13 @@ export default function BookingSomeBikesSingleton() {
      // prende tutti i servizi a catalodo (daily_cost, tipo di bici , tipo di sconto)
                 queryProductServices,
                 queryAllBookings,
+                queryAllCategories,
+                queryAllPriceStrategies,
                 createIfNotExist,
                 addItemToCurrentBooking,
                 getTotal,
-                removeItemToCurrentBooking
+                removeItemToCurrentBooking,
+
   });
 
   return {
@@ -26,9 +29,44 @@ export default function BookingSomeBikesSingleton() {
     } 
   }
 
+
+
 // 
-async function queryProductServices() {
-  return  ddd.ProductRepositorySingleton.getInstance().findAllProducts();
+
+
+
+async function queryAllPriceStrategies() {
+  return  ddd.ProductRepositorySingleton
+  .getInstance().findAllPriceStrategies();
+}
+
+async function queryAllCategories() {
+  return  ddd.ProductRepositorySingleton
+  .getInstance().findAllCategories();
+}
+
+async function queryProductServices(criteria) {
+ //  se on esiste il criterio equitvale a tutte le categori
+ let i = !criteria.selectedIdCategory?-1: criteria.selectedIdCategory.value;
+ let j = !criteria.selectedIdPriceRedux?-1:criteria.selectedIdPriceRedux.value;
+ 
+ console.log("i="+i);
+ console.log("j="+j);
+  return  ddd.ProductRepositorySingleton
+          .getInstance().findAllProducts()
+          // se tutte le CATEGORIE (=-1) Dammi tutti i prodotti
+          .then(
+            listOfProd=> 
+               i==-1?  listOfProd
+                               :listOfProd.map(x=>x).filter(prod=> prod.id_bike_category==i)
+                                          
+            )
+            
+           .then(listOfProd=>j==-1?
+                                listOfProd
+                                : listOfProd.map(x=>x)
+                                            .filter(prod=> prod.id_price_strategy==j)
+            );
 }
 
 async function queryAllBookings() {
@@ -71,4 +109,4 @@ async function queryAllBookings() {
     function getTotal(){
        return currentBooking.getTotal();
     }
-}
+  }

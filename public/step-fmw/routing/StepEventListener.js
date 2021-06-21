@@ -65,9 +65,17 @@ export default class {
                     let criteria = this.#_$tep_context.getInteractionStack()
                                                       .getCurrent()
                                                       .getCriteria();
+
+                    console.log("Event Listener intercetta criteria = "+JSON.stringify(criteria));
                     this.#_$tep_context.getInteractionStack()
                                         .getCurrent()
-                                        .doLookupSearch(criteria);
+                                        .doLookupSearch(criteria)
+                                        .then(x=>  {
+                                            this.#_$tep_context.getInteractionStack()
+                                            .getCurrent().renderView();
+                                                        return '';
+                                        } );
+                                       
                 }
                 else if (comando === 'lookup.pick') {
                     let selected = this.#_$tep_context.getInteractionStack()
