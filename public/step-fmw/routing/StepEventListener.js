@@ -45,7 +45,9 @@ export default class {
                 }
                 // aggiornamento entity
                 if (comando === 'conferma') {
-                    this.#_$tep_context.callMethodOfCurrentStep('conferma');
+                  
+                    this.#_$tep_context.getInteractionStack()
+                    .getCurrent().conferma();
                 } // cliccare si su confirm dialog
                 if (comando === 'confirm_yes') {
                     this.#_$tep_context.returnStep(e.target.pathname, { command: 'yes' });
@@ -74,14 +76,16 @@ export default class {
                                             this.#_$tep_context.getInteractionStack()
                                             .getCurrent().renderView();
                                                         return '';
-                                        } );
+                                        } ); 
                                        
                 }
                 else if (comando === 'lookup.pick') {
+                    let fromUrl = this.#_$tep_context.getInteractionStack()
+                    .getCurrent().getFlatUrl();
                     let selected = this.#_$tep_context.getInteractionStack()
                                                        .getCurrent()
                                                        .pickElement(index);
-                    this.#_$tep_context.returnStep(e.target.pathname, selected);
+                    this.#_$tep_context.returnStep(e.target.pathname, fromUrl, selected);
                 }
                 else if (comando === 'listamc.vis' || comando === 'listamc.upd' || comando==='listamc.del') {
                     this.#_$tep_context.callStep(

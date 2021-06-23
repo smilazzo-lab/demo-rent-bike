@@ -19,7 +19,8 @@ export default class  extends AbstractLookupStep{
              selectedIdCategory:-1,
            //  flgOrdirePrezzoCrescente,
              cmbListOfPriceRedux:[],
-             selectedIdPriceRedux:-1 
+             selectedIdPriceRedux:-1 ,
+             flgOrderByPrice:false
              }
     };
     #header=['type','description','unityCost','qty','picture_uri',"des_price_strategy"];

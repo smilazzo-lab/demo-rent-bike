@@ -41,9 +41,9 @@ export default class {
     // routeTo ('/Home','initialize',inputData={},metaInfos={edit_mode:vis,prevLink='/',actualLink='/'})
     // routeTo ('/cats','initialize',inputData={},metaInfos={search_mode:search,prevLink='/',actualLink='/cats'})
 
-    #routeTo = (stepUrl, stepParams, stepContextRef) => {
+    #routeTo = (stepUrl, stepParams, stepContextRef,fromRoute) => {
         history.pushState(null, null, stepUrl.getUrl());
-        this.#installStep(stepUrl, stepParams, stepContextRef);
+        this.#installStep(stepUrl, stepParams, stepContextRef,fromRoute);
     }
 
     #createStepParameters(inputData, routePath) {
@@ -91,13 +91,14 @@ export default class {
     }
 
     // return to a Previous Web Step   
-    returnStep(routePath, fromStepOutputdata = {}) {
+    returnStep(routePath, sourcePath="/",fromStepOutputdata = {}) {
 
         this.#routeTo( // URL+ CALLBACK
             new StepUrl(routePath, 'callback'),
             // FETCH PREVIOUS LINK STATE AND OVERRIDE WITH OUTPUT DATA
             this.#restoreStepParameters(fromStepOutputdata),
             this,
+            sourcePath
 
         );
     }
@@ -121,7 +122,7 @@ export default class {
 
     }
 
-    #installStep(stepUrl, stepParams, stepContext) {
+    #installStep(stepUrl, stepParams, stepContext,fromRoute) {
         let firedRoute = this.#getFiredRoute(stepUrl.getUrl());
         // factory del controller/step che deve gestire la route sul client spa
         let nextStep = this.#stepLoader.instantiate(
@@ -171,10 +172,19 @@ export default class {
         }
         //  INVOCA IL GIUSTO METHOD DINAMICAMENTE
         if (stepParams) {
+            if (stepMethodToInvoke==='_callback'){
             this.getInteractionStack().getCurrent()[stepMethodToInvoke](
                 stepParams.inputData,
-                stepParams.metaInfo
+                stepParams.metaInfo,
+                fromRoute
             );
+        }
+        else{
+            this.getInteractionStack().getCurrent().setFlatUrl(stepUrl.getUrl());
+            this.getInteractionStack().getCurrent()[stepMethodToInvoke](
+                stepParams.inputData,
+                stepParams.metaInfo);
+        }
         }
     }
 }

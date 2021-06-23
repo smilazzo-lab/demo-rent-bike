@@ -15,6 +15,7 @@ import createMemento from '../data-binding/Memento.js';
 
 export default class  {
    
+    #stepUrl;
     #target;
     inputData ={};
     meta={};
@@ -28,6 +29,14 @@ export default class  {
         this.#_$tep_context_ref=stepContext;
         this.#injectetUi=uiRef;
         
+    }
+
+    setFlatUrl(url){
+        this.#stepUrl=url;
+    }
+
+    getFlatUrl(){
+        return this.#stepUrl;
     }
 
     getAutoBindingRootModel () {
@@ -138,13 +147,14 @@ export default class  {
    }
 
     // backdoor
-   _callback(inputdata,m) {
-        this.setInputData(inputdata);
+   _callback(inputData,m,fromStep) {
+       console.log("_callback from step="+JSON.stringify(fromStep));
+       // this.setInputData(inputdata);
         this.setMetaInfo(m);
-        this.callback().then(x=>this.renderView());
+        this.callback({fromStep,inputData}).then(x=>this.renderView());
     }
     
-    async callback() {
+    async callback({fromStep,inputData}) {
         throw new Error('not implemented')
     }
     renderView() {

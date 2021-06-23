@@ -45,7 +45,7 @@
                 {
                     "path":"/booking/wizard/edit-item", 
                     "controller" :"STP.WIZ_BOOKING.UPD_ITEM",
-                    "args":["#step","vis"],
+                    "args":["#step","upd"],
                     "title":"Edit Booking Item",
                     "edit_mode":"upd"
                

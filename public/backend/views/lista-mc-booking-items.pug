@@ -21,7 +21,9 @@ mixin lista-mc-items(header,values,href)
                     a(href=href id=id_can data-link class="lookup__button_del") elimina
                 .cat-listmc-columns-container
                     -let currentRowData = values[r];
-                    -let url="http://localhost:1337/"+currentRowData[4];
-                    img(src=url)
-                    each i in currentRowData
-                        .div=i      
+                    each y,c in currentRowData
+                        if c === 'picture_uri'
+                            -let url="http://localhost:1337"+y;
+                            img(src=url width="60px")
+                        else 
+                            .div=y

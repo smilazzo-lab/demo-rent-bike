@@ -49,6 +49,7 @@ export default class BookingEntity {
      }
 
      getTotal(){
+         this.calculateTotal();
          return this.#total;
      }
 }

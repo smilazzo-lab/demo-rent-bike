@@ -49,6 +49,7 @@ async function queryProductServices(criteria) {
  //  se on esiste il criterio equitvale a tutte le categori
  let i = !criteria.selectedIdCategory?-1: criteria.selectedIdCategory.value;
  let j = !criteria.selectedIdPriceRedux?-1:criteria.selectedIdPriceRedux.value;
+ let flgOrderByPrice = !criteria.flgOrderByPrice?false:criteria.flgOrderByPrice;
  
  console.log("i="+i);
  console.log("j="+j);
@@ -66,7 +67,14 @@ async function queryProductServices(criteria) {
                                 listOfProd
                                 : listOfProd.map(x=>x)
                                             .filter(prod=> prod.id_price_strategy==j)
-            );
+            )
+            .then(listOfProd=> flgOrderByPrice===false? listOfProd
+                            :listOfProd.map(x=>x)
+                            .slice()
+                            .sort((a,b)=>a-b>0)
+                            );
+            
+              
 }
 
 async function queryAllBookings() {
@@ -88,6 +96,9 @@ async function queryAllBookings() {
        
 
   }
+
+  
+
   function  removeItemToCurrentBooking(index){
     currentBooking.removeBookingItem(index);
     return currentBooking.getTotal();

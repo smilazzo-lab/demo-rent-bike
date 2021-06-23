@@ -38,7 +38,9 @@ export default class extends AbstractStep {
 
     conferma() {
        
+        console.log("edit_mode="+super.getEditMode())
        if(super.getEditMode()==='vis'){
+
         this.insertEntity();
        }
        if (super.getEditMode()==='ins'){

@@ -1,19 +1,15 @@
 import AbstractDetailStep from "../../step-fmw/stepping/AbstractDetailStep.js";
 import CacheDizionari from "../dictionaries/CacheDizionari.js";
+import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
 
 export default class EditItemController  extends AbstractDetailStep{
     
     $_model =  {
       $_0___item :{
-                   
-                    unityCost: 0,
-                    type: 'CB',
-                    description:'des',
-                    selectedCmbQty : null,
-                    
       }
     };
-
+    
+   
     cmbQty = [];
     
     #titoloNotify = 'Messaggio di Sistema';
@@ -24,7 +20,7 @@ export default class EditItemController  extends AbstractDetailStep{
     }
 
    
-
+    
     // lifecycle 0
     async initialize() {
       // nella initialize prendo solo INPUT DATA COME RIFERIMENTO
@@ -34,12 +30,20 @@ export default class EditItemController  extends AbstractDetailStep{
 
 
 
-      let modelRef =  this.getBindingModel();
+      let modelRef ;
+
+       modelRef=inputData;
+     // modelRef=inputData;
      
-      modelRef.selectedCmbQty = inputData.quantity;
+      modelRef.quantity = inputData.quantity;
       modelRef.type=inputData.type;
       modelRef.description= inputData.description;
       modelRef.unityCost = inputData.unityCost;
+      modelRef.picture_uri =inputData.picture_uri;
+
+      this.$_model.$_0___item=modelRef;
+      
+      console.log("modelRef="+JSON.stringify(this.$_model));
       // inizializzazione non parametrica (fissa)
       this.cmbQty= CacheDizionari.getDizionario('Qty');
       
@@ -52,15 +56,15 @@ export default class EditItemController  extends AbstractDetailStep{
         templateName:'item',
         templateType:'detail',
         templateMetaInfo:super.getMetaInfo(),
-        templateData: JSON.stringify({cmbQty : this.cmbQty}),
+        templateData: JSON.stringify({cmbQty : this.cmbQty, picture_uri:this.getBindingModel().picture_uri}),
         templateBindingZone: super.getBindingModel(),
-        templateValidator: null
+        templateValidator: new BookingCustomerInfoValidator()
        });
          }
 
       insertEntity() {
-       let info = {title:this.#titoloNotify,message:this.#messaggioNotigy};
-       super.getStepContext().callStep("/cat/confirm",info);
+       console.log("IL MODEL ITEM ="+JSON.stringify(this.$_model));
+       super.getStepContext().returnStep("/booking/wizard",'/booking/wizard/edit-item',this.$_model.$_0___item);
     }
 
    async   callback() {

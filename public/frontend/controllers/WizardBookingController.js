@@ -52,7 +52,7 @@ export default class WizardBookingController extends AbstractWizardStep {
     this.switchToPhase(1);
     if (index > -1) {
       this.getBindingModel().listOfItems.splice(index, 1);
-      this.$_model.$_1___bikes.totalPrice =  BookingBikesDomain.getIstance().removeItemToCurrentBooking(index);
+      this.$_model.$_1___bikes.totalPrice = BookingBikesDomain.getIstance().removeItemToCurrentBooking(index);
     }
     this.renderView();
   }
@@ -69,11 +69,13 @@ export default class WizardBookingController extends AbstractWizardStep {
 
   renderView() {
     let templateName = 'booking-phase' + super.getCurrentPhase();
-    let header = super.getCurrentPhase() === 1 ? ["type", "qty", "daily cost"] : {};
+    let header = super.getCurrentPhase() === 1 ? ["type", "qty", "daily cost", "img"] : {};
     let data;
     if (super.getCurrentPhase() === 1) {
       //data = this.model.bikes.listOfItems;
-      data = this.getBindingModel().listOfItems;
+      data = this.getBindingModel().listOfItems.map(x => {
+        return { type: x.description, qty: x.quantity, qty: x.quantity, picture_uri: x.picture_uri }
+      });
     } else {
       data = {}
     }
@@ -88,105 +90,101 @@ export default class WizardBookingController extends AbstractWizardStep {
   }
 
 
-  async callback() {
-    // ASSUMO DIRETTAMENTE LA LOOKUP RITORNARE ALLA PHASE 1
+  async callback({ fromStep, inputData }) {
     super.switchToPhase(1);
-    let callbackData = super.getInputData();
-    // non fa nessuna modifica al model se non ho selezionato prodotto bici
-    if (!callbackData.type) {
-      return;
-    }
-    console.log("callback data="+JSON.stringify(callbackData));
-    this.getBindingModel().listOfItems.push(callbackData);
-
-    // inizialmente è null
-    
-    let from = this.$_model.$_0___booking.from;
-    let to = this.$_model.$_0___booking.to;
-    let idProduct = callbackData.id;
-
-    console.log("idProduct= "+idProduct);
-    let qty = callbackData.quantity;
-    
-    
-    this.$_model.$_0___booking.id = BookingBikesDomain.getIstance().createIfNotExist({ from, to });
-
-    BookingBikesDomain.getIstance().addItemToCurrentBooking({ idProduct, qty })
-    .then((total) => {
-      this.$_model.$_1___bikes.totalPrice = total; 
-    });
-     
-
-
-    
-    
-      
-    }
-
-
-      
-       
   
+    if (fromStep === '/booking/wizard/edit-item') {
+       if (!inputData.type) {
+        return;
+      }
+      let idx = 0;
+      this.getBindingModel().listOfItems.forEach(x => {
+        if (x.id == inputData.id) {
 
-
-
-
-
-avanti() {
-  // se ci sono errori non si va avanti
-  if (!this.validator.isValid()) {
-    return;
-  }
-
-  if (this.getCurrentPhase() === 0) {
-    // validazione delle data from > data To
-    let from = Date.parse(super.getBindingModel().from.value);
-    let to = Date.parse(super.getBindingModel().to.value);
-    let limiteValiditaApp = new Date('01/01/2022').getTime();
-
-    console.log("from=" + from);
-    console.log("to=" + to);
-    console.log("limiteValiditaApp=" + limiteValiditaApp);
-    let error = false;
-    if (!(super.getBindingModel().from.value)) {
-      super.getWebUi().setErrorMsg('from', 'La data è obbligatoria');
-      error = true;
-    }
-    if (!(super.getBindingModel().to.value)) {
-      super.getWebUi().setErrorMsg('to', 'La data è obbligatoria');
-      error = true;
-    }
-    if (from > limiteValiditaApp) {
-      super.getWebUi().setErrorMsg('from', 'La data iniziale non può superare il 31/12/2021');
-      error = true;
-    }
-
-    if (to > limiteValiditaApp) {
-      super.getWebUi().setErrorMsg('to', 'La data finale non può superare il 31/12/2021');
-      error = true;
-    }
-    if (from > to) {
-      super.getWebUi().setErrorMsg('to', 'La data finale non può essere inferiore alla data iniziale');
-      error = true;
-    }
-    if (error) {
+          x.quantity = inputData.quantity.value;
+          return;
+        }
+        idx++;
+      });
+      BookingBikesDomain.getIstance().removeItemToCurrentBooking(idx);
+      BookingBikesDomain.getIstance().addItemToCurrentBooking({ idProduct: inputData.id, qty: inputData.quantity.value })
+        .then((total) => {
+          this.$_model.$_1___bikes.totalPrice = total;
+        });
       return;
     }
-    // copio i valori al model della fase successiva
-    this.$_model.$_1___bikes.from = super.getBindingModel().from.value;
-    this.$_model.$_1___bikes.to = super.getBindingModel().to.value;
 
-  }
-
-  if (this.getCurrentPhase() == 1) {
-    console.log(this.$_model.$_1___bikes.$_1___bikes);
-    if (!this.$_model.$_1___bikes.$_1___bikes) {
-      console.log("SELEZIONARE UNA BICI")
-      super.getWebUi().setErrorMsg('val-box', 'Selezionare una bici');
-      return;
+    else if (fromStep==='/booking/wizard/lookup-products') {
+      this.getBindingModel().listOfItems.push(inputData);
+      let from = this.$_model.$_0___booking.from;
+      let to = this.$_model.$_0___booking.to;
+      let idProduct = inputData.id;
+      console.log("idProduct= " + idProduct);
+      let qty = inputData.quantity;
+      this.$_model.$_0___booking.id = BookingBikesDomain.getIstance().createIfNotExist({ from, to });
+      BookingBikesDomain.getIstance().addItemToCurrentBooking({ idProduct, qty })
+        .then((total) => {
+          this.$_model.$_1___bikes.totalPrice = total;
+        });
     }
   }
-  super.avanti();
-}
+
+
+  avanti() {
+    // se ci sono errori non si va avanti
+    if (!this.validator.isValid()) {
+      return;
+    }
+
+    if (this.getCurrentPhase() === 0) {
+      // validazione delle data from > data To
+      let from = Date.parse(super.getBindingModel().from.value);
+      let to = Date.parse(super.getBindingModel().to.value);
+      let limiteValiditaApp = new Date('01/01/2022').getTime();
+
+      console.log("from=" + from);
+      console.log("to=" + to);
+      console.log("limiteValiditaApp=" + limiteValiditaApp);
+      let error = false;
+      if (!(super.getBindingModel().from.value)) {
+        super.getWebUi().setErrorMsg('from', 'La data è obbligatoria');
+        error = true;
+      }
+      if (!(super.getBindingModel().to.value)) {
+        super.getWebUi().setErrorMsg('to', 'La data è obbligatoria');
+        error = true;
+      }
+      if (from > limiteValiditaApp) {
+        super.getWebUi().setErrorMsg('from', 'La data iniziale non può superare il 31/12/2021');
+        error = true;
+      }
+
+      if (to > limiteValiditaApp) {
+        super.getWebUi().setErrorMsg('to', 'La data finale non può superare il 31/12/2021');
+        error = true;
+      }
+      if (from > to) {
+        super.getWebUi().setErrorMsg('to', 'La data finale non può essere inferiore alla data iniziale');
+        error = true;
+      }
+      if (error) {
+        return;
+      }
+      // copio i valori al model della fase successiva
+      this.$_model.$_1___bikes.from = super.getBindingModel().from.value;
+      this.$_model.$_1___bikes.to = super.getBindingModel().to.value;
+
+    }
+
+    if (this.getCurrentPhase() == 1) {
+      console.log(this.$_model.$_1___bikes.$_1___bikes);
+      if (!this.$_model.$_1___bikes.$_1___bikes) {
+        console.log("SELEZIONARE UNA BICI")
+        super.getWebUi().setErrorMsg('val-box', 'Selezionare una bici');
+        return;
+      }
+    }
+    super.avanti();
+  }
 
 }

@@ -1,41 +1,54 @@
 .container
-    include ./includes/lookup-cards.pug
-    include ./includes/textfield.pug
-    include ./includes/tasto-annulla.pug
-    include ./includes/lookup-search.pug
-    include ./includes/select.pug
-    - const data=detail.data.listOfProducts;
-    - const dizCategories=detail.data.cmbListOfCategories;
-    - const dizPriceReduxes=detail.data.cmbListOfPriceRedux;
-    - const headers=detail.header;
-    - const criteria=detail.criteria;
-    - const linkIndietro = detail['meta'].callLink;
-    - const linkThis= detail['meta'].calledLink;
-    .header
-        .h2 
-            <i class="fas fa-bicycle"></i> Selezionare La tipologia di bicicletta 
-    
-    <div>
-    <fieldset>
-        <legend> Filtro di ricerca </legend>
-        <div class="form-control">
-        <label for="selectedIdCategory">Categoria:</label>
-            +select("selectedIdCategory","selectedIdCategory",dizCategories) 
-        </div>
-        <div class="form-control">
-        <label for="selectedIdPriceRedux">Promozione:</label>
-            +select("selectedIdPriceRedux","selectedIdPriceRedux",dizPriceReduxes) 
-        </div>
-        -let id2= "btn-"+"-lookup.search";
-        a(href=selflink id=id2 data-link class="lookup__button" name="lookup.search")  Filtrare
-        </fieldset>
-        </div>
-       
+    <sp-theme>
+        include ./includes/lookup-cards.pug
+        include ./includes/textfield.pug
+        include ./includes/tasto-annulla.pug
+        include ./includes/lookup-search.pug
+        include ./includes/select.pug
+        - const data=detail.data.listOfProducts;
+        - const dizCategories=detail.data.cmbListOfCategories;
+        - const dizPriceReduxes=detail.data.cmbListOfPriceRedux;
+        - const headers=detail.header;
+        - const criteria=detail.criteria;
+        - const linkIndietro = detail['meta'].callLink;
+        - const linkThis= detail['meta'].calledLink;
+        .header
+            .h2 
+                <i class="fas fa-bicycle"></i> Selezionare La tipologia di bicicletta
+        .form-ricerca
+            <sp-theme>
+            <sp-accordion>
+                                    <sp-accordion-item label="Criteri di ricerca">
+                                    <fieldset>
+                                        <legend>  </legend>
+                                          <div class="form-control">
+                                        <label for="selectedIdCategory">Categoria:</label>
+                                        +select("selectedIdCategory","selectedIdCategory",dizCategories)
+                                        </div>
+                                          <div class="form-control">
+                                        <label for="selectedIdPriceRedux">Promozione:</label>
+                                        +select("selectedIdPriceRedux","selectedIdPriceRedux",dizPriceReduxes)
+                                        </div>
+                                          <div class="form-control">
+                                        <label for="flgOrderByPrice">Ordina per prezzo crescente</label>
+                                        </div>
+                                          <div class="form-control">
+                                        <sp-switch label="Switch">
+                                        </sp-switch>
+                                        </div>
+                                        -let id2= "btn-"+"-lookup.search";
+                                        a(href=selflink id=id2 data-link class="lookup__button" name="lookup.search")  Filtrare
+                                        </fieldset>
+                                    </sp-accordion-item>
+            <sp-accordion>
+            </sp-theme>
         <div>
-         <fieldset>
-         <legend>Categorie di Biciclette disponibili nella nostra flotta:</legend>
-         +lookup-cards(headers,data,linkIndietro)
-         </fieldset>
+            <fieldset>
+                <legend>Categorie di Biciclette disponibili nella nostra flotta:</legend>
+                +lookup-cards(headers,data,linkIndietro)
+            </fieldset>
         </div>
-        +tasto-annulla(linkIndietro,'Indietro')
-    <div>
+            +tasto-annulla(linkIndietro,'Indietro')
+        <div>
+    </sp-theme>
+   

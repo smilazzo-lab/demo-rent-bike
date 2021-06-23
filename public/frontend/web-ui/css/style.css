@@ -456,7 +456,7 @@
     width: 40px;
   }
   
-
+ 
 
    .principal {
     
@@ -464,7 +464,8 @@
     background-size: 100%;
 
 
-
+    --spectrum-alias-ui-icon-chevron-size-100:20px;
+    
     
     
     font-family: 'Tangerine', serif ;

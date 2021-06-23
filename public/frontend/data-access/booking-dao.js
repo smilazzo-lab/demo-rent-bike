@@ -95,10 +95,10 @@ export default function BookingDaoFactory({ backend }) {
 
 
             // PROJECTIONS
-            return Object.freeze({
+            return {
               id,
               type, description, unityCost, quantity, picture_uri, des_price_strategy,id_price_strategy,id_bike_category
-            });
+            };
 
           });
 

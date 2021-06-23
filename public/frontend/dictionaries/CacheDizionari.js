@@ -22,9 +22,9 @@ export default class extends AbstractCacheDizionari{
          return [
            new Dizionario('1','1'),
            new Dizionario('2','2'), 
-           new Dizionario('TRE','3'),
-           new Dizionario('QUATTRO','4'),
-           new Dizionario('CINQUE','5')
+           new Dizionario('3','3'),
+           new Dizionario('4','4'),
+           new Dizionario('5','5')
           ];
        }
 
