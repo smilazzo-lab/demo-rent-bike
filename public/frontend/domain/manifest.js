@@ -1,11 +1,7 @@
-import buildMakeBooking from './booking/booking-factory.js';
-import buildMakePriceStrategy from './booking/price-strategy-factory.js';
+import BookingSomeBikesSingleton from './booking/booking-some-bikes.js'
 
-let ddd = {  
-    BookingFactorySingleton : buildMakeBooking(),
-    PriceStrategyFactorySingleton: buildMakePriceStrategy()
-}
+const BookingBikesDomain = BookingSomeBikesSingleton();
 
-export default  ddd;
 
-            
+export default BookingBikesDomain;
+

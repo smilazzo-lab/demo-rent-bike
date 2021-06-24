@@ -33,7 +33,7 @@ export default class  extends AbstractLookupStep{
 
     async initialize(){
 
-        this.$_model.$_0___items.cmbListOfCategories = await BookingService.getIstance().queryAllCategories();
+        this.$_model.$_0___items.cmbListOfCategories = await BookingService.getIstance().queryAllDizBikeType();
         this.$_model.$_0___items.cmbListOfCategories.push({codice: -1,descrizione:'Tutte le categorie'});
         this.$_model.$_0___items.cmbListOfPriceRedux = await BookingService.getIstance().queryAllPriceStrategies();
         this.$_model.$_0___items.cmbListOfPriceRedux.push({codice: -1,descrizione:'Tutte le promozioni'});
@@ -71,7 +71,7 @@ export default class  extends AbstractLookupStep{
          console.log("CRITERIA = "+JSON.stringify(criteria));
          console.log("***************************************");
         return await BookingService.getIstance()
-                                       .queryAllProducts(criteria);
+                                       .queryAllServices(criteria);
     }
     
    

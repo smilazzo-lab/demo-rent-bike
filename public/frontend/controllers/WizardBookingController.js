@@ -1,6 +1,6 @@
 import AbstractWizardStep from "../../step-fmw/stepping/AbstractWizardStep.js";
 import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
-import BookingBikesDomain from "../use-cases/manifest.js";
+import BookingBikesDomain from "../domain/manifest.js";
 import BookingService from '../services/manifest.js';
 
 export default class WizardBookingController extends AbstractWizardStep {
@@ -112,7 +112,7 @@ export default class WizardBookingController extends AbstractWizardStep {
       BookingBikesDomain.getIstance().removeItemToCurrentBooking(idx);
       
      return BookingService.getIstance()
-                    .queryProductById(idProduct)
+                    .queryServiceById(idProduct)
                     .then(productTo=> this.$_model.$_1___bikes.totalPrice= BookingBikesDomain
                                                                             .getIstance()
                                                                             .addItemToCurrentBooking(productTo, inputData.quantity.value )
@@ -131,7 +131,7 @@ export default class WizardBookingController extends AbstractWizardStep {
       this.$_model.$_0___booking.id = BookingBikesDomain.getIstance().createIfNotExist({ from, to });
 
      return BookingService.getIstance()
-                    .queryProductById(idProduct)
+                    .queryServiceById(idProduct)
                     .then(productTo=>  this.$_model.$_1___bikes.totalPrice= 
                                       BookingBikesDomain
                                       .getIstance()

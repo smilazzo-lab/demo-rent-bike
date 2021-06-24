@@ -1,4 +1,4 @@
-import Rate from "./rate.js";
+import Rate from "./rate-type.js";
 
 export default class BookingItem {
     #qty;

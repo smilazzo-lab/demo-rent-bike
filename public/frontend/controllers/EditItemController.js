@@ -1,5 +1,5 @@
 import AbstractDetailStep from "../../step-fmw/stepping/AbstractDetailStep.js";
-import CacheDizionari from "../dictionaries/CacheDizionari.js";
+import CacheDizionari from "../services/CacheDizionari.js";
 import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
 
 export default class EditItemController  extends AbstractDetailStep{
