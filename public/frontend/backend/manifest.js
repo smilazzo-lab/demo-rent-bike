@@ -1,4 +1,4 @@
-import BookingDaoFactory from './booking-dao.js';
+import BookingBackendFactory from './booking-backend.js';
 
 
 const url = 'http://localhost:1337';
@@ -45,7 +45,7 @@ const url = 'http://localhost:1337';
    
 const backend =makeBackend(url);
 
-const daoBooking = BookingDaoFactory( { backend } );
+const bookingBackend = BookingBackendFactory( { backend } );
 console.log("backend = "+backend);
-console.log("daoBooking = "+daoBooking);
-export default daoBooking;
+console.log("daoBooking = "+bookingBackend);
+export default bookingBackend;

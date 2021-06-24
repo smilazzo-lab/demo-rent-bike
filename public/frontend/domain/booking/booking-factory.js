@@ -1,4 +1,4 @@
-import BookingEntity from "./booking-entity.js"
+import BookingEntity from "./booking.js"
 
 export default function buildMakeBooking() {
 

@@ -1,6 +1,7 @@
 import AbstractWizardStep from "../../step-fmw/stepping/AbstractWizardStep.js";
 import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
 import BookingBikesDomain from "../use-cases/manifest.js";
+import BookingService from '../services/manifest.js';
 
 export default class WizardBookingController extends AbstractWizardStep {
 
@@ -90,6 +91,7 @@ export default class WizardBookingController extends AbstractWizardStep {
   }
 
 
+
   async callback({ fromStep, inputData }) {
     super.switchToPhase(1);
   
@@ -100,32 +102,41 @@ export default class WizardBookingController extends AbstractWizardStep {
       let idx = 0;
       this.getBindingModel().listOfItems.forEach(x => {
         if (x.id == inputData.id) {
-
           x.quantity = inputData.quantity.value;
           return;
         }
         idx++;
       });
+      let idProduct= inputData.id;
+
       BookingBikesDomain.getIstance().removeItemToCurrentBooking(idx);
-      BookingBikesDomain.getIstance().addItemToCurrentBooking({ idProduct: inputData.id, qty: inputData.quantity.value })
-        .then((total) => {
-          this.$_model.$_1___bikes.totalPrice = total;
-        });
-      return;
+      
+     return BookingService.getIstance()
+                    .queryProductById(idProduct)
+                    .then(productTo=> this.$_model.$_1___bikes.totalPrice= BookingBikesDomain
+                                                                            .getIstance()
+                                                                            .addItemToCurrentBooking(productTo, inputData.quantity.value )
+       );
+      
     }
 
     else if (fromStep==='/booking/wizard/lookup-products') {
       this.getBindingModel().listOfItems.push(inputData);
+
       let from = this.$_model.$_0___booking.from;
       let to = this.$_model.$_0___booking.to;
       let idProduct = inputData.id;
-      console.log("idProduct= " + idProduct);
-      let qty = inputData.quantity;
+      
+      let qty = inputData.quantity.value;
       this.$_model.$_0___booking.id = BookingBikesDomain.getIstance().createIfNotExist({ from, to });
-      BookingBikesDomain.getIstance().addItemToCurrentBooking({ idProduct, qty })
-        .then((total) => {
-          this.$_model.$_1___bikes.totalPrice = total;
-        });
+
+     return BookingService.getIstance()
+                    .queryProductById(idProduct)
+                    .then(productTo=>  this.$_model.$_1___bikes.totalPrice= 
+                                      BookingBikesDomain
+                                      .getIstance()
+                                      .addItemToCurrentBooking(productTo, qty )
+       );
     }
   }
 

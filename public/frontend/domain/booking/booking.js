@@ -1,4 +1,4 @@
-import BookingItem from "./booking-item-entity.js";
+import BookingItem from "./booking-item.js";
 
 export default class BookingEntity {
      #id;  // todo creazione dell'id

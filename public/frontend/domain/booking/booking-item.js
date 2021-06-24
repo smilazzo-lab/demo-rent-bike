@@ -1,26 +1,26 @@
-import ProductEntity from "../catalog/product-entity.js";
+import Rate from "./rate.js";
 
-export default class BookingItemEntity {
+export default class BookingItem {
     #qty;
-    #tipology;
+    #rate;
    
-    constructor(productEntity,qty ) {
-        if (!(productEntity instanceof ProductEntity)){
+    constructor(rate,qty ) {
+        if (!(rate instanceof Rate)){
             throw new Error(' bike tipe fornito non è istanza di Product Object');
         }
-        console.log("Creating Booking Item from the product ="+JSON.stringify(productEntity));
+        console.log("Creating Booking Item from the product ="+JSON.stringify(rate));
         console.log("In quantity:!"+qty);
-        this.#tipology=productEntity;
+        this.#rate=rate;
         this.#qty=qty;
     }
 
    
     #calculateItemUnityCost(interval) {
         console.log("--- calculate unity price");
-        let price =  this.#tipology.getDailyCost();
+        let price =  this.#rate.getDailyCost();
         console.log("daily price:"+price);
        
-        let costReduxStrategy = this.#tipology.getPriceStrategy();
+        let costReduxStrategy = this.#rate.getPriceStrategy();
         console.log("costReduxStrategy=="+costReduxStrategy.saleRatio);
         console.log(costReduxStrategy.saleRatio(interval));
         let sconto =  price *costReduxStrategy.saleRatio(interval) /100;

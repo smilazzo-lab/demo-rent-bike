@@ -1,4 +1,4 @@
-export default function BookingDaoFactory({ backend }) {
+export default function BookingBackendFactory({ backend }) {
 
   let restBackend = backend;
 
@@ -79,6 +79,12 @@ export default function BookingDaoFactory({ backend }) {
       .then(productList => {
         let prg =
           productList.map(x => {
+            // find All Products ---> restituisce un Array [] di Product
+            // TODO: sostituzione con let p = new ProductTO()
+            // p.setType(x.bike_category.id);
+            // p.setId(x.id);
+            // ecc ecc..
+            // return p;
             let type = x.bike_category.id;
             let id = x.id;
             let description = x.bike_category.DES_BIKE_TYPE;
@@ -93,8 +99,6 @@ export default function BookingDaoFactory({ backend }) {
 
             console.log("dao::des_price_Strategy" + des_price_strategy);
 
-
-            // PROJECTIONS
             return {
               id,
               type, description, unityCost, quantity, picture_uri, des_price_strategy,id_price_strategy,id_bike_category

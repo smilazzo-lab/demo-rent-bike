@@ -4,8 +4,9 @@
  * $tep framework
  */
 import AbstractLookupStep from "../../step-fmw/stepping/AbstractLookupStep.js";
-import BookingBikeServices from "../use-cases/manifest.js";
+
 import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
+import BookingService from "../services/manifest.js";
 
 export default class  extends AbstractLookupStep{
 
@@ -32,9 +33,9 @@ export default class  extends AbstractLookupStep{
 
     async initialize(){
 
-        this.$_model.$_0___items.cmbListOfCategories = await BookingBikeServices.getIstance().queryAllCategories();
+        this.$_model.$_0___items.cmbListOfCategories = await BookingService.getIstance().queryAllCategories();
         this.$_model.$_0___items.cmbListOfCategories.push({codice: -1,descrizione:'Tutte le categorie'});
-        this.$_model.$_0___items.cmbListOfPriceRedux = await BookingBikeServices.getIstance().queryAllPriceStrategies();
+        this.$_model.$_0___items.cmbListOfPriceRedux = await BookingService.getIstance().queryAllPriceStrategies();
         this.$_model.$_0___items.cmbListOfPriceRedux.push({codice: -1,descrizione:'Tutte le promozioni'});
         return super.doLookupSearch({});
       
@@ -69,8 +70,8 @@ export default class  extends AbstractLookupStep{
         console.log("***************************************");
          console.log("CRITERIA = "+JSON.stringify(criteria));
          console.log("***************************************");
-        return await BookingBikeServices.getIstance()
-                                       .queryProductServices(criteria);
+        return await BookingService.getIstance()
+                                       .queryAllProducts(criteria);
     }
     
    

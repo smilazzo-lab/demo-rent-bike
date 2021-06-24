@@ -1,18 +1,16 @@
-export default class ProductEntity {
+export default class Rate {
 
     #costReduxStrategy;
     #dailyPrice;
-    #id;
+  
 
-   constructor({ idProduct=-1, daily_cost }){
+   constructor({ price_strategy, daily_cost }){
      this.#dailyPrice = daily_cost;
-     this.#id=idProduct;
+    this.setPriceStrategy(price_strategy);
      
    }
 
-   getId() {
-       return this.#id;
-   }
+   
 
     getDailyCost() {
         return this.#dailyPrice;

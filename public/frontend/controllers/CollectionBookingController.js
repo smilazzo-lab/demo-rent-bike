@@ -5,7 +5,7 @@
  */
 
 import AbstractCollectionStep from "../../step-fmw/stepping/AbstractCollectionStep.js";
-import BookingServiceSingleton from "../use-cases/manifest.js";
+import BookingService from "../services/manifest.js";
 
 export default class  extends AbstractCollectionStep{
 
@@ -33,7 +33,7 @@ export default class  extends AbstractCollectionStep{
 
     async asyncSearch(criteria) {
         console.log("inside CollectionBookingController::asyncSearch");
-      return await BookingServiceSingleton.getIstance()
+      return await BookingService.getIstance()
             .queryAllBookings();
     }
 
