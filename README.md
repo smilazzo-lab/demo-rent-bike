@@ -9,15 +9,15 @@ Demo Rent Bike's architecture is based on clean architecture by uncle Bob
 
 Dependencies:
 
-- 1. npm i step-fmw@1.0.1
-- 2. npm i express
-- 3. npm i pug
-- 4. npm i browserify
-- 5. npm i esmify
+-  npm i step-fmw@1.0.1
+-  npm i express
+-  npm i pug
+-  np, i browserify
+-  npm i esmify
 
 using step-fmw as a browser running javascript library
 
-- 6. browserify ./public/frontend/App.js --plugin esmify > ./public/frontend/app-bundle.js
+-  browserify ./public/frontend/App.js --plugin esmify > ./public/frontend/app-bundle.js
 
 Note: if you change the name of app-bungle.js please remember to change the link in index.html
 
