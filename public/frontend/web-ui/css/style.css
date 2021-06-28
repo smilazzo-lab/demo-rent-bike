@@ -15,7 +15,7 @@
 
 .tabs-underlined .tab-underlined.active {
   opacity: 1;
-  border-bottom: 3px solid #555555;
+  border-bottom: 3px solid _555555;
 }
 
 
@@ -33,11 +33,11 @@
 .search-form-control .form-control {
   height: 3.5rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  border: 1px solid #E7E7E7;
+  border: 1px solid _E7E7E7;
 }
 
 .search-form-control .form-control:focus {
-  border: 1px solid #1EDD88;
+  border: 1px solid _1EDD88;
   outline: none !important;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
@@ -62,7 +62,7 @@
   opacity: 1;
 }
 .footer .fa-heart {
-  color: #D23333;
+  color: _D23333;
 }
 
 
@@ -183,15 +183,15 @@
   }
   
   .flash-success {
-    border: 2px solid #1EDD88;
+    border: 2px solid _1EDD88;
   }
   
   .flash-warning {
-    border: 2px solid #FFC65A;
+    border: 2px solid _FFC65A;
   }
   
   .flash-danger {
-    border: 2px solid #FD1015;
+    border: 2px solid _FD1015;
   }
 
   .card-product {
@@ -269,7 +269,7 @@
   }
   
   .notification small {
-    color: #999999;
+    color: _999999;
     font-weight: bold;
   }
   .notification .notification-actions {
@@ -284,13 +284,13 @@
   }
   
   .notification .notification-actions a {
-    color: #999999;
+    color: _999999;
     margin-left: 16px;
     font-size: 14px;
   }
   
   .notification .notification-actions a:hover {
-    color: #555555;
+    color: _555555;
   }
   
 

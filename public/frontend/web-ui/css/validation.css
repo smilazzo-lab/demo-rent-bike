@@ -5,7 +5,7 @@
 	box-sizing: border-box;
 	font-family: 'Staatliches', serif ;
 	font-size: 18 px;
-	text-shadow: 1px 1px 1px #aaa;
+	text-shadow: 1px 1px 1px _aaa;
 	
 }
 
@@ -40,7 +40,7 @@ fieldset {
 }
 
 .header {
-	border-bottom: 1px solid #f0f0f0;
+	border-bottom: 1px solid _f0f0f0;
 	background-color: lightskyblue;
 	padding: 20px 40px;
 }
@@ -69,7 +69,7 @@ fieldset {
 input:enabled {
 	outline: none;
 	color:white;
-	border: 2px solid #f0f0f0;
+	border: 2px solid _f0f0f0;
 	background-color: lightskyblue !important;
 	border-radius: 10px;
  }
@@ -141,15 +141,15 @@ sp-tabs{
 }
 
 .form-control.error i.fa-exclamation-circle {
-	color: #e74c3c;
+	color: _e74c3c;
 	visibility: visible;
-	color: #e74c3c;
+	color: _e74c3c;
     visibility: visible;
     font-size: 2em;
 }
 
 .form-control small {
-	color: #e74c3c;
+	color: _e74c3c;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -164,7 +164,7 @@ sp-tabs{
 	background-color: lightgray;
 	border: 0px solid black;
 	border-radius: 4px;
-	color: #fff;
+	color: _fff;
 	display: block;
 	font-family: inherit;
 	font-size: 16px;
@@ -195,10 +195,10 @@ sp-tabs{
 }
 
 .social-panel {	
-	background-color: #fff;
+	background-color: _fff;
 	border-radius: 16px;
 	box-shadow: 0 16px 31px -17px rgba(0,31,97,0.6);
-	border: 5px solid #001F61;
+	border: 5px solid _001F61;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -212,7 +212,7 @@ sp-tabs{
 
 .social-panel button.close-btn {
 	border: 0;
-	color: #97A5CE;
+	color: _97A5CE;
 	cursor: pointer;
 	font-size: 20px;
 	position: absolute;
@@ -225,9 +225,9 @@ sp-tabs{
 }
 
 .social-panel p {
-	background-color: #001F61;
+	background-color: _001F61;
 	border-radius: 0 0 10px 10px;
-	color: #fff;
+	color: _fff;
 	font-size: 14px;
 	line-height: 18px;
 	padding: 2px 17px 6px;
@@ -245,13 +245,13 @@ sp-tabs{
 }
 
 .social-panel p a {
-	color: #FF7500;
+	color: _FF7500;
 	text-decoration: none;
 }
 
 .social-panel h4 {
 	margin: 20px 0;
-	color: #97A5CE;	
+	color: _97A5CE;	
 	font-family: 'Muli';	
 	font-size: 14px;	
 	line-height: 18px;
@@ -270,9 +270,9 @@ sp-tabs{
 }
 
 .social-panel ul li a {
-	border: 1px solid #DCE1F2;
+	border: 1px solid _DCE1F2;
 	border-radius: 50%;
-	color: #001F61;
+	color: _001F61;
 	font-size: 20px;
 	display: flex;
 	justify-content: center;
@@ -283,16 +283,16 @@ sp-tabs{
 }
 
 .social-panel ul li a:hover {
-	border-color: #FF6A00;
-	box-shadow: 0 9px 12px -9px #FF6A00;
+	border-color: _FF6A00;
+	box-shadow: 0 9px 12px -9px _FF6A00;
 }
 
 .floating-btn {
 	border-radius: 26.5px;
-	background-color: #001F61;
-	border: 1px solid #001F61;
-	box-shadow: 0 16px 22px -17px #03153B;
-	color: #fff;
+	background-color: _001F61;
+	border: 1px solid _001F61;
+	box-shadow: 0 16px 22px -17px _03153B;
+	color: _fff;
 	cursor: pointer;
 	font-size: 16px;
 	line-height: 20px;
@@ -304,8 +304,8 @@ sp-tabs{
 }
 
 .floating-btn:hover {
-	background-color: #ffffff;
-	color: #001F61;
+	background-color: _ffffff;
+	color: _001F61;
 }
 
 .floating-btn:focus {
@@ -315,7 +315,7 @@ sp-tabs{
 .floating-text {
 	background-color: transparent;
 	border-radius: 10px 10px 0 0;
-	color: #fff;
+	color: _fff;
 	font-family: 'Muli';
 	padding: 7px 15px;
     /*

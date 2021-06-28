@@ -4,7 +4,7 @@
  * $tep framework
  */
 
-import AbstractCollectionStep from "../../step-fmw/stepping/AbstractCollectionStep.js";
+import AbstractCollectionStep from "step-fmw/stepping/AbstractCollectionStep.js";
 import BookingService from "../services/manifest.js";
 
 export default class  extends AbstractCollectionStep{
@@ -15,8 +15,8 @@ export default class  extends AbstractCollectionStep{
         }
     };
 
-    //#bookings = [];
-    #header=['booking-id','cognome','nome','dal','al'];
+    //_bookings = [];
+    _header=['booking-id','cognome','nome','dal','al'];
     
 
     constructor(stepContext,specificato,search_mode) {
@@ -53,7 +53,7 @@ export default class  extends AbstractCollectionStep{
         super.getWebUi().renderer({
             templateName:'bookings',
             templateType:'collection',
-            templateData: JSON.stringify({header:this.#header,data}),
+            templateData: JSON.stringify({header:this._header,data}),
             templateMetaInfo: super.getMetaInfo(),
             templateBindingZone:null});
              }

@@ -1,4 +1,4 @@
-import AbstractEditController from "../../step-fmw/stepping/AbstractDetailStep.js";
+import AbstractEditController from "step-fmw/stepping/AbstractDetailStep.js";
 
 export default class  extends AbstractEditController{
    

@@ -1,4 +1,4 @@
-import StepLoader from '../../step-fmw/routing/StepLoader.js';
+import StepLoader from 'step-fmw/routing/StepLoader.js';
 
 import HomeStep from './HomeController.js';
 import BookingDetailStep from './EditBookingController.js';

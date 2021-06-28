@@ -3,7 +3,7 @@
  * @date 2021
  * $tep framework
  */
-import AbstractLookupStep from "../../step-fmw/stepping/AbstractLookupStep.js";
+import AbstractLookupStep from "step-fmw/stepping/AbstractLookupStep.js";
 
 import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
 import BookingService from "../services/manifest.js";
@@ -24,7 +24,7 @@ export default class  extends AbstractLookupStep{
              flgOrderByPrice:false
              }
     };
-    #header=['type','description','unityCost','qty','picture_uri',"des_price_strategy"];
+    _header=['type','description','unityCost','qty','picture_uri',"des_price_strategy"];
     
     constructor(stepContext,specificato,search_mode) {
         
@@ -83,7 +83,7 @@ export default class  extends AbstractLookupStep{
             templateName:'products',
             templateData:  JSON.stringify({
                 criteria: this.criteria,
-                header:this.#header,
+                header:this._header,
                 data:  {
                             listOfProducts :this.$_model.$_0___items.listOfProducts,
                             cmbListOfCategories:this.$_model.$_0___items.cmbListOfCategories,

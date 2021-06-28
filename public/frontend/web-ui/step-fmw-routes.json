@@ -2,57 +2,57 @@
    
                 {   "path":        "/", 
                     "controller" : "STP.HOME_NOLOG",
-                    "args": ["#step","vis"],
+                    "args": ["_step","vis"],
                     "title":"Home Page",
                     "edit_mode":"vis"
                 },
                 {   "path":       "/cat/notify", 
                     "controller" : "STP.NOTIFY",
-                    "args":["#step","vis","cat"],
+                    "args":["_step","vis","cat"],
                     "title":"Messaggio",
                     "edit_mode":"vis"
                 },
                 {  "path":"/cat/confirm", 
                     "controller" : "STP.CONFIRM",
-                    "args":["#step","vis","cat"],
+                    "args":["_step","vis","cat"],
                     "title":"Conferma",
                     "edit_mode":"vis"
                 },
                 {   "path":"/bookings",
                     "controller" :"STP.LST_BOOKINGS",
-                    "args":["#step","search"],
+                    "args":["_step","search"],
                     "title":"Booking List",
                     "search_mode":"search"
                 },
                 {   "path":"/booking", 
                     "controller" :"STP.VIS_BOOKING",
-                    "args":["#step","vis"],
+                    "args":["_step","vis"],
                     "title":"Booking Details",
                     "edit_mode":"vis"
                 },
                 {   "path":"/booking/wizard", 
                     "controller" :"STP.WIZ_BOOKING",
-                    "args":["#step","vis"],
+                    "args":["_step","vis"],
                     "title":"BOOKING Creation",
                     "edit_mode":"ins"
                 },
                 {   "path":"/booking/wizard/lookup-products", 
                     "controller" :"STP.LKP_WIZ_PRODUCTS",
-                    "args":["#step","search"],
+                    "args":["_step","search"],
                     "title":"Lookup From Product Catalog",
                     "search_mode":"search"
                 },
                 {
                     "path":"/booking/wizard/edit-item", 
                     "controller" :"STP.WIZ_BOOKING.UPD_ITEM",
-                    "args":["#step","upd"],
+                    "args":["_step","upd"],
                     "title":"Edit Booking Item",
                     "edit_mode":"upd"
                
                 },
                 {   "path":"/cat/lookup", 
                     "controller" :"STP.LKP_CAT",
-                    "args":["#step","search"],
+                    "args":["_step","search"],
                     "title":"Messaggio",
                     "seach_mode":"search"
                 }

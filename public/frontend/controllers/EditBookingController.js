@@ -1,4 +1,4 @@
-import AbstractDetailStep from "../../step-fmw/stepping/AbstractDetailStep.js";
+import AbstractDetailStep from "step-fmw/stepping/AbstractDetailStep.js";
 
 export default class  extends AbstractDetailStep{
   //{"id":4,"booking_uuid":"1111-1111-1111-1111","surname":"milazzo","name":"salvatore","date_ini":"2021-06-01T10:00:00.000Z","date_fin":"2021-06-01T10:00:00.000Z"}

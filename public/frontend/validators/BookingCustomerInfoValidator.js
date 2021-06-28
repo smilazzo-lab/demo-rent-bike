@@ -1,4 +1,4 @@
-import AbstractValidator from "../../step-fmw/data-binding/AbstractValidator.js";
+import AbstractValidator from "step-fmw/data-binding/AbstractValidator.js";
 /**
  * @author smilazzo
  * 
@@ -78,7 +78,7 @@ export default class extends AbstractValidator {
     }
 
      validateEmail(email) {
-        var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        var mailformat = /^[a-zA-Z0-9.!_$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if (email.match(mailformat)) {
           return true;
         }

@@ -1,4 +1,4 @@
-import AbstractWizardStep from "../../step-fmw/stepping/AbstractWizardStep.js";
+import AbstractWizardStep from "step-fmw/stepping/AbstractWizardStep.js";
 import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
 import BookingBikesDomain from "../domain/manifest.js";
 import BookingService from '../services/manifest.js';

@@ -1,5 +1,5 @@
 // dipendenze dal framework
-import StepEventListener from '../../step-fmw/routing/StepEventListener.js';
+import  StepEventListener from "step-fmw/routing/StepEventListener.js";
    
 export default function buildMakeUIListener (jsonroutesUri,stepLoader) {
   // la APP deve invocare il metodo startListening per

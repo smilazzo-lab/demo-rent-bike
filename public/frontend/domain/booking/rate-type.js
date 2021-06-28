@@ -1,11 +1,11 @@
 export default class Rate {
 
-    #costReduxStrategy;
-    #dailyPrice;
+    _costReduxStrategy;
+    _dailyPrice;
   
 
    constructor({ price_strategy, daily_cost }){
-     this.#dailyPrice = daily_cost;
+     this._dailyPrice = daily_cost;
     this.setPriceStrategy(price_strategy);
      
    }
@@ -13,15 +13,15 @@ export default class Rate {
    
 
     getDailyCost() {
-        return this.#dailyPrice;
+        return this._dailyPrice;
     }
 
     setPriceStrategy (costReduxStrategy) {
         
-       this.#costReduxStrategy=costReduxStrategy;
+       this._costReduxStrategy=costReduxStrategy;
     }
 
     getPriceStrategy() {
-        return this.#costReduxStrategy;
+        return this._costReduxStrategy;
     }
 }

@@ -1,4 +1,4 @@
-import AbstractDetailStep from "../../step-fmw/stepping/AbstractDetailStep.js";
+import AbstractDetailStep from "step-fmw/stepping/AbstractDetailStep.js";
 import CacheDizionari from "../services/CacheDizionari.js";
 import BookingCustomerInfoValidator from "../validators/BookingCustomerInfoValidator.js";
 
@@ -12,8 +12,8 @@ export default class EditItemController  extends AbstractDetailStep{
    
     cmbQty = [];
     
-    #titoloNotify = 'Messaggio di Sistema';
-    #messaggioNotigy= 'Attenzione , dichiara di prendere visione di questa supercazzola';
+    _titoloNotify = 'Messaggio di Sistema';
+    _messaggioNotigy= 'Attenzione , dichiara di prendere visione di questa supercazzola';
 
     constructor(stepContext,specificato,edit_mode) {
         super(stepContext,specificato,edit_mode);

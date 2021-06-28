@@ -1,4 +1,4 @@
-import Observable from '../../step-fmw/data-binding/Observable.js';
+import Observable from 'step-fmw/data-binding/Observable.js';
 
 export default function buildMakeUIRendering () {
     return Object.freeze({
@@ -7,7 +7,7 @@ export default function buildMakeUIRendering () {
     });
 
     function setErrorMsg(input,errorMsg) {
-        let errorZone =document.querySelector('#'+input).parentElement;
+        let errorZone =document.querySelector('_'+input).parentElement;
         console.log(errorZone);
         const small = errorZone.querySelector('small');
         console.log("small");

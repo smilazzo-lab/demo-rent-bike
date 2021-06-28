@@ -1,8 +1,8 @@
 import Rate from "./rate-type.js";
 
 export default class BookingItem {
-    #qty;
-    #rate;
+    _qty;
+    _rate;
    
     constructor(rate,qty ) {
         if (!(rate instanceof Rate)){
@@ -10,31 +10,29 @@ export default class BookingItem {
         }
         console.log("Creating Booking Item from the product ="+JSON.stringify(rate));
         console.log("In quantity:!"+qty);
-        this.#rate=rate;
-        this.#qty=qty;
+        this._rate=rate;
+        this._qty=qty;
     }
 
    
-    #calculateItemUnityCost(interval) {
+    _calculateItemUnityCost(interval) {
         console.log("--- calculate unity price");
-        let price =  this.#rate.getDailyCost();
+        let price =  this._rate.getDailyCost();
         console.log("daily price:"+price);
        
-        let costReduxStrategy = this.#rate.getPriceStrategy();
+        let costReduxStrategy = this._rate.getPriceStrategy();
         console.log("costReduxStrategy=="+costReduxStrategy.saleRatio);
         console.log(costReduxStrategy.saleRatio(interval));
-        let sconto =  price *costReduxStrategy.saleRatio(interval) /100;
-        console.log("daily sconto:"+sconto);
-        return (price-sconto);
+        let sconto =  price *costReduxStrategy.saleRatio(interval); return price-sconto;
     }
 
-    #getQty() {
-        return this.#qty;
+    _getQty() {
+        return this._qty;
     }
 
     getItemCost(interval) {
         console.log("inside getitemCost");
-        console.log("debuf"+this.#getQty());
-        return this.#getQty() * this.#calculateItemUnityCost(interval);
+        console.log("debuf"+this._getQty());
+        return this._getQty() * this._calculateItemUnityCost(interval);
     }
 }
