@@ -9,10 +9,9 @@ Demo Rent Bike's architecture is based on clean architecture by uncle Bob
 
 Dependencies:
 
--  npm i step-fmw@1.0.1
 -  npm i express
 -  npm i pug
--  np, i browserify
+-  npm i browserify
 -  npm i esmify
 
 using step-fmw as a browser running javascript library
